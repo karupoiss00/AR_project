@@ -4,10 +4,11 @@
 	<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
 </head>
 <body style='margin : 0px; overflow: hidden;'>
+	<a-assets>
+		<a-asset-item id="asset_name" src="/path/to/asset.gltf"></a-asset-item>
+	</a-assets>
 	<a-marker type='pattern0' url='path/to/pattern0.patt'>
-		<a-assets>
-			<a-asset-item id="asset_name" src="/path/to/asset.gltf"></a-asset-item>
-		</a-assets>
+		<a-entity gltf-model="##asset_name"></a-entity>
 	</a-marker>
 	<a-marker type='pattern1' url='path/to/pattern1.patt'>
 		<a-text value="Text"></a-text>
