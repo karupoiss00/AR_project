@@ -103,12 +103,14 @@
 					height: 5,
 					curveSegments: 12,
 				} );
+
+				textMesh = new THREE.Mesh(geometry, material);
+				textMesh.position.set(2, 1, 1);
+				textMesh.scale.multiplyScalar(0.01)
+				textMesh.castShadow = true;
+				markerRoot1.add(textMesh);
 			} );
-			textMesh = new THREE.Mesh(geometry, material);
-			textMesh.position.set(2, 1, 1);
-			textMesh.scale.multiplyScalar(0.01)
-			textMesh.castShadow = true;
-			markerRoot1.add(textMesh);
+
 
 			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 			function onError(xhr) { console.log( 'An error happened' ); }
