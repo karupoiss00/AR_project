@@ -94,6 +94,7 @@
 				type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 			})
 
+			var loader = new THREE.FontLoader();
 			loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
 
 				var geometry = new THREE.TextGeometry( 'This is cat.', {
