@@ -104,12 +104,12 @@
 					curveSegments: 12,
 				} );
 				var material = new THREE.MeshLambertMaterial({
-					color: 0xF3FFE2
+					color: 0xCC0000
 				});
 
 				textMesh = new THREE.Mesh(geometry, material);
-				textMesh.position.set(2, 1, 1);
-				textMesh.scale.multiplyScalar(0.01)
+				textMesh.position.set(1, 0.5, 0.5);
+				textMesh.scale.multiplyScalar(0.1)
 				textMesh.castShadow = true;
 				markerRoot1.add(textMesh);
 			} );
@@ -131,7 +131,7 @@
 							catMesh.position.x = -0.2;
 							catMesh.position.y = -0.2;
 							catMesh.position.z = 0.5;
-							catMesh.scale.set(0.05,0.05,0.05);
+							catMesh.scale.set(0.02,0.02,0.02);
 							markerRoot1.add(catMesh);
 						}, onProgress, onError );
 				});
