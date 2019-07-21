@@ -99,8 +99,8 @@
 
 				var geometry = new THREE.TextGeometry( 'This is cat.', {
 					font: font,
-					size: 60,
-					height: 10,
+					size: 80,
+					height: 1,
 					curveSegments: 12,
 				} );
 				var material = new THREE.MeshLambertMaterial({
@@ -108,8 +108,7 @@
 				});
 
 				textMesh = new THREE.Mesh(geometry, material);
-				textMesh.position.set(1, 0.5, 0.5);
-				textMesh.scale.multiplyScalar(0.1)
+				textMesh.position.set(0, 0, 0);
 				textMesh.castShadow = true;
 				markerRoot1.add(textMesh);
 			} );
