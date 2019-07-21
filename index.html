@@ -76,7 +76,7 @@
 			////////////////////////////////////////////////////////////	
 			// create atToolkitContext
 			arToolkitContext = new THREEx.ArToolkitContext({
-				cameraParametersUrl: 'data/camera_para.dat',
+				cameraParametersUrl: '/AR/data/camera_para.dat',
 				detectionMode: 'mono'
 			});
 			
@@ -91,7 +91,7 @@
 			markerRoot1 = new THREE.Group();
 			scene.add(markerRoot1);
 			let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-				type: 'pattern', patternUrl: "data/hiro.patt",
+				type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 			})
 			let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
 			let loader = new THREE.TextureLoader();
@@ -104,12 +104,12 @@
 			function onError(xhr) { console.log( 'An error happened' ); }
 			
 			new THREE.MTLLoader()
-				.setPath( 'models/' )
+				.setPath( '/AR/models/' )
 				.load( 'DeadTree.mtl', function ( materials ) {
 					materials.preload();
 					new THREE.OBJLoader()
 						.setMaterials( materials )
-						.setPath( 'models/' )
+						.setPath( '/AR/models/' )
 						.load( 'DeadTree.obj', function ( group ) {
 							mesh0 = group.children[0];
 							mesh0.material.side = THREE.DoubleSide;
