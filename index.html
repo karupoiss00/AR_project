@@ -105,12 +105,12 @@
 			
 			new THREE.MTLLoader()
 				.setPath( '/AR/models/' )
-				.load( 'Rock1.mtl', function ( materials ) {
+				.load( 'cat.mtl', function ( materials ) {
 					materials.preload();
 					new THREE.OBJLoader()
 						.setMaterials( materials )
 						.setPath( '/AR/models/' )
-						.load( 'Rock1.obj', function ( group ) {
+						.load( 'cat.obj', function ( group ) {
 							mesh0 = group.children[0];
 							mesh0.material.side = THREE.DoubleSide;
 							mesh0.position.y = 0.25;
