@@ -105,12 +105,12 @@
 			
 			new THREE.MTLLoader()
 				.setPath( '/AR/models/' )
-				.load( 'DeadTree.mtl', function ( materials ) {
+				.load( 'Wood Texture.mtl', function ( materials ) {
 					materials.preload();
 					new THREE.OBJLoader()
 						.setMaterials( materials )
 						.setPath( '/AR/models/' )
-						.load( 'DeadTree.obj', function ( group ) {
+						.load( 'Wood Texture.obj', function ( group ) {
 							mesh0 = group.children[0];
 							mesh0.material.side = THREE.DoubleSide;
 							mesh0.position.y = 0.25;
