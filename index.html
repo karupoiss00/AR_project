@@ -103,6 +103,9 @@
 					height: 5,
 					curveSegments: 12,
 				} );
+				var material = new THREE.MeshLambertMaterial({
+					color: 0xF3FFE2
+				});
 
 				textMesh = new THREE.Mesh(geometry, material);
 				textMesh.position.set(2, 1, 1);
