@@ -17,7 +17,7 @@
 </head>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-	<canvas id="tip0" width=50 height=50></canvas>
+
 	<script>
 		var scene, camera, renderer, clock, deltaTime, totalTime;
 		var arToolkitSource, arToolkitContext;
@@ -98,8 +98,12 @@
 			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 			function onError(xhr) { alert( 'An error happened' ); }
 
+			var canv0 = document.createElement("canvas");
+			canv0.setAttribute("id", "tip0");
+			canv0.setAttribute("width", 50);
+			canv0.setAttribute("height", 50);
 			var tip0 = document.getElementById("tip0");
-			var tip0ctx = canv0.getContext("2d");
+			var tip0ctx = tip0.getContext("2d");
 			tip0ctx.font = "30px Arial";
 			tip0ctx.textAlign = "center";
 			tip0ctx.fillText("This is cat.", canv0.width / 2, canv0.height / 2); 
