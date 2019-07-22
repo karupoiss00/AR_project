@@ -103,7 +103,7 @@
 					height: 1,
 					curveSegments: 12,
 				} );
-				var material = new THREE.MeshLambertMaterial({
+				var material = new THREE.MeshBasicMaterial({
 					color: 0xCC0000
 				});
 
@@ -131,7 +131,7 @@
 							catMesh.position.y = -0.2;
 							catMesh.position.z = 0.5;
 							catMesh.scale.set(0.02,0.02,0.02);
-							markerRoot1.add(catMesh);
+							//markerRoot1.add(catMesh);
 						}, onProgress, onError );
 				});
 		}
