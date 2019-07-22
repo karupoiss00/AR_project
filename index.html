@@ -139,7 +139,7 @@
 				map : tip0Texture
 			});
 			var tipMesh = new THREE.Mesh(geometry, material);
-			tipMesh.scale.set(0.1,0.1,0.001);
+			tipMesh.scale.set(0.01,0.01,0.001);
 			markerRoot1.add(tipMesh);
 						
 			new THREE.MTLLoader()
@@ -156,7 +156,7 @@
 							catMesh.position.y = -0.2;
 							catMesh.position.z = 0.5;
 							catMesh.scale.set(0.02,0.02,0.02);
-							//markerRoot1.add(catMesh);
+							markerRoot1.add(catMesh);
 						}, onProgress, onError );
 				});
 		}
