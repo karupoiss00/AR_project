@@ -97,58 +97,20 @@
 
 			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 			function onError(xhr) { alert( 'An error happened' ); }
-/*
-			var loader = new THREE.FontLoader();
-			//loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
 
-				/*var geometry = new THREE.TextBufferGeometry( 'Hello three.js!', {
-					font: font,
-					size: 80,
-					height: 5,
-					curveSegments: 12,
-					bevelEnabled: true,
-					bevelThickness: 10,
-					bevelSize: 8,
-					bevelOffset: 0,
-					bevelSegments: 5
-				} );*/
-
-				/*var geometry = new THREE.TextGeometry( 'This is cat.', {
-					font: font,
-					size: 80,
-					height: 1,
-					curveSegments: 12,
-				} );
-				var material = new THREE.MeshBasicMaterial({
-					color: 0xCC0000
-				});
-				var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-				var texture = new THREE.TextureLoader().load( '/AR/images/water.jpg' );
-				var material = new THREE.MeshBasicMaterial( { map: texture } );
-
-				var textMesh = new THREE.Mesh(geometry, material);
-				//textMesh.position.set(0, 0, 0);
-				//textMesh.castShadow = true;
-				textMesh.position.x = -0.2;
-				textMesh.position.y = -0.2;
-				textMesh.position.z = 0.5;
-
-				markerRoot1.add(textMesh);
-				alert("2")
-			},  onProgress, onError );*/
 			var canv0 = document.createElement("canvas");
 			canv0.setAttribute("id", "tip0");
 			canv0.setAttribute("width", 100);
 			canv0.setAttribute("height", 100);
 			var tip0 = document.getElementById("tip0");
-			var tip0 = canv0.getContext("2d");
-			tip0.font = "30px Arial";
-			tip0.textAlign = "center";
-			tip0.fillText("This is cat.", canv0.width / 2, canv0.height / 2); 
+			var tip0ctx = canv0.getContext("2d");
+			tip0ctx.font = "30px Arial";
+			tip0ctx.textAlign = "center";
+			tip0ctx.fillText("This is cat.", canv0.width / 2, canv0.height / 2); 
 			tip0Texture = new THREE.Texture(canv0);
 
-			var geometry = new THREE.CubeGeometry(100, 1, 100);
-			var cubeMaterial = new THREE.MeshBasicMaterial({
+			var geometry = new THREE.BoxGeometry( 100, 1, 100 )
+			var material = new THREE.MeshBasicMaterial({
 				map : tip0Texture
 			});
 
