@@ -101,7 +101,7 @@
 			var loader = new THREE.FontLoader();
 			loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
 
-				var geometry = new THREE.TextGeometry( 'Hello three.js!', {
+				var geometry = new THREE.TextBufferGeometry( 'Hello three.js!', {
 					font: font,
 					size: 80,
 					height: 5,
@@ -131,7 +131,7 @@
 				textMesh.position.y = -0.2;
 				textMesh.position.z = 0.5;
 
-				markerRoot1.add(textMesh);
+				scene.add(textMesh);
 			},  onProgress, onError );
 
 			
