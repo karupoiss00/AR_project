@@ -41,7 +41,7 @@
 			tip0ctx.fillRect(0, 0, canv0.width, canv0.height);
 			tip0ctx.fillStyle = '#000000';
 			tip0ctx.textAlign = "center";
-			wrapText(tip0ctx, tip, canv0.width / 2, canv0.height / 2, 80, 5);
+			wrapText(tip0ctx, tip, canv0.width / 2, 10, 80, 10);
 			//document.body.appendChild(canv0);
 			
 			camera = new THREE.Camera();
@@ -134,7 +134,7 @@
 			function onError(xhr) { alert( 'An error happened' ); }
 		
 			var tip0Texture = new THREE.CanvasTexture(canv0);
-			var geometry = new THREE.BoxGeometry(100, 100, 1)
+			var geometry = new THREE.BoxGeometry(50, 50, 1)
 			var material = new THREE.MeshBasicMaterial({
 				map : tip0Texture
 			});
@@ -158,7 +158,7 @@
 							catMesh.position.x = -0.2;
 							catMesh.position.y = -0.2;
 							catMesh.position.z = 0.5;
-							catMesh.scale.set(0.02,0.02,0.02);
+							catMesh.scale.set(0.04,0.04,0.04);
 							markerRoot1.add(catMesh);
 						}, onProgress, onError );
 				});
