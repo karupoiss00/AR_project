@@ -94,21 +94,35 @@
 				type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 			})
 
+
+			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
+			function onError(xhr) { alert( 'An error happened' ); }
+
 			var loader = new THREE.FontLoader();
 			loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+				var geometry = new THREE.TextGeometry( 'Hello three.js!', {
+					font: font,
+					size: 80,
+					height: 5,
+					curveSegments: 12,
+					bevelEnabled: true,
+					bevelThickness: 10,
+					bevelSize: 8,
+					bevelOffset: 0,
+					bevelSegments: 5
+				} );
 
 				/*var geometry = new THREE.TextGeometry( 'This is cat.', {
 					font: font,
 					size: 80,
 					height: 1,
 					curveSegments: 12,
-				} );
+				} );*/
 				var material = new THREE.MeshBasicMaterial({
 					color: 0xCC0000
 				});
-*/
-				var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-				var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+				//var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
 
 				var textMesh = new THREE.Mesh(geometry, material);
 				//textMesh.position.set(0, 0, 0);
@@ -117,16 +131,9 @@
 				textMesh.position.y = -0.2;
 				textMesh.position.z = 0.5;
 
-				alert(geometry)
-				alert(material)
-				alert(textMesh)
-
 				markerRoot1.add(textMesh);
-			} );
+			},  onProgress, onError );
 
-
-			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
-			function onError(xhr) { console.log( 'An error happened' ); }
 			
 			new THREE.MTLLoader()
 				.setPath( '/AR/models/' )
