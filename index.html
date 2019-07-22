@@ -112,7 +112,7 @@
 			tip0ctx.textAlign = "center";
 			tip0ctx.fillText("This is cat.", tip0.width / 2, tip0.height / 2); 
 			
-			var tip0Texture = new THREE.Texture(tip0);
+			var tip0Texture = new THREE.CanvasTexture(tip0);
 			//var tip0Texture = new THREE.TextureLoader().load( "AR/images/water.jpg" );
 			var geometry = new THREE.BoxGeometry(50, 50, 1)
 			var material = new THREE.MeshBasicMaterial({
