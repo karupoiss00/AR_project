@@ -97,7 +97,7 @@
 			var loader = new THREE.FontLoader();
 			loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
 
-				var geometry = new THREE.TextGeometry( 'This is cat.', {
+				/*var geometry = new THREE.TextGeometry( 'This is cat.', {
 					font: font,
 					size: 80,
 					height: 1,
@@ -106,10 +106,19 @@
 				var material = new THREE.MeshBasicMaterial({
 					color: 0xCC0000
 				});
+*/
+				var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
+				var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
 
-				textMesh = new THREE.Mesh(geometry, material);
-				textMesh.position.set(0, 0, 0);
-				textMesh.castShadow = true;
+				var textMesh = new THREE.Mesh(geometry, material);
+				//textMesh.position.set(0, 0, 0);
+				//textMesh.castShadow = true;
+				textMesh.position.x = -0.2;
+				textMesh.position.y = -0.2;
+				textMesh.position.z = 0.5;
+
+				alert("loaded")
+
 				markerRoot1.add(textMesh);
 			} );
 
