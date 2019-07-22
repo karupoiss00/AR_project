@@ -134,12 +134,12 @@
 			function onError(xhr) { alert( 'An error happened' ); }
 		
 			var tip0Texture = new THREE.CanvasTexture(canv0);
-			var geometry = new THREE.BoxGeometry(50, 50, 1)
+			var geometry = new THREE.BoxGeometry(200, 200, 1)
 			var material = new THREE.MeshBasicMaterial({
 				map : tip0Texture
 			});
 			var tipMesh = new THREE.Mesh(geometry, material);
-			tipMesh.scale.set(0.01,0.01,0.001);
+			tipMesh.scale.set(0.1,0.1,0.001);
 			markerRoot1.add(tipMesh);
 						
 			new THREE.MTLLoader()
