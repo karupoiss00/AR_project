@@ -146,26 +146,15 @@
 			tip0.textAlign = "center";
 			tip0.fillText("This is cat.", canv0.width / 2, canv0.height / 2); 
 			tip0Texture = new THREE.Texture(canv0);
-			
-			var tipSide = new THREE.MeshBasicMaterial({
-				map : tip0Texture
-			});
-			var whiteSide = new THREE.MeshBasicMaterial({
-				color : 0xFFFFFF
-			});
-			
-			var tipSides = [
-				whiteSide, // Left side
-				whiteSide, // Right side
-				whiteSide, // Top side   ---> THIS IS THE FRONT
-				whiteSide, // Bottom side --> THIS IS THE BACK
-				tipSide, // Front side
-				whiteSide  // Back side
-			];
 
-			var tipMesh = new THREE.Mesh(new THREE.CubeGeometry(100, 1, 100, 0, 0, 0, tipSides), new THREE.MeshFaceMaterial());
+			var geometry = new THREE.CubeGeometry(100, 1, 100);
+			var cubeMaterial = new THREE.MeshBasicMaterial({
+				map : texture
+			});
+
+			var tipMesh = new THREE.Mesh(geometry, cubeMaterial);
 			markerRoot1.add(tipMesh);
-			
+						
 			new THREE.MTLLoader()
 				.setPath( '/AR/models/' )
 				.load( 'cat.mtl', function ( materials ) {
