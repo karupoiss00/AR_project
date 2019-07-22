@@ -32,10 +32,16 @@
 			scene.add( ambientLight );
 			
 			var canv0 = document.createElement("canvas");
-			canv0.setAttribute("id", "tip0");
-			canv0.setAttribute("width", 50);
-			canv0.setAttribute("height", 50);
-			document.body.appendChild(canv0);
+			var tip = "This is cat. Cat can run at night, eat and scratch you.";
+			canv0.id = "tip0";
+			canv0.width = 8;
+			canv0.height = 8;
+			tip0ctx = canv0.getContext('2d');
+			tip0ctx.fillStyle = '#ffffff';
+			tip0ctx.fillRect(0, 0, canv0.width, canv0.height);
+			tip0ctx.fillStyle = '#000000';
+			tip0ctx.textAlign = "center";
+			wrapText(tip0ctx, tip, canv0.width / 2, canv0.height / 2, canv0.width, canv0.height);
 			
 			camera = new THREE.Camera();
 			scene.add(camera);
@@ -59,6 +65,7 @@
 			arToolkitSource = new THREEx.ArToolkitSource({
 				sourceType : 'webcam',
 			});
+			
 			function onResize()
 			{
 				arToolkitSource.onResize()	
@@ -68,6 +75,27 @@
 					arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
 				}	
 			}
+			
+			function wrapText(context, text, x, y, maxWidth, lineHeight) {
+				var words = text.split(' ');
+				var line = '';
+
+				for(var n = 0; n < words.length; n++) {
+				  var testLine = line + words[n] + ' ';
+				  var metrics = context.measureText(testLine);
+				  var testWidth = metrics.width;
+				  if (testWidth > maxWidth && n > 0) {
+					context.fillText(line, x, y);
+					line = words[n] + ' ';
+					y += lineHeight;
+				  }
+				  else {
+					line = testLine;
+				  }
+				}
+				context.fillText(line, x, y);
+			 }
+			
 			arToolkitSource.init(function onReady(){
 				onResize()
 			});
@@ -104,23 +132,14 @@
 			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 			function onError(xhr) { alert( 'An error happened' ); }
 
-			var tip0 = document.getElementById("tip0");
-			var tip0ctx = tip0.getContext("2d");
-			tip0ctx.fillStyle = "rgb(255,255,255)";
-			tip0ctx.fillRect(0, 0, tip0.width, tip0.height);
-			tip0ctx.fillStyle = "rgb(0,0,0)";
-			tip0ctx.textAlign = "center";
-			tip0ctx.fillText("This is cat.", tip0.width / 2, tip0.height / 2); 
-			
+			var tip0 = document.getElementById("tip0");		
 			var tip0Texture = new THREE.CanvasTexture(tip0);
-			//var tip0Texture = new THREE.TextureLoader().load( "AR/images/water.jpg" );
 			var geometry = new THREE.BoxGeometry(50, 50, 1)
 			var material = new THREE.MeshBasicMaterial({
 				map : tip0Texture
 			});
-
 			var tipMesh = new THREE.Mesh(geometry, material);
-			tipMesh.scale.set(0.01,0.01,0.01);
+			tipMesh.scale.set(0.01,0.01,0.001);
 			markerRoot1.add(tipMesh);
 						
 			new THREE.MTLLoader()
