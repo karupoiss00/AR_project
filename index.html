@@ -162,6 +162,10 @@
 							markerRoot1.add(catMesh);
 						}, onProgress, onError );
 				});
+			var camera = scene.getCamera();
+			var viewPos = camera.position;
+			var tipDistance = Math.sqrt(Math.sqr(viewPos.x - tipMesh.position.x) + Math.sqr(viewPos.y - tipMesh.position.y) + Math.sqr(viewPos.z - tipMesh.position.z));
+			alert(tipDistance);
 		}
 		function update()
 		{
