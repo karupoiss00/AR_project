@@ -34,14 +34,14 @@
 			var canv0 = document.createElement("canvas");
 			var tip = "This is cat. Cat can run at night, eat and scratch you.";
 			canv0.id = "tip0";
-			canv0.width = 200;
-			canv0.height = 200;
+			canv0.width = 100;
+			canv0.height = 100;
 			tip0ctx = canv0.getContext('2d');
 			tip0ctx.fillStyle = '#ffffff';
 			tip0ctx.fillRect(0, 0, canv0.width, canv0.height);
 			tip0ctx.fillStyle = '#000000';
 			tip0ctx.textAlign = "center";
-			wrapText(tip0ctx, tip, canv0.width / 2, canv0.height / 2, 180, 10);
+			wrapText(tip0ctx, tip, canv0.width / 2, canv0.height / 2, 80, 5);
 			//document.body.appendChild(canv0);
 			
 			camera = new THREE.Camera();
@@ -134,12 +134,15 @@
 			function onError(xhr) { alert( 'An error happened' ); }
 		
 			var tip0Texture = new THREE.CanvasTexture(canv0);
-			var geometry = new THREE.BoxGeometry(200, 200, 1)
+			var geometry = new THREE.BoxGeometry(100, 100, 1)
 			var material = new THREE.MeshBasicMaterial({
 				map : tip0Texture
 			});
 			var tipMesh = new THREE.Mesh(geometry, material);
 			tipMesh.scale.set(0.01,0.01,0.001);
+			catMesh.position.x = 0.2;
+			catMesh.position.y = 0.2;
+			catMesh.position.z = 0.5;
 			markerRoot1.add(tipMesh);
 						
 			new THREE.MTLLoader()
