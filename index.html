@@ -105,7 +105,8 @@
 			document.body.appendChild(canv0);
 			var tip0 = document.getElementById("tip0");
 			var tip0ctx = tip0.getContext("2d");
-			tip0ctx.font = "30px Arial";
+			tip0ctx.fillStyle="rgba(255,255,255,255)";
+			tip0ctx.font = "12px Arial";
 			tip0ctx.textAlign = "center";
 			tip0ctx.fillText("This is cat.", tip0.width / 2, tip0.height / 2); 
 			var tip0Texture = new THREE.Texture(tip0);
