@@ -136,39 +136,34 @@
 				markerRoot1.add(textMesh);
 				alert("2")
 			},  onProgress, onError );*/
+			var canv0 = document.createElement("canvas");
+			canv0.setAttribute("id", "tip0");
+			canv0.setAttribute("width", 100);
+			canv0.setAttribute("height", 100);
+			var tip0 = document.getElementById("tip0");
+			var tip0 = canvas.getContext("2d");
+			tip0.font = "30px Arial";
+			tip0.textAlign = "center";
+			tip0.fillText("This is cat.", canvas.width/2, canvas.height/2); 
+			
+			var tipSide = new THREE.MeshBasicMaterial({
+				map : texture
+			});
+			var whiteSide = new THREE.MeshBasicMaterial({
+				color : 0xFFFFFF
+			});
+			
+			var tipSides = [
+				whiteSide, // Left side
+				whiteSide, // Right side
+				whiteSide, // Top side   ---> THIS IS THE FRONT
+				whiteSide, // Bottom side --> THIS IS THE BACK
+				tipSide, // Front side
+				whiteSide  // Back side
+			];
 
-			var loader = new THREE.TextureLoader();
-
-			// load a resource
-			loader.load(
-					// resource URL
-					'/AR/images/water.jpg',
-
-					// onLoad callback
-					function ( texture ) {
-						var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
-						var material = new THREE.MeshBasicMaterial( { map: texture } );
-
-						var textMesh = new THREE.Mesh(geometry, material);
-						//textMesh.position.set(0, 0, 0);
-						//textMesh.castShadow = true;
-						textMesh.position.x = -0.2;
-						textMesh.position.y = -0.2;
-						textMesh.position.z = 0.5;
-
-						markerRoot1.add(textMesh);
-						alert("2")
-					},
-
-					// onProgress callback currently not supported
-					undefined,
-
-					// onError callback
-					function ( err ) {
-						console.error( 'An error happened.' );
-					}
-			);
-
+			var tipMesh = new THREE.Mesh(new THREE.CubeGeometry(100, 1, 100, 0, 0, 0, tipSides), new THREE.MeshFaceMaterial());
+			markerRoot1.add(tipMesh);
 			
 			new THREE.MTLLoader()
 				.setPath( '/AR/models/' )
