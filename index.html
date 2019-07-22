@@ -34,15 +34,16 @@
 			var canv0 = document.createElement("canvas");
 			var tip = "This is cat. Cat can run at night, eat and scratch you.";
 			canv0.id = "tip0";
-			canv0.width = 50;
-			canv0.height = 50;
+			canv0.width = 200;
+			canv0.height = 200;
 			tip0ctx = canv0.getContext('2d');
 			tip0ctx.fillStyle = '#ffffff';
 			tip0ctx.fillRect(0, 0, canv0.width, canv0.height);
 			tip0ctx.fillStyle = '#000000';
 			tip0ctx.textAlign = "center";
-			wrapText(tip0ctx, tip, canv0.width / 2, canv0.height / 2, 40, 2);
-			document.body.appendChild(canv0);
+			wrapText(tip0ctx, tip, canv0.width / 2, canv0.height / 2, 180, 10);
+			//document.body.appendChild(canv0);
+			
 			camera = new THREE.Camera();
 			scene.add(camera);
 			renderer = new THREE.WebGLRenderer({
@@ -131,9 +132,8 @@
 
 			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 			function onError(xhr) { alert( 'An error happened' ); }
-
-			var tip0 = document.getElementById("tip0");		
-			var tip0Texture = new THREE.CanvasTexture(tip0);
+		
+			var tip0Texture = new THREE.CanvasTexture(canv0);
 			var geometry = new THREE.BoxGeometry(50, 50, 1)
 			var material = new THREE.MeshBasicMaterial({
 				map : tip0Texture
