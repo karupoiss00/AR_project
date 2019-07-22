@@ -97,9 +97,9 @@
 
 			function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 			function onError(xhr) { alert( 'An error happened' ); }
-
+/*
 			var loader = new THREE.FontLoader();
-			loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
+			//loader.load( '/AR/fonts/helvetiker_regular.typeface.json', function ( font ) {
 
 				/*var geometry = new THREE.TextBufferGeometry( 'Hello three.js!', {
 					font: font,
@@ -118,11 +118,13 @@
 					size: 80,
 					height: 1,
 					curveSegments: 12,
-				} );*/
+				} );
 				var material = new THREE.MeshBasicMaterial({
 					color: 0xCC0000
 				});
 				var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
+				var texture = new THREE.TextureLoader().load( '/AR/images/water.jpg' );
+				var material = new THREE.MeshBasicMaterial( { map: texture } );
 
 				var textMesh = new THREE.Mesh(geometry, material);
 				//textMesh.position.set(0, 0, 0);
@@ -131,9 +133,41 @@
 				textMesh.position.y = -0.2;
 				textMesh.position.z = 0.5;
 
-				scene.add(textMesh);
-				alert("1")
-			},  onProgress, onError );
+				markerRoot1.add(textMesh);
+				alert("2")
+			},  onProgress, onError );*/
+
+			var loader = new THREE.TextureLoader();
+
+			// load a resource
+			loader.load(
+					// resource URL
+					'/AR/images/water.jpg',
+
+					// onLoad callback
+					function ( texture ) {
+						var geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
+						var material = new THREE.MeshBasicMaterial( { map: texture } );
+
+						var textMesh = new THREE.Mesh(geometry, material);
+						//textMesh.position.set(0, 0, 0);
+						//textMesh.castShadow = true;
+						textMesh.position.x = -0.2;
+						textMesh.position.y = -0.2;
+						textMesh.position.z = 0.5;
+
+						markerRoot1.add(textMesh);
+						alert("2")
+					},
+
+					// onProgress callback currently not supported
+					undefined,
+
+					// onError callback
+					function ( err ) {
+						console.error( 'An error happened.' );
+					}
+			);
 
 			
 			new THREE.MTLLoader()
