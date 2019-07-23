@@ -119,7 +119,7 @@ function initialize()
 				.setMaterials( materials )
 				.setPath( '/AR/models/' )
 				.load( 'cat.obj', function ( group ) {
-					catMesh = group.children[0];
+					const catMesh = group.children[0];
 					catMesh.material.side = THREE.DoubleSide;
 					catMesh.position.x = -0.2;
 					catMesh.position.y = -0.2;
