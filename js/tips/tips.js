@@ -13,7 +13,7 @@ function createTipCanvas(tipInfo) {
 	canvas.width = tipInfo.size;
 	canvas.height = tipInfo.size;
 
-	ctx = canvas.getContext('2d');
+	const ctx = canvas.getContext('2d');
 
 	ctx.fillStyle = '#ffffff';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
