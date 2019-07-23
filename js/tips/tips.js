@@ -5,6 +5,7 @@
    coord: !Array<number>,
    size: number,
  }} tipInfo
+ @return {!Element}
  */
 function createTipCanvas(tipInfo) {
 	const canvas = document.createElement("canvas");
@@ -20,7 +21,9 @@ function createTipCanvas(tipInfo) {
 	ctx.fillStyle = '#000000';
 	ctx.textAlign = "center";
 
-	wrapText(ctx, tipInfo.text, canvas.width / 2, 20, 80, tipInfo.size / 10); 
+	wrapText(ctx, tipInfo.text, canvas.width / 2, 20, 80, tipInfo.size / 10);
+	
+	return canvas;
 }
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
