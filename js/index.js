@@ -1,3 +1,5 @@
+import {createTipCanvas} from './tips/tips.js';
+
 var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 var markerRoot1;
@@ -9,7 +11,14 @@ function initialize()
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 1.0 );
 	scene.add( ambientLight );
 	
-	var canv0 = document.createElement("canvas");
+	const canvas = createTipCanvas({
+		id: "tip0",
+		text: "This is cat. Cat can run at night, eat and scratch you",
+		coord: [0.2, 0.2, 0.5],
+		size: 100,
+	});
+	
+	/*var canv0 = document.createElement("canvas");
 	var tip = "This is cat. Cat can run at night, eat and scratch you.";
 	canv0.id = "tip0";
 	canv0.width = 100;
@@ -19,7 +28,7 @@ function initialize()
 	tip0ctx.fillRect(0, 0, canv0.width, canv0.height);
 	tip0ctx.fillStyle = '#000000';
 	tip0ctx.textAlign = "center";
-	wrapText(tip0ctx, tip, canv0.width / 2, 20, 80, 10);
+	wrapText(tip0ctx, tip, canv0.width / 2, 20, 80, 10);*/
 	
 	camera = new THREE.Camera();
 	scene.add(camera);
@@ -53,26 +62,6 @@ function initialize()
 			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
 		}	
 	}
-	
-	function wrapText(context, text, x, y, maxWidth, lineHeight) {
-		var words = text.split(' ');
-		var line = '';
-
-		for(var n = 0; n < words.length; n++) {
-		  var testLine = line + words[n] + ' ';
-		  var metrics = context.measureText(testLine);
-		  var testWidth = metrics.width;
-		  if (testWidth > maxWidth && n > 0) {
-			context.fillText(line, x, y);
-			line = words[n] + ' ';
-			y += lineHeight;
-		  }
-		  else {
-			line = testLine;
-		  }
-		}
-		context.fillText(line, x, y);
-	 }
 	
 	arToolkitSource.init(function onReady(){
 		onResize()
@@ -110,7 +99,7 @@ function initialize()
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { alert( 'An error happened' ); }
 
-	var tip0Texture = new THREE.CanvasTexture(canv0);
+	var tip0Texture = new THREE.CanvasTexture(canvas);
 	var geometry = new THREE.BoxGeometry(50, 50, 1)
 	var material = new THREE.MeshBasicMaterial({
 		map : tip0Texture
