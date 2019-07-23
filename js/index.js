@@ -162,5 +162,8 @@ function animate()
 	render();
 }
 
-initialize();
-animate();
+window.onload = function() {
+	initialize();
+	animate();
+};
+
