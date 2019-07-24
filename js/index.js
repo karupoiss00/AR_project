@@ -14,7 +14,7 @@ function initialize()
 	camera = new THREE.Camera();
 	scene.add(camera);
 	renderer = new THREE.WebGLRenderer({
-		antialias : true,
+		antialias: true,
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
@@ -78,7 +78,7 @@ function initialize()
 
 
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
-	function onError(xhr) { alert( 'An error happened' ); }
+	function onError(xhr) { alert('An error happened' ); }
 
 	const tip0 = createTipMesh({
 		id: "tip0",
@@ -90,30 +90,42 @@ function initialize()
 	const tip1 = createTipMesh({
 		id: "tip1",
 		text: "This is any tip and you can read it.",
-		coord: [-1, -0.5, -1],
+		coord: [-0.5, -0.5, -2],
 		size: 100,
 	});
 	
+	const cat = getModelMesh('/AR/models/', 'cat.mtl', 'cat.obj', 0.04);
+	
+		
 	markerRoot1.add(tip0);
 	markerRoot1.add(tip1);
+	markerRoot1.add(cat);
 	
+}
+
+/**
+ @param {string} path
+ @param {string} mtlName
+ @param {string} objName
+ @param {number} scale
+ @return {*}
+ */
+function getModelMesh(path, mtlName, objName, scale) {
 	new THREE.MTLLoader()
-		.setPath( '/AR/models/' )
-		.load( 'cat.mtl', function ( materials ) {
+		.setPath( path )
+		.load( mtlName, function ( materials ) {
 			materials.preload();
 			new THREE.OBJLoader()
 				.setMaterials( materials )
-				.setPath( '/AR/models/' )
-				.load( 'cat.obj', function ( group ) {
-					const catMesh = group.children[0];
-					catMesh.material.side = THREE.DoubleSide;
-					catMesh.position.x = 0;
-					catMesh.position.y = 0;
-					catMesh.position.z = 0;
-					catMesh.scale.set(0.04,0.04,0.04);
-					markerRoot1.add(catMesh);
+				.setPath( path )
+				.load( objName, function ( group ) {
+					const cat = group.children[0];
+					cat.material.side = THREE.DoubleSide;
+					cat.position.set(0, 0, 0);
+					cat.scale.set(scale, scale, scale);
 				}, onProgress, onError );
 		});
+	return cat;
 }
 
 function update()
