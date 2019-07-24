@@ -1,4 +1,4 @@
-import {createTipCanvas} from './tips/tips.js';
+import {createTipMesh} from './tips/tips.js';
 
 var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
