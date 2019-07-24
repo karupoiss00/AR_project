@@ -89,7 +89,7 @@ function initialize()
 	
 	const tip1 = createTipMesh({
 		id: "tip1",
-		text: "This is any tip and you can read it.",
+		text: "This is any tip and you can read it. ".concat(camera.position.x, ' ', camera.position.y, ' ', camera.position.z),
 		coord: [-0.4, 0.6, -1.5],
 		size: 100,
 	});
