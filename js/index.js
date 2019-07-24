@@ -83,14 +83,14 @@ function initialize()
 	const tip0 = createTipMesh({
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
-		coord: [0.2, -1, 0.2],
+		coord: [0.2, 1, 0.2],
 		size: 100,
 	});
 	
 	const tip1 = createTipMesh({
 		id: "tip1",
 		text: "This is any tip and you can read it.",
-		coord: [-0.5, -1, -1.5],
+		coord: [-0.5, 1, -1.5],
 		size: 100,
 	});
 	
