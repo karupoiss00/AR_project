@@ -18,7 +18,7 @@ function initialize()
 		alpha: true
 	});
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
-	renderer.setSize( 640, 480 );
+	renderer.setSize(1280, 1024);
 	renderer.domElement.style.position = 'absolute'
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
@@ -83,14 +83,14 @@ function initialize()
 	const tip0 = createTipMesh({
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
-		coord: [0.2, 0, 0.2],
+		coord: [-0.2, 0, -0.2],
 		size: 100,
 	});
 	
 	const tip1 = createTipMesh({
 		id: "tip1",
 		text: "This is any tip and you can read it.",
-		coord: [-0.2, 0, -0.2],
+		coord: [0.2, 0, 0.2],,
 		size: 100,
 	});
 	
