@@ -106,12 +106,13 @@ function initialize()
 					cat.material.side = THREE.DoubleSide;
 					cat.position.set(0, 0, 0);
 					cat.scale.set(0.04,0.04,0.04);
+					markerRoot1.add(cat);
 				}, onProgress, onError );
 		});
 		
 	markerRoot1.add(tip0);
 	markerRoot1.add(tip1);
-	markerRoot1.add(cat);
+	
 	
 }
 
