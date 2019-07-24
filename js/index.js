@@ -76,10 +76,6 @@ function initialize()
 		type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 	})
 
-
-	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
-	function onError(xhr) { alert('An error happened' ); }
-
 	const tip0 = createTipMesh({
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
@@ -111,6 +107,7 @@ function initialize()
  @return {*}
  */
 function getModelMesh(path, mtlName, objName, scale) {
+	let cat = null;
 	new THREE.MTLLoader()
 		.setPath( path )
 		.load( mtlName, function ( materials ) {
@@ -119,13 +116,22 @@ function getModelMesh(path, mtlName, objName, scale) {
 				.setMaterials( materials )
 				.setPath( path )
 				.load( objName, function ( group ) {
-					const cat = group.children[0];
+					cat = group.children[0];
 					cat.material.side = THREE.DoubleSide;
 					cat.position.set(0, 0, 0);
 					cat.scale.set(scale, scale, scale);
 				}, onProgress, onError );
 		});
 	return cat;
+}
+
+function onProgress(xhr) 
+{ 
+	console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+}
+function onError(xhr) 
+{ 
+	alert('An error happened' );
 }
 
 function update()
