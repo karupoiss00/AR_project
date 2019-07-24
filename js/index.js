@@ -80,32 +80,23 @@ function initialize()
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { alert( 'An error happened' ); }
 
-	const tipMesh = createTipMesh({
+	const tip0 = createTipMesh({
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
 		coord: [0.2, 0.2, 0.5],
 		size: 100,
 	});
-/*
-	const canvas = createTipCanvas({
-		id: "tip0",
-		text: "This is cat. Cat can run at night, eat and scratch you",
-		coord: [0.2, 0.2, 0.5],
+	
+	const tip1 = createTipMesh({
+		id: "tip1",
+		text: "This is any tip and you can read it.",
+		coord: [-0.2, -0.2, 0.5],
 		size: 100,
 	});
-
-	var tip0Texture = new THREE.CanvasTexture(canvas);
-	var geometry = new THREE.BoxGeometry(50, 50, 1)
-	var material = new THREE.MeshBasicMaterial({
-		map : tip0Texture
-	});
-	var tipMesh = new THREE.Mesh(geometry, material);
-	tipMesh.scale.set(0.01,0.01,0.001);
-	tipMesh.position.x = 0.2;
-	tipMesh.position.y = 0.2;
-	tipMesh.position.z = 0.5;*/
-	markerRoot1.add(tipMesh);
-				
+	
+	markerRoot1.add(tip0);
+	markerRoot1.add(tip1);
+	
 	new THREE.MTLLoader()
 		.setPath( '/AR/models/' )
 		.load( 'cat.mtl', function ( materials ) {
