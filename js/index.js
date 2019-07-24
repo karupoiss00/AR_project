@@ -83,14 +83,14 @@ function initialize()
 	const tip0 = createTipMesh({
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
-		coord: [0.2, 0.2, 0.5],
+		coord: [0.2, 0, 0.2],
 		size: 100,
 	});
 	
 	const tip1 = createTipMesh({
 		id: "tip1",
 		text: "This is any tip and you can read it.",
-		coord: [0.1, 0.1, 0.4],
+		coord: [-0.2, 0, -0.2],
 		size: 100,
 	});
 	
@@ -107,9 +107,9 @@ function initialize()
 				.load( 'cat.obj', function ( group ) {
 					const catMesh = group.children[0];
 					catMesh.material.side = THREE.DoubleSide;
-					catMesh.position.x = -0.2;
-					catMesh.position.y = -0.2;
-					catMesh.position.z = 0.5;
+					catMesh.position.x = 0;
+					catMesh.position.y = 0;
+					catMesh.position.z = 0;
 					catMesh.scale.set(0.04,0.04,0.04);
 					markerRoot1.add(catMesh);
 				}, onProgress, onError );
