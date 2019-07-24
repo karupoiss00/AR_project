@@ -4,15 +4,43 @@
    text: string,
    coord: !Array<number>,
    size: number,
- }} tipInfo
+ }} args
+ @return {!THREE.Mesh}
+ */
+function createTipMesh({id, text, coord, size}) {
+	const canvas = createTipCanvas(id, text, size);
+	const texture = new THREE.CanvasTexture(canvas);
+	const geometry = new THREE.BoxGeometry(50, 50, 1)
+	const material = new THREE.MeshBasicMaterial({
+		map: texture
+	});
+	
+	const mesh = new THREE.Mesh(geometry, material);
+	mesh.scale.set(0.01,0.01,0.001);
+	
+	const [x, y, z] = coord;
+	mesh.position.set(x, y, z);
+	/*
+	mesh.position.x = x;
+	mesh.position.y = y;
+	mesh.position.z = z;
+		*/
+
+	return mesh;
+}
+
+/**
+ @param {string} id
+ @param {string} text
+ @param {number} size
  @return {!Element}
  */
-function createTipCanvas(tipInfo) {
+function createTipCanvas(id, text, size) {
 	const canvas = document.createElement("canvas");
 
-	canvas.id = tipInfo.id;
-	canvas.width = tipInfo.size;
-	canvas.height = tipInfo.size;
+	canvas.id = id;
+	canvas.width = size;
+	canvas.height = size;
 
 	const ctx = canvas.getContext('2d');
 
@@ -21,11 +49,19 @@ function createTipCanvas(tipInfo) {
 	ctx.fillStyle = '#000000';
 	ctx.textAlign = "center";
 
-	wrapText(ctx, tipInfo.text, canvas.width / 2, 20, 80, tipInfo.size / 10);
+	wrapText(ctx, text, canvas.width / 2, 20, 80, size / 10);
 	
 	return canvas;
 }
 
+/**
+ @param context
+ @param {string} text
+ @param {number} x
+ @param {number} y
+ @param {number} maxWidth
+ @param {number} lineHeight
+ */
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
 	var words = text.split(' ');
 	var line = '';
@@ -52,5 +88,5 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 }
 
 export {
-	createTipCanvas,
+	createTipMesh,
 };

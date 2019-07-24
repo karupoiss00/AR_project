@@ -11,25 +11,6 @@ function initialize()
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 1.0 );
 	scene.add( ambientLight );
 	
-	const canvas = createTipCanvas({
-		id: "tip0",
-		text: "This is cat. Cat can run at night, eat and scratch you",
-		coord: [0.2, 0.2, 0.5],
-		size: 100,
-	});
-	
-	/*var canv0 = document.createElement("canvas");
-	var tip = "This is cat. Cat can run at night, eat and scratch you.";
-	canv0.id = "tip0";
-	canv0.width = 100;
-	canv0.height = 100;
-	tip0ctx = canv0.getContext('2d');
-	tip0ctx.fillStyle = '#ffffff';
-	tip0ctx.fillRect(0, 0, canv0.width, canv0.height);
-	tip0ctx.fillStyle = '#000000';
-	tip0ctx.textAlign = "center";
-	wrapText(tip0ctx, tip, canv0.width / 2, 20, 80, 10);*/
-	
 	camera = new THREE.Camera();
 	scene.add(camera);
 	renderer = new THREE.WebGLRenderer({
@@ -99,6 +80,20 @@ function initialize()
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { alert( 'An error happened' ); }
 
+	const tipMesh = createTipMesh({
+		id: "tip0",
+		text: "This is cat. Cat can run at night, eat and scratch you",
+		coord: [0.2, 0.2, 0.5],
+		size: 100,
+	});
+/*
+	const canvas = createTipCanvas({
+		id: "tip0",
+		text: "This is cat. Cat can run at night, eat and scratch you",
+		coord: [0.2, 0.2, 0.5],
+		size: 100,
+	});
+
 	var tip0Texture = new THREE.CanvasTexture(canvas);
 	var geometry = new THREE.BoxGeometry(50, 50, 1)
 	var material = new THREE.MeshBasicMaterial({
@@ -108,7 +103,7 @@ function initialize()
 	tipMesh.scale.set(0.01,0.01,0.001);
 	tipMesh.position.x = 0.2;
 	tipMesh.position.y = 0.2;
-	tipMesh.position.z = 0.5;
+	tipMesh.position.z = 0.5;*/
 	markerRoot1.add(tipMesh);
 				
 	new THREE.MTLLoader()
