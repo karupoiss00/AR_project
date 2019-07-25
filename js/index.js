@@ -76,24 +76,9 @@ function initialize()
 		type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 	})
 
-
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { alert('An error happened' ); }
 
-	const tip0 = createTipMesh({
-		id: "tip0",
-		text: "This is cat. Cat can run at night, eat and scratch you",
-		coord: [0.3, 0.5, 0.2],
-		size: 100,
-	});
-	
-	const tip1 = createTipMesh({
-		id: "tip1",
-		text: "This is any tip and you can read it.",
-		coord: [-0.4, 0.6, -1.5],
-		size: 100,
-	});
-	
 	new THREE.MTLLoader()
 		.setPath( '/AR/models/' )
 		.load( 'cat.mtl', function ( materials ) {
@@ -109,11 +94,35 @@ function initialize()
 					markerRoot1.add(cat);
 				}, onProgress, onError );
 		});
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.open('GET', 'js/tips/tips.json', true);
+	xhr.onload = () => {
+		console.log(xhr.responseText);
+	};
+	xhr.onerror = () => {
+		console.log("Failed to load tips.json");
+	};
+	
+	xhr.send();
+		
+	const tip0 = createTipMesh({
+		id: "tip0",
+		text: "This is cat. Cat can run at night, eat and scratch you",
+		coord: [0.3, 0.5, 0.2],
+		size: 100,
+	});
+	
+	const tip1 = createTipMesh({
+		id: "tip1",
+		text: "This is any tip and you can read it.",
+		coord: [-0.4, 0.6, -1.5],
+		size: 100,
+	});		
 		
 	markerRoot1.add(tip0);
 	markerRoot1.add(tip1);
-	
-	
 }
 
 function update()
