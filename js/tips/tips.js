@@ -3,11 +3,12 @@
    id: string,
    text: string,
    coord: !Array<number>,
+   rotation: !Array<number>,
    size: number,
  }} args
  @return {!THREE.Mesh}
  */
-function createTipMesh({id, text, coord, size}) {
+function createTipMesh({id, text, coord, rotation, size}) {
 	const canvas = createTipCanvas(id, text, size);
 	const texture = new THREE.CanvasTexture(canvas);
 	const geometry = new THREE.BoxGeometry(50, 50, 1)
@@ -20,11 +21,9 @@ function createTipMesh({id, text, coord, size}) {
 	
 	const [x, y, z] = coord;
 	mesh.position.set(x, y, z);
-	/*
-	mesh.position.x = x;
-	mesh.position.y = y;
-	mesh.position.z = z;
-		*/
+	
+	const [x, y, z] = rotation;
+	mesh.rotation.set(degToRad(x), degToRad(y), degToRad(z));
 
 	return mesh;
 }
@@ -85,6 +84,15 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 	}
 
 	context.fillText(line, x, y);
+}
+
+/**
+ @param {number} degrees
+ @return {number}
+ */
+function degToRad(degrees)
+{
+  return degrees * (Math.PI / 180);
 }
 
 export {

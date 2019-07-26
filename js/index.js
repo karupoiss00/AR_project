@@ -111,6 +111,7 @@ function initialize()
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
 		coord: [0.3, 0.5, 0.2],
+		rotation: [30, 0, 0],
 		size: 100,
 	});
 	
@@ -118,6 +119,7 @@ function initialize()
 		id: "tip1",
 		text: "This is any tip and you can read it.",
 		coord: [-0.4, 0.6, -1.5],
+		rotation: [25, 60, 0],
 		size: 100,
 	});		
 		
