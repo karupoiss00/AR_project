@@ -118,8 +118,8 @@ function initialize()
 	const tip1 = createTipMesh({
 		id: "tip1",
 		text: "This is any tip and you can read it.",
-		coord: [-0.4, 0.6, -1.5],
-		rotation: [30, 30, -30],
+		coord: [-0.4, 0.6, -1.2],
+		rotation: [30, 30, 0],
 		size: 100,
 	});		
 		
