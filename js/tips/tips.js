@@ -22,8 +22,8 @@ function createTipMesh({id, text, coord, rotation, size}) {
 	const [x, y, z] = coord;
 	mesh.position.set(x, y, z);
 	
-	const [x, y, z] = rotation;
-	mesh.rotation.set(degToRad(x), degToRad(y), degToRad(z));
+	const [rx, ry, rz] = rotation;
+	mesh.rotation.set(degToRad(rx), degToRad(ry), degToRad(rz));
 
 	return mesh;
 }
