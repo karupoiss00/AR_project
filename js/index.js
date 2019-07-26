@@ -119,7 +119,7 @@ function initialize()
 		id: "tip1",
 		text: "This is any tip and you can read it.",
 		coord: [-0.4, 0.6, -1.2],
-		rotation: [45, 30, 0],
+		rotation: [0, 30, 0],
 		size: 100,
 	});		
 		
