@@ -1,12 +1,12 @@
 /**
- @param {!{
-   id: string,
-   text: string,
-   coord: !Array<number>,
-   rotation: !Array<number>,
-   size: number,
- }} args
- @return {!THREE.Mesh}
+ * @param {!{
+ *   id: string,
+ *   text: string,
+ *   coord: !Array<number>,
+ *   rotation: !Array<number>,
+ *   size: number,
+ * }} args
+ * @return {!THREE.Mesh}
  */
 function createTipMesh({id, text, coord, rotation, size}) {
 	const canvas = createTipCanvas(id, text, size);
@@ -29,10 +29,10 @@ function createTipMesh({id, text, coord, rotation, size}) {
 }
 
 /**
- @param {string} id
- @param {string} text
- @param {number} size
- @return {!Element}
+ * @param {string} id
+ * @param {string} text
+ * @param {number} size
+ * @return {!Element}
  */
 function createTipCanvas(id, text, size) {
 	const canvas = document.createElement("canvas");
@@ -54,12 +54,12 @@ function createTipCanvas(id, text, size) {
 }
 
 /**
- @param context
- @param {string} text
- @param {number} x
- @param {number} y
- @param {number} maxWidth
- @param {number} lineHeight
+ * @param context
+ * @param {string} text
+ * @param {number} x
+ * @param {number} y
+ * @param {number} maxWidth
+ * @param {number} lineHeight
  */
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
 	var words = text.split(' ');
@@ -87,8 +87,8 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
 }
 
 /**
- @param {number} degrees
- @return {number}
+ * @param {number} degrees
+ * @return {number}
  */
 function degToRad(degrees)
 {

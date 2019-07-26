@@ -1,3 +1,4 @@
+import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh} from './tips/tips.js';
 
 var scene, camera, renderer, clock, deltaTime, totalTime;
@@ -97,16 +98,21 @@ function initialize()
 	
 	const xhr = new XMLHttpRequest();
 
-	xhr.open('GET', 'js/tips/tips.json', true);
+	xhr.open('GET', 'js/tips/tips.json');
 	xhr.onload = () => {
-		console.log(xhr.responseText);
+		const tips = parseTipJson(xhr.responseText);
+		for (const tip of tips)
+		{
+			const tipMesh = createTipMesh(tip);
+			markerRoot1.add(tipMesh);
+		}
 	};
 	xhr.onerror = () => {
 		console.log("Failed to load tips.json");
 	};
 	
 	xhr.send();
-		
+	/*	
 	const tip0 = createTipMesh({
 		id: "tip0",
 		text: "This is cat. Cat can run at night, eat and scratch you",
@@ -125,6 +131,7 @@ function initialize()
 		
 	markerRoot1.add(tip0);
 	markerRoot1.add(tip1);
+	*/
 }
 
 function update()
