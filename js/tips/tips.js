@@ -11,7 +11,7 @@
 function createTipMesh({id, text, coord, rotation, size}) {
 	const canvas = createTipCanvas(id, text, size);
 	const texture = new THREE.CanvasTexture(canvas);
-	const geometry = new THREE.BoxGeometry(50, 50, 1)
+	const geometry = new THREE.BoxGeometry(50, 50, 1);
 	const material = new THREE.MeshBasicMaterial({
 		map: texture
 	});
@@ -62,25 +62,25 @@ function createTipCanvas(id, text, size) {
  * @param {number} lineHeight
  */
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
-	var words = text.split(' ');
-	var line = '';
+	const words = text.split(' ');
+	let line = '';
 
-	for (var n = 0; n < words.length; n++)
+	for (let i = 0; i < words.length; ++i)
 	{
-	  var testLine = line + words[n] + ' ';
-	  var metrics = context.measureText(testLine);
-	  var testWidth = metrics.width;
-	  
-	  if (testWidth > maxWidth && n > 0)
-	  {
-		context.fillText(line, x, y);
-		line = words[n] + ' ';
-		y += lineHeight;
-	  }
-	  else
-	  {
-		line = testLine;
-	  }
+		const testLine = line + words[i] + ' ';
+		const metrics = context.measureText(testLine);
+		const testWidth = metrics.width;
+
+		if ((testWidth > maxWidth) && (i > 0))
+		{
+			context.fillText(line, x, y);
+			line = words[i] + ' ';
+			y += lineHeight;
+		}
+		else
+		{
+			line = testLine;
+		}
 	}
 
 	context.fillText(line, x, y);
