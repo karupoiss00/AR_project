@@ -40,8 +40,7 @@ function initialize()
 		arToolkitSource.copySizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null)
 		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
-			console.log(arToolkitSource.position.x);
+			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas.get);
 		}	
 	}
 	
@@ -66,6 +65,9 @@ function initialize()
 	// copy projection matrix to camera when initialization complete
 	arToolkitContext.init(function onCompleted(){
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+		var projectionMatrixArr = arToolkitContext.getProjectionMatrix().arController.getCameraMatrix();
+		var projectionMatrix = new THREE.Matrix4().fromArray(projectionMatrixArr);
+
 	});
 	////////////////////////////////////////////////////////////
 	// setup markerRoots
@@ -125,6 +127,7 @@ function update()
 	if (arToolkitSource.ready !== false)
 	{
 		arToolkitContext.update(arToolkitSource.domElement);
+		console.log(camera.position.x);
 	}
 }
 
