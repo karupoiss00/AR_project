@@ -50,7 +50,7 @@ function createTipCanvas(id, text, size) {
 	ctx.fillStyle = '#000000';
 	ctx.textAlign = "center";
 
-	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, 8);
+	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, 12);
 	
 	return canvas;
 }
@@ -78,7 +78,7 @@ function wrapText(context, text, x, y, maxWidth, lineHeight, textSize) {
 		{
 			context.fillText(line, x, y);
 			line = words[i] + ' ';
-			y += lineHeight;
+			y += textSize * 1.5;
 		}
 		else
 		{
