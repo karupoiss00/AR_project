@@ -44,7 +44,9 @@ function verifyParsedJson(parsedJson) {
 function createTip(data) {
 	const noProperty = (property) => !data.hasOwnProperty(property);
 	
-	if (noProperty('id') || noProperty('text'))
+	if (noProperty('id')
+		|| noProperty('text')
+		|| noProperty('textSize'))
 	{
 		throw new Error('incorrect tip data');
 	}

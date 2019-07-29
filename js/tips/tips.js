@@ -2,15 +2,16 @@
  * @param {!{
  *   id: string,
  *   text: string,
+ *   textSize: number,
  *   coord: !Array<number>,
  *   rotation: !Array<number>,
  *   size: !Array<number>,
  * }} args
  * @return {!THREE.Mesh}
  */
-function createTipMesh({id, text, coord, rotation, size}) {
+function createTipMesh({id, text, textSize, coord, rotation, size}) {
 	const [w, h] = size;
-	const canvas = createTipCanvas(id, text, size);
+	const canvas = createTipCanvas(id, text, size, textSize);
 	const texture = new THREE.CanvasTexture(canvas);
 	const geometry = new THREE.BoxGeometry(w / 2, h / 2, 1);
 	const material = new THREE.MeshBasicMaterial({
@@ -33,9 +34,10 @@ function createTipMesh({id, text, coord, rotation, size}) {
  * @param {string} id
  * @param {string} text
  * @param {!Array<number>} size
+ * * @param {number} textSize
  * @return {!Element}
  */
-function createTipCanvas(id, text, size) {
+function createTipCanvas(id, text, size, textSize) {
 	const canvas = document.createElement("canvas");
 
 	canvas.id = id;
@@ -50,7 +52,7 @@ function createTipCanvas(id, text, size) {
 	ctx.fillStyle = '#000000';
 	ctx.textAlign = "center";
 
-	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, 10);
+	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, textSize);
 	
 	return canvas;
 }

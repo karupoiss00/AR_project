@@ -3,6 +3,7 @@
 		{
 			"id": "tip0",
 			"text": "This is cat. Cat can run at night, eat and scratch you",
+			"textSize": 11,
 			"coord": [0.3, 0.5, 0.2],
 			"rotation": [-30, 0, 0],
 			"size": [110, 80]
@@ -10,6 +11,7 @@
 		{
 			"id": "tip1",
 			"text": "This is any tip and you can read it.",
+			"textSize": 11,
 			"coord": [-0.4, 0.6, -1.2],
 			"rotation": [0, 30, 0],
 			"size": [100, 60]
