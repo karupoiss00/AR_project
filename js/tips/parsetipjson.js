@@ -61,7 +61,7 @@ function createTip(data) {
 	
 	if (noProperty('size'))
 	{
-		data['size'] = 100;
+		data['size'] = [100, 100];
 	}
 	
 	return data;
