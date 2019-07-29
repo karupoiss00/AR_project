@@ -50,7 +50,7 @@ function createTipCanvas(id, text, size) {
 	ctx.fillStyle = '#000000';
 	ctx.textAlign = "center";
 
-	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10);
+	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, 14);
 	
 	return canvas;
 }
@@ -63,7 +63,8 @@ function createTipCanvas(id, text, size) {
  * @param {number} maxWidth
  * @param {number} lineHeight
  */
-function wrapText(context, text, x, y, maxWidth, lineHeight) {
+function wrapText(context, text, x, y, maxWidth, lineHeight, textSize) {
+	context.font = "normal normal ".concat(textSize, "px Verdana");
 	const words = text.split(' ');
 	let line = '';
 
