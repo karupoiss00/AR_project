@@ -5157,10 +5157,12 @@ THREEx.ArSmoothedControls.prototype.update = function(targetObject3d){
 	// honor becameVisible event
 	if( wasVisible === false && object3d.visible === true ){
 		this.dispatchEvent({ type: 'becameVisible' })
+        console.log('vivible model');
 	}
 	// honor becameUnVisible event
 	if( wasVisible === true && object3d.visible === false ){
 		this.dispatchEvent({ type: 'becameUnVisible' })
+        console.log('invivible model');
 	}
 	return
 

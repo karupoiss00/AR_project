@@ -125,6 +125,7 @@ function update()
 	{
 		arToolkitContext.update(arToolkitSource.domElement);
 	}
+	console.log(camera.positionX);
 }
 
 function render()
