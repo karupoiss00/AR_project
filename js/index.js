@@ -4,6 +4,7 @@ import {createTipMesh} from './tips/tips.js';
 let scene, camera, renderer, clock, deltaTime, totalTime;
 let arToolkitSource, arToolkitContext;
 let markerRoot;
+const tipMeshes = [];
 
 function initialize()
 {
@@ -65,9 +66,6 @@ function initialize()
 	// copy projection matrix to camera when initialization complete
 	arToolkitContext.init(function onCompleted(){
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-		var projectionMatrixArr = arToolkitContext.getProjectionMatrix().arController.getCameraMatrix();
-		var projectionMatrix = new THREE.Matrix4().fromArray(projectionMatrixArr);
-
 	});
 	////////////////////////////////////////////////////////////
 	// setup markerRoots
@@ -104,13 +102,13 @@ function initialize()
 		});
 	
 	const xhr = new XMLHttpRequest();
-
 	xhr.open('GET', 'js/tips/tips.json');
 	xhr.onload = () => {
 		const tips = parseTipJson(xhr.responseText);
 		for (const tip of tips)
 		{
 			const tipMesh = createTipMesh(tip);
+            tipMeshes.push(tipMesh);
 			markerRoot.add(tipMesh);
 		}
 	};
@@ -127,7 +125,13 @@ function update()
 	if (arToolkitSource.ready !== false)
 	{
 		arToolkitContext.update(arToolkitSource.domElement);
-		console.log(camera.position.x);
+
+		const scales = "";
+        for (const mesh of tipMeshes)
+        {
+            scales.concat(mesh.getWorldScale(), " ");
+        }
+        console.log(scales);
 	}
 }
 

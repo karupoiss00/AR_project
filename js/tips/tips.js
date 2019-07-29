@@ -20,7 +20,7 @@ function createTipMesh({id, text, textSize, coord, rotation, size}) {
 	
 	const mesh = new THREE.Mesh(geometry, material);
 	mesh.scale.set(0.01,0.01,0.001);
-	
+
 	const [x, y, z] = coord;
 	mesh.position.set(x, y, z);
 	
