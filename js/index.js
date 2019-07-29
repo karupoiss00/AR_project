@@ -33,14 +33,15 @@ function initialize()
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
 	});
-	
+
 	function onResize()
 	{
 		arToolkitSource.onResize();
 		arToolkitSource.copySizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null)
 		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas)	
+			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+			console.log(arToolkitSource.position.x);
 		}	
 	}
 	
@@ -125,7 +126,6 @@ function update()
 	{
 		arToolkitContext.update(arToolkitSource.domElement);
 	}
-	console.log(camera.positionX);
 }
 
 function render()
