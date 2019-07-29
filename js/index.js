@@ -40,7 +40,7 @@ function initialize()
 		arToolkitSource.copySizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null)
 		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas.get);
+			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
 		}	
 	}
 	
