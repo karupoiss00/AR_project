@@ -129,7 +129,7 @@ function update()
 		const scales = "";
         for (const mesh of tipMeshes)
         {
-            scales.concat(mesh.getWorldScale(), " ");
+            scales.concat(mesh.getWorldScale().x, " ", mesh.getWorldScale().y, mesh.getWorldScale().z, " | ");
         }
         console.log(scales);
 	}
