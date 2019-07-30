@@ -163,6 +163,8 @@ function update()
         const worldScale = new THREE.Vector3();
         tipMeshes[0].getWorldScale(worldScale);
         var scale = worldScale.x.toFixed(20);
+        tipMeshes[1].getWorldScale(worldScale).x.toFixed(20);
+        scale += ' ' + worldScale;
         console.log(scale);
     }
 }
