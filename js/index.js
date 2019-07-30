@@ -83,7 +83,7 @@ function initMarker(markerUrl) {
     markerRoot = new THREE.Group();
     scene.add(markerRoot);
 
-    let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+    new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
         type: 'pattern', patternUrl: markerUrl,
     });
 }
@@ -160,7 +160,6 @@ function update()
     if (arToolkitSource.ready !== false)
     {
         arToolkitContext.update(arToolkitSource.domElement);
-        /*
         const scales = "";
         const worldScale = new THREE.Vector3();
 
@@ -169,7 +168,7 @@ function update()
             mesh.getWorldScale(worldScale);
             scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
         }
-        alert(scales);*/
+        console.log(scales);
     }
 }
 
