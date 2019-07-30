@@ -163,7 +163,7 @@ function update()
         arToolkitContext.update(arToolkitSource.domElement);
         const worldScale = new THREE.Vector3();
         tipMeshes[0].getWorldScale(worldScale);
-        var scale = worldScale.distanceTo(maxScale);
+        var scale = maxScale.distanceTo(worldScale);
         console.log(scale);
     }
 }
