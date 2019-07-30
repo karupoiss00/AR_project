@@ -133,6 +133,7 @@ function loadTips(marker, url) {
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
+            tipMesh.visible = false;
             tipMeshes.push(tipMesh);
             marker.add(tipMesh);
         }
@@ -159,8 +160,9 @@ function update()
     // update artoolkit on every frame
     if (arToolkitSource.ready !== false)
     {
-        const maxScale = new THREE.Vector3(0.01,0.01,0.001);
         arToolkitContext.update(arToolkitSource.domElement);
+
+        const maxScale = new THREE.Vector3(0.01,0.01,0.001);
         const worldScale = new THREE.Vector3();
         tipMeshes[0].getWorldScale(worldScale);
         var scale = worldScale.distanceTo(maxScale).toFixed(20);
