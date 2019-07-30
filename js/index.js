@@ -127,9 +127,11 @@ function update()
 		arToolkitContext.update(arToolkitSource.domElement);
 
 		const scales = "";
+		const worldScale = new THREE.Vector3();
+		mesh.getWorldScale()(worldScale);
         for (const mesh of tipMeshes)
         {
-            scales.concat(mesh.getWorldScale().x, " ", mesh.getWorldScale().y, mesh.getWorldScale().z, " | ");
+            scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
         }
         console.log(scales);
 	}
