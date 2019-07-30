@@ -73,6 +73,7 @@ function initialize()
 	// build markerControls
 	markerRoot = new THREE.Group();
 	scene.add(markerRoot);
+
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 	});
@@ -96,27 +97,12 @@ function initialize()
 					const cat = group.children[0];
 					cat.material.side = THREE.DoubleSide;
 					cat.position.set(0, 0, 0);
-					cat.scale.set(0.04,0.04,0.04);
+					cat.scale.set(0.05,0.05,0.05);
 					markerRoot.add(cat);
 				}, onProgress, onError);
 		});
-	
-	const xhr = new XMLHttpRequest();
-	xhr.open('GET', 'js/tips/tips.json');
-	xhr.onload = () => {
-		const tips = parseTipJson(xhr.responseText);
-		for (const tip of tips)
-		{
-			const tipMesh = createTipMesh(tip);
-            tipMeshes.push(tipMesh);
-			markerRoot.add(tipMesh);
-		}
-	};
-	xhr.onerror = () => {
-		console.log("Failed to load tips.json");
-	};
-	
-	xhr.send();
+
+    loadTips(markerRoot, 'js/tips/tips.json');
 }
 
 function update()
@@ -125,7 +111,7 @@ function update()
 	if (arToolkitSource.ready !== false)
 	{
 		arToolkitContext.update(arToolkitSource.domElement);
-
+		/*
 		const scales = "";
 		const worldScale = new THREE.Vector3();
 
@@ -134,8 +120,33 @@ function update()
 			mesh.getWorldScale(worldScale);
             scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
         }
-        alert(scales);
+        alert(scales);*/
 	}
+}
+
+/**
+ * @param {!THREE.Group} marker
+ * @param {string} url
+ */
+
+function loadTips(marker, url)
+{
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.onload = () => {
+        const tips = parseTipJson(xhr.responseText);
+        for (const tip of tips)
+        {
+            const tipMesh = createTipMesh(tip);
+            tipMeshes.push(tipMesh);
+            marker.add(tipMesh);
+        }
+    };
+    xhr.onerror = () => {
+        console.log("Failed to load tips.json");
+    };
+
+    xhr.send();
 }
 
 function render()
