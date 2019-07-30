@@ -8,24 +8,19 @@ const tipMeshes = [];
 
 function initialize()
 {
-    /*
-	scene = new THREE.Scene();
-	let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
-	scene.add(ambientLight);
-
-	camera = new THREE.Camera();
-	scene.add(camera); */
     initArea();
-	renderer = new THREE.WebGLRenderer({
-		antialias : true,
-		alpha: true
-	});
-	renderer.setClearColor(new THREE.Color('lightgrey'), 0);
-	renderer.setSize(1280, 1024);
-	renderer.domElement.style.position = 'absolute';
-	renderer.domElement.style.top = '0px';
-	renderer.domElement.style.left = '0px';
-	document.body.appendChild(renderer.domElement);
+    initRenderer(1280, 1024);
+    /*
+    renderer = new THREE.WebGLRenderer({
+        antialias : true,
+        alpha: true
+    });
+    renderer.setClearColor(new THREE.Color('lightgrey'), 0);
+    renderer.setSize(1280, 1024);
+    renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.top = '0px';
+    renderer.domElement.style.left = '0px';
+    document.body.appendChild(renderer.domElement);*/
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
@@ -89,6 +84,22 @@ function initArea() {
 
     camera = new THREE.Camera();
     scene.add(camera);
+}
+/**
+ * @param {number} screenWidth
+ * @param {number} screenHeight
+ */
+function initRenderer(screenWidth, screenHeight) {
+    renderer = new THREE.WebGLRenderer({
+        antialias : true,
+        alpha: true
+    });
+    renderer.setClearColor(new THREE.Color('lightgrey'), 0);
+    renderer.setSize(screenWidth, screenHeight);
+    renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.top = '0px';
+    renderer.domElement.style.left = '0px';
+    document.body.appendChild(renderer.domElement);
 }
 
 /**
