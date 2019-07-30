@@ -13,37 +13,19 @@ function createTipMesh({id, text, textSize, coord, rotation, size}) {
 	const [w, h] = size;
 	const canvas = createTipCanvas(id, text, size, textSize);
 	const texture = new THREE.CanvasTexture(canvas);
-
-	/*
-	const geometry = new THREE.BoxGeometry(w / 2, h / 2, 1);
-	const material = new THREE.MeshBasicMaterial({
-		map: texture
-	});
-	
-	const mesh = new THREE.Mesh(geometry, material);*/
-	var geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
-	var material = [
-		new THREE.MeshBasicMaterial({
-			color: 'white' //left
-		}),
-		new THREE.MeshBasicMaterial({
-			color: 'white' //right
-		}),
-		new THREE.MeshBasicMaterial({
-			color: 'white' // top
-		}),
-		new THREE.MeshBasicMaterial({
-			color: 'white' // bottom
-		}),
-		new THREE.MeshBasicMaterial({
-			map: texture //front
-		}),
-		new THREE.MeshBasicMaterial({
-			color: 'white' //back
-		})
+	const whiteSide = new THREE.MeshBasicMaterial({ color: 'white' });
+	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
+	const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
+	const material = [
+		whiteSide,
+		whiteSide,
+		whiteSide,
+		whiteSide,
+		tipSide,
+		whiteSide
 	];
-	const mesh = new THREE.Mesh(geometry, material);
 
+	const mesh = new THREE.Mesh(geometry, material);
 	mesh.scale.set(0.01,0.01,0.001);
 
 	const [x, y, z] = coord;
@@ -59,7 +41,7 @@ function createTipMesh({id, text, textSize, coord, rotation, size}) {
  * @param {string} id
  * @param {string} text
  * @param {!Array<number>} size
- * * @param {number} textSize
+ * @param {number} textSize
  * @return {!Element}
  */
 function createTipCanvas(id, text, size, textSize) {
