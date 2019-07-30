@@ -160,11 +160,11 @@ function update()
     if (arToolkitSource.ready !== false)
     {
         arToolkitContext.update(arToolkitSource.domElement);
-        const worldScale = new THREE.Vector3();
-        tipMeshes[0].getWorldScale(worldScale);
+        const worldScalex = new THREE.Vector3();
+        tipMeshes[0].getWorldScale(scale0);
         var scale = worldScale.x.toFixed(20);
-        tipMeshes[1].getWorldScale(worldScale).x.toFixed(20);
-        scale += ' ' + worldScale;
+        tipMeshes[1].getWorldScale(worldScale);
+        scale += ' ' + worldScale.x.toFixed(20);
         console.log(scale);
     }
 }
