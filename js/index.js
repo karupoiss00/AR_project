@@ -10,44 +10,15 @@ function initialize()
 {
     initArea();
     initRenderer(1280, 1024);
-    /*
-    renderer = new THREE.WebGLRenderer({
-        antialias : true,
-        alpha: true
-    });
-    renderer.setClearColor(new THREE.Color('lightgrey'), 0);
-    renderer.setSize(1280, 1024);
-    renderer.domElement.style.position = 'absolute';
-    renderer.domElement.style.top = '0px';
-    renderer.domElement.style.left = '0px';
-    document.body.appendChild(renderer.domElement);*/
+
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
 
-	arToolkitSource = new THREEx.ArToolkitSource({
-		sourceType : 'webcam',
-	});
+    arToolkitInit('/AR/data/camera_para.dat');
 
-	arToolkitSource.init(function onReady(){
-		onResize()
-	});
-
-	window.addEventListener('resize', function(){
-		onResize()
-	});
-
-	arToolkitContext = new THREEx.ArToolkitContext({
-		cameraParametersUrl: '/AR/data/camera_para.dat',
-		detectionMode: 'mono'
-	});
-
-	arToolkitContext.init(function onCompleted() {
-		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-	});
-
-	markerRoot = new THREE.Group();
-	scene.add(markerRoot);
+    markerRoot = new THREE.Group();
+    scene.add(markerRoot);
 
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type: 'pattern', patternUrl: "/AR/data/hiro.patt",
@@ -57,33 +28,18 @@ function initialize()
 	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.05);
     loadTips(markerRoot, 'js/tips/tips.json');
 
-    function onProgress(request) {
-        console.log((request.loaded / request.total * 100) + '% loaded');
-    }
-
-    function onError(request) {
-        alert('An error happened');
-    }
-
-    function onResize()
-    {
-        arToolkitSource.onResize();
-        arToolkitSource.copySizeTo(renderer.domElement);
-        if (arToolkitContext.arController !== null)
-        {
-            arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
-        }
-    }
 }
 
 function initArea() {
     scene = new THREE.Scene();
 
-    let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
+    const ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
     scene.add(ambientLight);
 
     camera = new THREE.Camera();
     scene.add(camera);
+
+
 }
 /**
  * @param {number} screenWidth
@@ -125,6 +81,14 @@ function loadModel(marker, path, mtlName, objName, scale) {
                     marker.add(cat);
                 }, onProgress, onError);
         });
+
+    function onProgress(request) {
+        console.log((request.loaded / request.total * 100) + '% loaded');
+    }
+
+    function onError(request) {
+        alert('An error happened');
+    }
 }
 
 /**
@@ -148,6 +112,42 @@ function loadTips(marker, url) {
     };
 
     xhr.send();
+}
+
+/**
+ * @param {string} url
+ */
+function arToolkitInit(url) {
+    arToolkitSource = new THREEx.ArToolkitSource({
+        sourceType : 'webcam',
+    });
+
+    arToolkitSource.init(function onReady(){
+        onResize()
+    });
+
+    window.addEventListener('resize', function(){
+        onResize()
+    });
+
+    arToolkitContext = new THREEx.ArToolkitContext({
+        cameraParametersUrl: url,
+        detectionMode: 'mono'
+    });
+
+    arToolkitContext.init(function onCompleted() {
+        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+    });
+}
+
+function onResize()
+{
+    arToolkitSource.onResize();
+    arToolkitSource.copySizeTo(renderer.domElement);
+    if (arToolkitContext.arController !== null)
+    {
+        arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+    }
 }
 
 function update()
