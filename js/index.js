@@ -166,7 +166,7 @@ function update()
         for (const mesh of tipMeshes)
         {
             mesh.getWorldScale(worldScale);
-            scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
+            scales.concat(worldScale.x.toString(), " ", worldScale.y.toString(), worldScale.z.toString(), " | ");
         }
         console.log(scales);
     }
