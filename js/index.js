@@ -159,12 +159,13 @@ function update()
     // update artoolkit on every frame
     if (arToolkitSource.ready !== false)
     {
+        const maxScale = THREE.Vector3(0.01,0.01,0.001);
         arToolkitContext.update(arToolkitSource.domElement);
         const worldScale = new THREE.Vector3();
         tipMeshes[0].getWorldScale(worldScale);
-        var scale = worldScale.x.toFixed(20);
+        var scale = worldScale.distanceTo(maxScale).toFixed(20);
         tipMeshes[1].getWorldScale(worldScale);
-        scale += ' ' + worldScale.x.toFixed(20);
+        scale += ' ' + worldScale.distanceTo(maxScale).toFixed(20);
         console.log(scale);
     }
 }
