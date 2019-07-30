@@ -128,7 +128,7 @@ function update()
 
 		const scales = "";
 		const worldScale = new THREE.Vector3();
-		mesh.getWorldScale()(worldScale);
+		mesh.getWorldScale(worldScale);
         for (const mesh of tipMeshes)
         {
             scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
