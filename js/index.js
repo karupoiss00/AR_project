@@ -128,12 +128,13 @@ function update()
 
 		const scales = "";
 		const worldScale = new THREE.Vector3();
-		mesh.getWorldScale(worldScale);
+
         for (const mesh of tipMeshes)
         {
+			mesh.getWorldScale(worldScale);
             scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
         }
-        console.log(scales);
+        alert(scales);
 	}
 }
 
