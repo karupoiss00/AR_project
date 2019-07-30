@@ -161,12 +161,10 @@ function update()
     {
         const maxScale = THREE.Vector3(0.01,0.01,0.001);
         arToolkitContext.update(arToolkitSource.domElement);
-        const tip1 = tipMeshes[0];
-        const tip2= tipMeshes[1];
         const worldScale1 = THREE.Vector3();
         const worldScale2 = THREE.Vector3();
-        tip1.getWorldScale(worldScale1);
-        tip2.getWorldScale(worldScale2);
+        tipMeshes[0].getWorldScale(worldScale1);
+        tipMeshes[1].getWorldScale(worldScale2);
         const dist1 = worldScale1.distanceTo(maxScale);
         const dist2 = worldScale2.distanceTo(maxScale);
         const output =  dist1.toString() + ' ' + dist2.toString();
