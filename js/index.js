@@ -168,9 +168,9 @@ function update()
 
         const worldScale = new THREE.Vector3();
         tipMeshes[0].getWorldScale(worldScale);
-        var scale0 = worldScale.distanceTo(maxScale);
+        var scale0 = worldScale.distanceTo(maxScale) * 10000000000;
         tipMeshes[1].getWorldScale(worldScale);
-        var scale1 = worldScale.distanceTo(maxScale);
+        var scale1 = worldScale.distanceTo(maxScale) * 10000000000;
 
         if (scale0 > scale1)
         {
