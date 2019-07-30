@@ -8,12 +8,14 @@ const tipMeshes = [];
 
 function initialize()
 {
+    /*
 	scene = new THREE.Scene();
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
 	scene.add(ambientLight);
-	
+
 	camera = new THREE.Camera();
-	scene.add(camera);
+	scene.add(camera); */
+    initArea();
 	renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true
@@ -27,50 +29,28 @@ function initialize()
 	clock = new THREE.Clock();
 	deltaTime = 0;
 	totalTime = 0;
-	
-	////////////////////////////////////////////////////////////
-	// setup arToolkitSource
-	////////////////////////////////////////////////////////////
+
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType : 'webcam',
 	});
 
-	function onResize()
-	{
-		arToolkitSource.onResize();
-		arToolkitSource.copySizeTo(renderer.domElement);
-		if (arToolkitContext.arController !== null)
-		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
-		}	
-	}
-	
 	arToolkitSource.init(function onReady(){
 		onResize()
 	});
-	
-	// handle resize event
+
 	window.addEventListener('resize', function(){
 		onResize()
 	});
-	
-	////////////////////////////////////////////////////////////
-	// setup arToolkitContext
-	////////////////////////////////////////////////////////////	
-	// create atToolkitContext
+
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: '/AR/data/camera_para.dat',
 		detectionMode: 'mono'
 	});
-	
-	// copy projection matrix to camera when initialization complete
-	arToolkitContext.init(function onCompleted(){
+
+	arToolkitContext.init(function onCompleted() {
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 	});
-	////////////////////////////////////////////////////////////
-	// setup markerRoots
-	////////////////////////////////////////////////////////////
-	// build markerControls
+
 	markerRoot = new THREE.Group();
 	scene.add(markerRoot);
 
@@ -78,57 +58,68 @@ function initialize()
 		type: 'pattern', patternUrl: "/AR/data/hiro.patt",
 	});
 
-	function onProgress(request) {
-		console.log((request.loaded / request.total * 100) + '% loaded');
-	}
 
-	function onError(request) {
-		alert('An error happened');
-	}
-	/*
-	new THREE.MTLLoader()
-		.setPath('/AR/models/')
-		.load('cat.mtl', function (materials) {
-			materials.preload();
-			new THREE.OBJLoader()
-				.setMaterials(materials)
-				.setPath('/AR/models/')
-				.load('cat.obj', function (group) {
-					const cat = group.children[0];
-					cat.material.side = THREE.DoubleSide;
-					cat.position.set(0, 0, 0);
-					cat.scale.set(0.05,0.05,0.05);
-					markerRoot.add(cat);
-				}, onProgress, onError);
-		});*/
 	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.05);
     loadTips(markerRoot, 'js/tips/tips.json');
+
+    function onProgress(request) {
+        console.log((request.loaded / request.total * 100) + '% loaded');
+    }
+
+    function onError(request) {
+        alert('An error happened');
+    }
+
+    function onResize()
+    {
+        arToolkitSource.onResize();
+        arToolkitSource.copySizeTo(renderer.domElement);
+        if (arToolkitContext.arController !== null)
+        {
+            arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+        }
+    }
 }
 
-function update()
-{
-	// update artoolkit on every frame
-	if (arToolkitSource.ready !== false)
-	{
-		arToolkitContext.update(arToolkitSource.domElement);
-		/*
-		const scales = "";
-		const worldScale = new THREE.Vector3();
+function initArea() {
+    scene = new THREE.Scene();
 
-        for (const mesh of tipMeshes)
-        {
-			mesh.getWorldScale(worldScale);
-            scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
-        }
-        alert(scales);*/
-	}
+    let ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
+    scene.add(ambientLight);
+
+    camera = new THREE.Camera();
+    scene.add(camera);
+}
+
+/**
+ * @param {!THREE.Group} marker
+ * @param {string} path
+ * @param {string} mtlName
+ * @param {string} objName
+ * @param {number} scale
+ */
+function loadModel(marker, path, mtlName, objName, scale) {
+    new THREE.MTLLoader()
+        .setPath(path)
+        .load(mtlName, function (materials) {
+            materials.preload();
+            new THREE.OBJLoader()
+                .setMaterials(materials)
+                .setPath(path)
+                .load(objName, function (group) {
+                    const cat = group.children[0];
+                    cat.material.side = THREE.DoubleSide;
+                    cat.position.set(0, 0, 0);
+                    cat.scale.set(scale, scale, scale);
+                    marker.add(cat);
+                }, onProgress, onError);
+        });
 }
 
 /**
  * @param {!THREE.Group} marker
  * @param {string} url
  */
-
 function loadTips(marker, url) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
@@ -147,30 +138,24 @@ function loadTips(marker, url) {
 
     xhr.send();
 }
-/**
- * @param {!THREE.Group} marker
- * @param {string} path
- * @param {string} mtlName
- * @param {string} objName
- * @param {number} scale
- */
 
-function loadModel(marker, path, mtlName, objName, scale) {
-	new THREE.MTLLoader()
-		.setPath(path)
-		.load(mtlName, function (materials) {
-			materials.preload();
-			new THREE.OBJLoader()
-				.setMaterials(materials)
-				.setPath(path)
-				.load(objName, function (group) {
-					const cat = group.children[0];
-					cat.material.side = THREE.DoubleSide;
-					cat.position.set(0, 0, 0);
-					cat.scale.set(scale, scale, scale);
-					marker.add(cat);
-				}, onProgress, onError);
-		});
+function update()
+{
+    // update artoolkit on every frame
+    if (arToolkitSource.ready !== false)
+    {
+        arToolkitContext.update(arToolkitSource.domElement);
+        /*
+        const scales = "";
+        const worldScale = new THREE.Vector3();
+
+        for (const mesh of tipMeshes)
+        {
+            mesh.getWorldScale(worldScale);
+            scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
+        }
+        alert(scales);*/
+    }
 }
 
 function render()
