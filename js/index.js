@@ -161,7 +161,7 @@ function update()
     {
         arToolkitContext.update(arToolkitSource.domElement);
         const worldScalex = new THREE.Vector3();
-        tipMeshes[0].getWorldScale(scale0);
+        tipMeshes[0].getWorldScale(worldScale);
         var scale = worldScale.x.toFixed(20);
         tipMeshes[1].getWorldScale(worldScale);
         scale += ' ' + worldScale.x.toFixed(20);
