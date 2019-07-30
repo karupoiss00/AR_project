@@ -159,7 +159,7 @@ function update()
     // update artoolkit on every frame
     if (arToolkitSource.ready !== false)
     {
-        const maxScale = THREE.Vector3(0.01,0.01,0.001);
+        const maxScale = new THREE.Vector3(0.01,0.01,0.001);
         arToolkitContext.update(arToolkitSource.domElement);
         const worldScale = new THREE.Vector3();
         tipMeshes[0].getWorldScale(worldScale);
