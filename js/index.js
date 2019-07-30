@@ -9,7 +9,7 @@ const tipMeshes = [];
 function initialize()
 {
     initArea();
-    initRenderer(1280, 1024);
+    initRenderer(1440, 1080);
     initClock();
     initArToolKit('/AR/data/camera_para.dat');
     initMarker("/AR/data/hiro.patt");
