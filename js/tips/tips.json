@@ -12,7 +12,7 @@
 			"id": "tip1",
 			"text": "This is any tip and you can read it.",
 			"textSize": 11,
-			"coord": [-0.4, 0.6, -1.2],
+			"coord": [-0.4, 0.6, -1.5],
 			"rotation": [0, 30, 0],
 			"size": [100, 60]
 		}	

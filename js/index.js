@@ -14,7 +14,7 @@ function initialize()
     initArToolKit('/AR/data/camera_para.dat');
     initMarker("/AR/data/hiro.patt");
 
-	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
+	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
     loadTips(markerRoot, 'js/tips/tips.json');
 }
 
