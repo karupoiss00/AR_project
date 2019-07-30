@@ -107,7 +107,7 @@ function loadModel(marker, path, mtlName, objName, scale) {
                     const cat = group.children[0];
                     cat.material.side = THREE.DoubleSide;
                     cat.position.set(0, 0, 0);
-                    cat.scale.set(scale, scale, scale);
+                    //cat.scale.set(scale, scale, scale);
                     marker.add(cat);
                 }, onProgress, onError);
         });
