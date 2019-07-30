@@ -180,8 +180,6 @@ function update()
         {
             tipMeshes[1].visible = true;
         }
-
-        console.log(scale);
     }
 }
 
