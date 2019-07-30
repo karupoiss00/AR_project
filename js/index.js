@@ -10,25 +10,40 @@ function initialize()
 {
     initArea();
     initRenderer(1280, 1024);
+    initClock();
+    initArToolKit('/AR/data/camera_para.dat');
+    initMarker("/AR/data/hiro.patt");
 
-	clock = new THREE.Clock();
-	deltaTime = 0;
-	totalTime = 0;
-
-    arToolkitInit('/AR/data/camera_para.dat');
-
-    markerRoot = new THREE.Group();
-    scene.add(markerRoot);
-
-	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-		type: 'pattern', patternUrl: "/AR/data/hiro.patt",
-	});
-
-
-	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.05);
+	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.1);
     loadTips(markerRoot, 'js/tips/tips.json');
-
 }
+
+/**
+ * @param {string} url
+ */
+function initArToolKit(url) {
+    arToolkitSource = new THREEx.ArToolkitSource({
+        sourceType : 'webcam',
+    });
+
+    arToolkitSource.init(function onReady(){
+        onResize()
+    });
+
+    window.addEventListener('resize', function(){
+        onResize()
+    });
+
+    arToolkitContext = new THREEx.ArToolkitContext({
+        cameraParametersUrl: url,
+        detectionMode: 'mono'
+    });
+
+    arToolkitContext.init(function onCompleted() {
+        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+    });
+}
+
 
 function initArea() {
     scene = new THREE.Scene();
@@ -38,8 +53,6 @@ function initArea() {
 
     camera = new THREE.Camera();
     scene.add(camera);
-
-
 }
 /**
  * @param {number} screenWidth
@@ -56,6 +69,23 @@ function initRenderer(screenWidth, screenHeight) {
     renderer.domElement.style.top = '0px';
     renderer.domElement.style.left = '0px';
     document.body.appendChild(renderer.domElement);
+}
+
+function initClock() {
+    clock = new THREE.Clock();
+    deltaTime = 0;
+    totalTime = 0;
+}
+/**
+ * @param {string} markerUrl
+ */
+function initMarker(markerUrl) {
+    markerRoot = new THREE.Group();
+    scene.add(markerRoot);
+
+    let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+        type: 'pattern', patternUrl: markerUrl,
+    });
 }
 
 /**
@@ -112,32 +142,6 @@ function loadTips(marker, url) {
     };
 
     xhr.send();
-}
-
-/**
- * @param {string} url
- */
-function arToolkitInit(url) {
-    arToolkitSource = new THREEx.ArToolkitSource({
-        sourceType : 'webcam',
-    });
-
-    arToolkitSource.init(function onReady(){
-        onResize()
-    });
-
-    window.addEventListener('resize', function(){
-        onResize()
-    });
-
-    arToolkitContext = new THREEx.ArToolkitContext({
-        cameraParametersUrl: url,
-        detectionMode: 'mono'
-    });
-
-    arToolkitContext.init(function onCompleted() {
-        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-    });
 }
 
 function onResize()
