@@ -160,15 +160,14 @@ function update()
     if (arToolkitSource.ready !== false)
     {
         arToolkitContext.update(arToolkitSource.domElement);
-        const scales = "";
         const worldScale = new THREE.Vector3();
 
         for (const mesh of tipMeshes)
         {
-            mesh.getWorldDirection(worldScale);
-            scales.concat(worldScale.x, " ", worldScale.y, worldScale.z, " | ");
+            mesh.getWorldScale(worldScale);
+            console.log(worldScale);
         }
-        console.log(scales);
+
     }
 }
 
