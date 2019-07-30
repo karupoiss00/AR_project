@@ -85,7 +85,7 @@ function initialize()
 	function onError(request) {
 		alert('An error happened');
 	}
-
+	/*
 	new THREE.MTLLoader()
 		.setPath('/AR/models/')
 		.load('cat.mtl', function (materials) {
@@ -100,8 +100,8 @@ function initialize()
 					cat.scale.set(0.05,0.05,0.05);
 					markerRoot.add(cat);
 				}, onProgress, onError);
-		});
-
+		});*/
+	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.05);
     loadTips(markerRoot, 'js/tips/tips.json');
 }
 
@@ -129,8 +129,7 @@ function update()
  * @param {string} url
  */
 
-function loadTips(marker, url)
-{
+function loadTips(marker, url) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = () => {
@@ -147,6 +146,31 @@ function loadTips(marker, url)
     };
 
     xhr.send();
+}
+/**
+ * @param {!THREE.Group} marker
+ * @param {string} path
+ * @param {string} mtlName
+ * @param {string} objName
+ * @param {number} scale
+ */
+
+function loadModel(marker, path, mtlName, objName, scale) {
+	new THREE.MTLLoader()
+		.setPath(path)
+		.load(mtlName, function (materials) {
+			materials.preload();
+			new THREE.OBJLoader()
+				.setMaterials(materials)
+				.setPath(path)
+				.load(objName, function (group) {
+					const cat = group.children[0];
+					cat.material.side = THREE.DoubleSide;
+					cat.position.set(0, 0, 0);
+					cat.scale.set(scale, scale, scale);
+					marker.add(cat);
+				}, onProgress, onError);
+		});
 }
 
 function render()
