@@ -83,7 +83,7 @@ function initMarker(markerUrl) {
     scene.add(markerRoot);
 
     const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-        type: 'pattern', patternUrl: markerUrl, changeMatrixMode : 'cameraTransformMatrix',
+        type: 'pattern', patternUrl: markerUrl,
     });
 }
 
