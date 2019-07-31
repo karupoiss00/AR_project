@@ -191,7 +191,7 @@ function getNearestTip() {
         }
     }
     console.log(nearestTipId);
-    console.log(tipMeshes[nearestTipId].getWorldDirection());
+    console.log(tipMeshes[nearestTipId].getWorldScale());
     return tipMeshes[nearestTipId];
 }
 
