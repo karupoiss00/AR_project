@@ -167,7 +167,6 @@ function showTips() {
         mesh.visible = false;
     }
     getNearestTip().visible = true;
-    console.log(getNearestTip().getWorldScale());
 }
 
 /**
@@ -191,7 +190,7 @@ function getNearestTip() {
             scaleSize = newScaleSize;
         }
     }
-
+    console.log(nearestTipId.toString() + tipMeshes[nearestTipId].toFixed(20));
     return tipMeshes[nearestTipId];
 }
 
