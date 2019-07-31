@@ -182,6 +182,7 @@ function getNearestTip() {
         if (newScaleSize < scaleSize)
         {
             nearestTipId = i;
+            scaleSize = newScaleSize;
         }
     }
 
