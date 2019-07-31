@@ -173,7 +173,7 @@ function showTips() {
  * @return {!THREE.Mesh}
  */
 function getNearestTip() {
-    var maxScale = 0;
+    const maxScale = new THREE.Vector3(0.01, 0.01, 0.001);
     const worldScale = new THREE.Vector3();
 
     var scaleSize = 1;
@@ -182,7 +182,6 @@ function getNearestTip() {
 
     for (var i = 0; i < tipMeshes.length; i++)
     {
-        maxScale = tipMeshes[i].modelViewMatrix.getMaxScaleOnAxis();
         tipMeshes[i].getWorldScale(worldScale);
         newScaleSize = worldScale.distanceToSquared(maxScale);
         if (newScaleSize < scaleSize)
