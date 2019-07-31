@@ -6,8 +6,7 @@ let arToolkitSource, arToolkitContext;
 let markerRoot;
 const tipMeshes = [];
 
-function initialize()
-{
+function initialize() {
     initArea();
     initRenderer(1440, 1080);
     initClock();
@@ -144,8 +143,7 @@ function loadTips(marker, url) {
     xhr.send();
 }
 
-function onResize()
-{
+function onResize() {
     arToolkitSource.onResize();
     arToolkitSource.copySizeTo(renderer.domElement);
     if (arToolkitContext.arController !== null)
@@ -154,42 +152,47 @@ function onResize()
     }
 }
 
-function update()
-{
+function update() {
     // update artoolkit on every frame
     if (arToolkitSource.ready !== false)
     {
         arToolkitContext.update(arToolkitSource.domElement);
-        const maxScale = new THREE.Vector3(0.01,0.01,0.001);
         for (const mesh of tipMeshes)
         {
             mesh.visible = false;
         }
-
-        const worldScale = new THREE.Vector3();
-        tipMeshes[0].getWorldScale(worldScale);
-        var scale0 = worldScale.distanceTo(maxScale) * 10000000000;
-        tipMeshes[1].getWorldScale(worldScale);
-        var scale1 = worldScale.distanceTo(maxScale) * 10000000000;
-
-        if (scale0 > scale1)
-        {
-            tipMeshes[0].visible = true;
-        }
-        else
-        {
-            tipMeshes[1].visible = true;
-        }
+        getNearestTip().visible = true;
     }
 }
+/**
+ * @return {!THREE.Mesh}
+ */
+function getNearestTip() {
+    const maxScale = new THREE.Vector3(0.01,0.01,0.001);
+    const worldScale = new THREE.Vector3();
 
-function render()
-{
+    var scaleSize = 1;
+    var newScaleSize;
+    var nearestTipId = 0;
+
+    for (var i = 0; i < tipMeshes.length; i++)
+    {
+        tipMeshes[i].getWorldScale(worldScale)
+        newScaleSize = worldScale.distanceTo(maxScale);
+        if (newScaleSize < scaleSize)
+        {
+            nearestTipId = i;
+        }
+    }
+
+    return tipMeshes[nearestTipId];
+}
+
+function render() {
 	renderer.render(scene, camera);
 }
 
-function animate()
-{
+function animate() {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
