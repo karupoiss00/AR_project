@@ -192,11 +192,11 @@ function getNearestTip() {
     }
     console.log('//////////////////////////////////');
     console.log(0);
-    console.log(tipMeshes[0].worldToLocal()/*.distanceToSquared(maxScale).toFixed(20)*/);
+    console.log(tipMeshes[0].getWorldPosition()/*.distanceToSquared(maxScale).toFixed(20)*/);
     console.log(1);
-    console.log(tipMeshes[1].worldToLocal()/*.distanceToSquared(maxScale).toFixed(20)*/);
+    console.log(tipMeshes[1].getWorldPosition()/*.distanceToSquared(maxScale).toFixed(20)*/);
     console.log(2);
-    console.log(tipMeshes[2].worldToLocal()/*.distanceToSquared(maxScale).toFixed(20)*/);
+    console.log(tipMeshes[2].getWorldPosition()/*.distanceToSquared(maxScale).toFixed(20)*/);
     console.log('//////////////////////////////////');
     return tipMeshes[nearestTipId];
 }
