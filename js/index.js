@@ -162,7 +162,7 @@ function update() {
             mesh.visible = false;
         }
         getNearestTip().visible = true;
-        console.log(camera.getWorldDirection());
+        console.log(getNearestTip().getWorldDirection());
     }
 }
 /**
