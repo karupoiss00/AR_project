@@ -190,8 +190,13 @@ function getNearestTip() {
             scaleSize = newScaleSize;
         }
     }
+    console.log('//////////////////////////////////');
+    console.log(tipMeshes[0].getWorldScale());
     console.log(nearestTipId);
-    console.log(tipMeshes[nearestTipId].getWorldScale());
+    console.log(tipMeshes[1].getWorldScale());
+    console.log(nearestTipId);
+    console.log(tipMeshes[2].getWorldScale());
+    console.log('//////////////////////////////////');
     return tipMeshes[nearestTipId];
 }
 
