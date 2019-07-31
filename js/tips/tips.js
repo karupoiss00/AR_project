@@ -32,7 +32,7 @@ function createTipMesh({id, text, textSize, coord, rotation, size}) {
 	mesh.position.set(x, y, z);
 	
 	const [rx, ry, rz] = rotation;
-	mesh.rotation.set(degToRad(rx), degToRad(ry), degToRad(rz));
+	mesh.rotation.set(THREE.Math.degToRad(rx), THREE.Math.degToRad(ry), THREE.Math.degToRad(rz));
 
 	return mesh;
 }
@@ -96,15 +96,6 @@ function wrapText(context, text, x, y, maxWidth, lineHeight, textSize) {
 	}
 
 	context.fillText(line, x, y);
-}
-
-/**
- * @param {number} degrees
- * @return {number}
- */
-function degToRad(degrees)
-{
-  return degrees * (Math.PI / 180);
 }
 
 export {

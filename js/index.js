@@ -82,8 +82,8 @@ function initMarker(markerUrl) {
     markerRoot = new THREE.Group();
     scene.add(markerRoot);
 
-    new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-        type: 'pattern', patternUrl: markerUrl,
+    const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+        type: 'pattern', patternUrl: markerUrl, changeMatrixMode : 'cameraTransformMatrix',
     });
 }
 
