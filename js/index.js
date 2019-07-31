@@ -167,7 +167,7 @@ function showTips() {
         mesh.visible = false;
     }
     getNearestTip().visible = true;
-    console.log(getNearestTip().getWorldDirection());
+    console.log(getNearestTip().getWorldScale());
 }
 
 /**
