@@ -180,12 +180,13 @@ function getNearestTip() {
     {
         tipMeshes[i].getWorldScale(worldScale);
         newScaleSize = worldScale.distanceToSquared(maxScale);
-        if (newScaleSize < scaleSize)
+        if (newScaleSize > scaleSize)
         {
             nearestTipId = i;
             scaleSize = newScaleSize;
         }
     }
+
     return tipMeshes[nearestTipId];
 }
 
