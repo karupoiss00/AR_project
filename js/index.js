@@ -183,7 +183,7 @@ function getNearestTip() {
     for (var i = 0; i < tipMeshes.length; i++)
     {
         tipMeshes[i].getWorldScale(worldScale);
-        newScaleSize = worldScale.distanceToSquared(maxScale);
+        newScaleSize = Number(worldScale.distanceToSquared(maxScale).toFixed(3));
         if (newScaleSize < scaleSize)
         {
             nearestTipId = i;
