@@ -162,10 +162,7 @@ function update() {
             mesh.visible = false;
         }
         getNearestTip().visible = true;
-        if (tipMeshes[0].visible == tipMeshes[1].visible)
-        {
-            console.log('DETECTED');
-        }
+        console.log(camera.getWorldDirection());
     }
 }
 /**
