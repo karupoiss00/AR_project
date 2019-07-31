@@ -157,14 +157,19 @@ function update() {
     if (arToolkitSource.ready !== false)
     {
         arToolkitContext.update(arToolkitSource.domElement);
-        for (const mesh of tipMeshes)
-        {
-            mesh.visible = false;
-        }
-        getNearestTip().visible = true;
-        console.log(getNearestTip().getWorldDirection());
+        showTips();
     }
 }
+
+function showTips() {
+    for (const mesh of tipMeshes)
+    {
+        mesh.visible = false;
+    }
+    getNearestTip().visible = true;
+    console.log(getNearestTip().getWorldDirection());
+}
+
 /**
  * @return {!THREE.Mesh}
  */
@@ -172,15 +177,15 @@ function getNearestTip() {
     const maxScale = new THREE.Vector3(0.01, 0.01, 0.001);
     const worldScale = new THREE.Vector3();
 
-    var scaleSize = 1;
+    var scaleSize = 0;
     var newScaleSize;
     var nearestTipId = 0;
 
     for (var i = 0; i < tipMeshes.length; i++)
     {
         tipMeshes[i].getWorldScale(worldScale);
-        newScaleSize = worldScale.distanceToSquared(maxScale);
-        if (newScaleSize < scaleSize)
+        newScaleSize = worldScale.x;//worldScale.distanceToSquared(maxScale);
+        if (newScaleSize > scaleSize)
         {
             nearestTipId = i;
             scaleSize = newScaleSize;
