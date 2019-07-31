@@ -162,6 +162,10 @@ function update() {
             mesh.visible = false;
         }
         getNearestTip().visible = true;
+        if (tipMeshes[0].visible == tipMeshes[1].visible)
+        {
+            console.log('DETECTED');
+        }
     }
 }
 /**
@@ -178,14 +182,13 @@ function getNearestTip() {
     for (var i = 0; i < tipMeshes.length; i++)
     {
         tipMeshes[i].getWorldScale(worldScale);
-        newScaleSize = worldScale.distanceToSquared(maxScale) * Math.pow(10, 17);
+        newScaleSize = worldScale.distanceToSquared(maxScale);
         if (newScaleSize < scaleSize)
         {
             nearestTipId = i;
             scaleSize = newScaleSize;
         }
     }
-    console.log(scaleSize);
     return tipMeshes[nearestTipId];
 }
 
