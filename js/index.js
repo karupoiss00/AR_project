@@ -169,7 +169,7 @@ function update() {
  * @return {!THREE.Mesh}
  */
 function getNearestTip() {
-    const maxScale = new THREE.Vector3(1, 1, 1);
+    const maxScale = new THREE.Vector3(0.01, 0.01, 0.001);
     const worldScale = new THREE.Vector3();
 
     var scaleSize = 1;

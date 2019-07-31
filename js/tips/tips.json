@@ -15,6 +15,15 @@
 			"coord": [-0.4, 0.6, -1.9],
 			"rotation": [0, 210, 0],
 			"size": [100, 60]
-		}	
+		},
+
+		{
+			"id": "tip2",
+			"text": "This is next tip and you can read it.",
+			"textSize": 11,
+			"coord": [0.8, 0.6, -1.8],
+			"rotation": [0, -210, 0],
+			"size": [100, 60]
+		}
 	]
 }
