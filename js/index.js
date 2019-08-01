@@ -114,7 +114,6 @@ function loadModel(marker, path, mtlName, objName, scale) {
                     cat.position.sub(center); // center the model
                     cat.rotation.y = Math.PI;   // rotate the model
 
-                    scene.add( obj );
                     marker.add(cat);
                 }, onProgress, onError);
         });
