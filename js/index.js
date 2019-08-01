@@ -202,8 +202,9 @@ function getNearestTip() {
     {
         console.log('/////////////////' + j.toString() + '/////////////////');
         console.log(tipMeshes[j].getWorldPosition());
-        console.log(tipMeshes[j].getWorldRotation());
-        console.log(tipMeshes[j].getWorldQuaternion());
+        console.log(tipMeshes[j].position);
+       // console.log(tipMeshes[j].getWorldRotation());
+       // console.log(tipMeshes[j].getWorldQuaternion());
         console.log('///////////////////////////////////');
     }
 
