@@ -203,7 +203,7 @@ function getNearestTip() {
         console.log('/////////////////' + j.toString() + '/////////////////');
         for (let i = 0; i < 16; i++)
         {
-            console.log(i.toString() + tipMeshes[i].matrix.elements[i].toFixed(10));
+            console.log(i.toString() + tipMeshes[j].matrix.elements[i].toFixed(10));
         }
         console.log('///////////////////////////////////');
     }
