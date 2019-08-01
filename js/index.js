@@ -5,6 +5,7 @@ let scene, camera, renderer, clock, deltaTime, totalTime;
 let arToolkitSource, arToolkitContext;
 let markerRoot;
 const tipMeshes = [];
+var previousActiveTipId = 0;
 
 function initialize() {
     initArea();
@@ -132,6 +133,7 @@ function loadTips(marker, url) {
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
+            tipMesh.visible = false;
             tipMeshes.push(tipMesh);
             marker.add(tipMesh);
         }
@@ -162,32 +164,29 @@ function update() {
 }
 
 function showTips() {
-    for (const mesh of tipMeshes)
+    var newActiveTipId = getNearestTipId();
+    if (newActiveTipId != previousActiveTipId)
     {
-        mesh.visible = false;
+        tipMeshes[previousActiveTipId].visible = false;
+        tipMeshes[newActiveTipId].visible = true;
     }
-    getNearestTip().visible = true;
 }
 
 /**
  * @return {!THREE.Mesh}
  */
-function getNearestTip() {
-    const maxScale = new THREE.Vector3(0.01, 0.01, 0.001);
-    const worldScale = new THREE.Vector3();
-
-    var scaleSize = 1;
-    var newScaleSize;
+function getNearestTipId() {
     var nearestTipId = 0;
+    var distance = 0;
+    var minDistance = 1000;
 
     for (var i = 0; i < tipMeshes.length; i++)
     {
-        tipMeshes[i].getWorldScale(worldScale);
-        newScaleSize = worldScale.distanceToSquared(maxScale);
-        if (newScaleSize < scaleSize)
+        distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipMeshes[i].position);
+        if (distance < minDistance)
         {
             nearestTipId = i;
-            scaleSize = newScaleSize;
+            minDistance = distance;
         }
     }
 
@@ -208,7 +207,7 @@ function getNearestTip() {
         console.log('///////////////////////////////////');
     }
 
-    return tipMeshes[nearestTipId];
+    return nearestTipId;
 }
 
 function render() {
