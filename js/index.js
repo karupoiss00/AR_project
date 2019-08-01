@@ -180,6 +180,7 @@ function getNearestTip() {
     for (var i = 0; i < tipMeshes.length; i++)
     {
         distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipMeshes[i].position);
+        console.log(i.toString() + '   ' + distance.toFixed(20));
         if (distance < minDistance)
         {
             nearestTipId = i;
@@ -194,7 +195,7 @@ function getNearestTip() {
     console.log(tipMeshes[1].getWorldScale().distanceToSquared(maxScale).toFixed(25));
     console.log(2);
     console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));*/
-    for (let j = 0; j < 3; j++)
+    /*for (let j = 0; j < 3; j++)
     {
         console.log('/////////////////' + j.toString() + '/////////////////');
         console.log(tipMeshes[j].getWorldPosition());
@@ -202,7 +203,7 @@ function getNearestTip() {
        // console.log(tipMeshes[j].getWorldRotation());
        // console.log(tipMeshes[j].getWorldQuaternion());
         console.log('///////////////////////////////////');
-    }
+    }*/
 
     return tipMeshes[nearestTipId];
 }
