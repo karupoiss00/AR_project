@@ -166,9 +166,10 @@ function showTips() {
     {
         mesh.visible = false;
     }
-    if (getNearestTip() > 0)
+    const [tipMesh, dist] = getNearestTip();
+    if (dist < 50)
     {
-        getNearestTip().visible = true;
+        tipMesh.visible = true;
     }
 }
 
@@ -192,15 +193,8 @@ function getNearestTip() {
             minDistance = distance;
         }
     }
-    if (minDistance < 50)
-    {
-        return tipMeshes[nearestTipId];
-    }
-    else
-    {
-        return -1;
-    }
 
+    return [tipMeshes[nearestTipId], minDistance];
 }
 
 function render() {
