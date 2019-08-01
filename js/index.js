@@ -167,7 +167,7 @@ function showTips() {
         mesh.visible = false;
     }
     const [tipMesh, dist] = getNearestTip();
-    if (dist < 50)
+    if (dist < 15)
     {
         tipMesh.visible = true;
     }
