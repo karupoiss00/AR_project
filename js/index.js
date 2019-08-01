@@ -192,7 +192,7 @@ function getNearestTip() {
             minDistance = distance;
         }
     }
-    if (minDistance < 30)
+    if (minDistance < 50)
     {
         return tipMeshes[nearestTipId];
     }
