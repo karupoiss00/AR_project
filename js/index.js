@@ -1,9 +1,25 @@
 import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh} from './tips/tips.js';
 
-let scene, camera, renderer, clock, deltaTime, totalTime;
-let arToolkitSource, arToolkitContext;
+/** @type {!THREE.Scene} */
+let scene;
+/** @type {!THREE.Camera} */
+let camera;
+/** @type {!THREE.WebGLRenderer} */
+let renderer;
+/** @type {!THREE.Clock} */
+let clock;
+/** @type {number} */
+let deltaTime;
+/** @type {number} */
+let totalTime;
+/** @type {!THREEx.ArToolkitSource} */
+let arToolkitSource;
+/** @type {!THREEx.ArToolkitContext} */
+let arToolkitContext;
+/** @type {!THREE.Group} */
 let markerRoot;
+/** @const {!Array<!THREE.Mesh>} */
 const tipMeshes = [];
 
 function initialize() {
@@ -43,7 +59,6 @@ function initArToolKit(url) {
     });
 }
 
-
 function initArea() {
     scene = new THREE.Scene();
 
@@ -53,6 +68,7 @@ function initArea() {
     camera = new THREE.Camera();
     scene.add(camera);
 }
+
 /**
  * @param {number} screenWidth
  * @param {number} screenHeight
@@ -146,6 +162,7 @@ function loadTips(marker, url) {
 function onResize() {
     arToolkitSource.onResize();
     arToolkitSource.copySizeTo(renderer.domElement);
+
     if (arToolkitContext.arController !== null)
     {
         arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
@@ -166,27 +183,34 @@ function showTips() {
     {
         mesh.visible = false;
     }
-    const [tipMesh, dist] = getNearestTip();
-    if (dist < 25)
+
+	const {tipMesh, distance} = getNearestTip();
+
+    if (distance < 25)
     {
         tipMesh.visible = true;
     }
 }
 
 /**
- * @return {!THREE.Mesh}
+ * @return {{
+ *   tipMesh: !THREE.Mesh,
+ *   distance: number,
+ * }}
  */
 function getNearestTip() {
-    var nearestTipId = 0;
-    var distance = 0;
-    var minDistance = 1000;
+	let nearestTipId = 0;
+	let distance = 0;
+	let minDistance = 1000;
 
-    for (var i = 0; i < tipMeshes.length; i++)
+    for (let i = 0; i < tipMeshes.length; i++)
     {
         const tipPosition = new THREE.Vector3(tipMeshes[i].position.x, tipMeshes[i].position.y, Math.abs(tipMeshes[i].position.z));
         distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipPosition);
+
         console.log(i.toString() + '   ' + distance.toFixed(20));
         console.log(tipMeshes[i].getWorldPosition());
+
         if (distance < minDistance)
         {
             nearestTipId = i;
@@ -194,7 +218,10 @@ function getNearestTip() {
         }
     }
 
-    return [tipMeshes[nearestTipId], minDistance];
+	return {
+		tipMesh: tipMeshes[nearestTipId],
+		distance: minDistance
+	};
 }
 
 function render() {
