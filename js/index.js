@@ -190,17 +190,24 @@ function getNearestTip() {
             scaleSize = newScaleSize;
         }
     }
-    console.log('//////////////////////////////////');
+
+    /*
     console.log(0);
     console.log(tipMeshes[0].getWorldScale().distanceToSquared(maxScale).toFixed(25));
-    console.log(tipMeshes[0].getWorldPosition().distanceToSquared(tipMeshes[0].position).toFixed(25));
     console.log(1);
     console.log(tipMeshes[1].getWorldScale().distanceToSquared(maxScale).toFixed(25));
-    console.log(tipMeshes[1].getWorldPosition().distanceToSquared(tipMeshes[1].position).toFixed(25));
     console.log(2);
-    console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));
-    console.log(tipMeshes[2].getWorldPosition().distanceToSquared(tipMeshes[2].position).toFixed(25));
-    console.log('//////////////////////////////////');
+    console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));*/
+    for (const mesh of tipMeshes)
+    {
+        console.log('//////////////////////////////////');
+        for (let i = 0; i < 16; i++)
+        {
+            console.log(i.toString() + mesh.matrix[i].toFixed(10));
+        }
+        console.log('//////////////////////////////////');
+    }
+
     return tipMeshes[nearestTipId];
 }
 
