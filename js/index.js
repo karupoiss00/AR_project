@@ -75,6 +75,7 @@ function initClock() {
     deltaTime = 0;
     totalTime = 0;
 }
+
 /**
  * @param {string} markerUrl
  */
@@ -200,12 +201,9 @@ function getNearestTip() {
     for (let j = 0; j < 1; j++)
     {
         console.log('/////////////////' + j.toString() + '/////////////////');
-        //console.log(tipMeshes[j].matrix.elements[2].toFixed(20))
-        //console.log(tipMeshes[j].matrix.elements[6].toFixed(20));
-        //console.log(tipMeshes[j].matrix.elements[10].toFixed(20));
-        console.log(camera.projectionMatrix.elements[2].toFixed(20))
-        console.log(camera.projectionMatrix.elements[6].toFixed(20));
-        console.log(camera.projectionMatrix.elements[10].toFixed(20));
+        console.log(tipMeshes[j].getWorldPosition());
+        console.log(tipMeshes[j].getWorldRotation());
+        console.log(tipMeshes[j].getWorldQuaternion());
         console.log('///////////////////////////////////');
     }
 
