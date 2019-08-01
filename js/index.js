@@ -181,7 +181,7 @@ function getNearestTip() {
     {
         distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipMeshes[i].position);
         console.log(i.toString() + '   ' + distance.toFixed(20));
-        console.log(i.toString() + '   ' + tipMeshes[i].getWorldPosition());
+        console.log(i.toString() + '   ' + tipMeshes[i].getWorldPosition().toString());
         if (distance < minDistance)
         {
             nearestTipId = i;
