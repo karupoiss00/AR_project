@@ -179,7 +179,8 @@ function getNearestTip() {
 
     for (var i = 0; i < tipMeshes.length; i++)
     {
-        distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipMeshes[i].position);
+        const tipPosition = new THREE.Vector3(tipMeshes[i].position.x, tipMeshes[i].position.y, Math.abs(tipMeshes[i].position.z));
+        distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipPosition);
         console.log(i.toString() + '   ' + distance.toFixed(20));
         console.log(tipMeshes[i].getWorldPosition());
         if (distance < minDistance)
