@@ -105,9 +105,14 @@ function loadModel(marker, path, mtlName, objName, scale) {
                 .load(objName, function (group) {
                     const cat = group.children[0];
                     cat.material.side = THREE.DoubleSide;
-                    cat.position.set(0, 0, 0);
+                    cat.position.set(0, 0, -3);
                     cat.scale.set(scale, scale, scale);
-                    cat.rotation.y = Math.PI;   // rotate the model
+
+                    var box = new THREE.Box3().setFromObject(cat);
+                    var center = new THREE.Vector3();
+                    box.getCenter(center);
+                    cat.position.sub(center); // center the model
+                    cat.rotation.y = -Math.PI;   // rotate the model
 
                     marker.add(cat);
                 }, onProgress, onError);
