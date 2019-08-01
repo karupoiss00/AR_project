@@ -166,7 +166,10 @@ function showTips() {
     {
         mesh.visible = false;
     }
-    getNearestTip().visible = true;
+    if (getNearestTip() > 0)
+    {
+        getNearestTip().visible = true;
+    }
 }
 
 /**
@@ -189,25 +192,15 @@ function getNearestTip() {
             minDistance = distance;
         }
     }
-
-    /*
-    console.log(0);
-    console.log(tipMeshes[0].getWorldScale().distanceToSquared(maxScale).toFixed(25));
-    console.log(1);
-    console.log(tipMeshes[1].getWorldScale().distanceToSquared(maxScale).toFixed(25));
-    console.log(2);
-    console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));*/
-    /*for (let j = 0; j < 3; j++)
+    if (minDistance < 15)
     {
-        console.log('/////////////////' + j.toString() + '/////////////////');
-        console.log(tipMeshes[j].getWorldPosition());
-        console.log(tipMeshes[j].position);
-       // console.log(tipMeshes[j].getWorldRotation());
-       // console.log(tipMeshes[j].getWorldQuaternion());
-        console.log('///////////////////////////////////');
-    }*/
+        return tipMeshes[nearestTipId];
+    }
+    else
+    {
+        return -1;
+    }
 
-    return tipMeshes[nearestTipId];
 }
 
 function render() {
