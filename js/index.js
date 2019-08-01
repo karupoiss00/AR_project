@@ -107,6 +107,14 @@ function loadModel(marker, path, mtlName, objName, scale) {
                     cat.material.side = THREE.DoubleSide;
                     cat.position.set(0, 0, 0);
                     cat.scale.set(scale, scale, scale);
+
+                    var box = new THREE.Box3().setFromObject(cat);
+                    var center = new THREE.Vector3();
+                    box.getCenter(center);
+                    cat.position.sub(center); // center the model
+                    cat.rotation.y = Math.PI;   // rotate the model
+
+                    scene.add( obj );
                     marker.add(cat);
                 }, onProgress, onError);
         });
