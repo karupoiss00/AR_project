@@ -198,14 +198,14 @@ function getNearestTip() {
     console.log(tipMeshes[1].getWorldScale().distanceToSquared(maxScale).toFixed(25));
     console.log(2);
     console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));*/
-    for (const mesh of tipMeshes)
+    for (let j = 0; j < 3; j++)
     {
-        console.log('//////////////////////////////////');
+        console.log('/////////////////' + j.toString() + '/////////////////');
         for (let i = 0; i < 16; i++)
         {
-            console.log(i.toString() + mesh.matrix.elements[i].toFixed(10));
+            console.log(i.toString() + tipMeshes[i].matrix.elements[i].toFixed(10));
         }
-        console.log('//////////////////////////////////');
+        console.log('///////////////////////////////////');
     }
 
     return tipMeshes[nearestTipId];
