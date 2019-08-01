@@ -5,7 +5,6 @@ let scene, camera, renderer, clock, deltaTime, totalTime;
 let arToolkitSource, arToolkitContext;
 let markerRoot;
 const tipMeshes = [];
-var previousActiveTipId = 0;
 
 function initialize() {
     initArea();
@@ -133,7 +132,6 @@ function loadTips(marker, url) {
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
-            tipMesh.visible = false;
             tipMeshes.push(tipMesh);
             marker.add(tipMesh);
         }
@@ -164,18 +162,17 @@ function update() {
 }
 
 function showTips() {
-    var newActiveTipId = getNearestTipId();
-    if (newActiveTipId != previousActiveTipId)
+    for (const mesh of tipMeshes)
     {
-        tipMeshes[previousActiveTipId].visible = false;
-        tipMeshes[newActiveTipId].visible = true;
+        mesh.visible = false;
     }
+    getNearestTip().visible = true;
 }
 
 /**
  * @return {!THREE.Mesh}
  */
-function getNearestTipId() {
+function getNearestTip() {
     var nearestTipId = 0;
     var distance = 0;
     var minDistance = 1000;
@@ -197,7 +194,7 @@ function getNearestTipId() {
     console.log(tipMeshes[1].getWorldScale().distanceToSquared(maxScale).toFixed(25));
     console.log(2);
     console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));*/
-    for (let j = 0; j < 1; j++)
+    for (let j = 0; j < 3; j++)
     {
         console.log('/////////////////' + j.toString() + '/////////////////');
         console.log(tipMeshes[j].getWorldPosition());
@@ -207,7 +204,7 @@ function getNearestTipId() {
         console.log('///////////////////////////////////');
     }
 
-    return nearestTipId;
+    return tipMeshes[nearestTipId];
 }
 
 function render() {
