@@ -81,7 +81,6 @@ function initClock() {
 function initMarker(markerUrl) {
     markerRoot = new THREE.Group();
     scene.add(markerRoot);
-
     const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
         type: 'pattern', patternUrl: markerUrl,
     });
@@ -198,10 +197,12 @@ function getNearestTip() {
     console.log(tipMeshes[1].getWorldScale().distanceToSquared(maxScale).toFixed(25));
     console.log(2);
     console.log(tipMeshes[2].getWorldScale().distanceToSquared(maxScale).toFixed(25));*/
-    for (let j = 0; j < 3; j++)
+    for (let j = 0; j < 1; j++)
     {
         console.log('/////////////////' + j.toString() + '/////////////////');
-        console.log(tipMeshes[j].matrix.elements[14].toFixed(20));
+        console.log(tipMeshes[j].matrix.elements[2].toFixed(20))
+        console.log(tipMeshes[j].matrix.elements[6].toFixed(20));
+        console.log(tipMeshes[j].matrix.elements[10].toFixed(20));
         console.log('///////////////////////////////////');
     }
 
