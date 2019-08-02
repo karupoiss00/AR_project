@@ -71,7 +71,8 @@ function createTipCanvas(id, text, textSize, html, size) {
 		tipDiv.width = w;
 		tipDiv.height = h;
 		tipDiv.innerHTML = html;
-		domtoimage.toPng(tipDiv)
+        dom.body.appendChild(tipDiv);
+		domtoimage.toPng(dom.getElementById('d' + id))
 			.then(function (dataUrl) {
 				var img = new Image();
 				img.src = dataUrl;
