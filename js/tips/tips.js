@@ -1,17 +1,20 @@
+import html2canvas from 'AR/html2canvas/html2canvas';
+
 /**
  * @param {!{
  *   id: string,
  *   text: string,
  *   textSize: number,
+ *   html: string,
  *   coord: !Array<number>,
  *   rotation: !Array<number>,
  *   size: !Array<number>,
  * }} args
  * @return {!THREE.Mesh}
  */
-function createTipMesh({id, text, textSize, coord, rotation, size}) {
+function createTipMesh({id, text, textSize, html, coord, rotation, size}) {
 	const [w, h] = size;
-	const canvas = createTipCanvas(id, text, size, textSize);
+	const canvas = createTipCanvas(id, text, textSize, html, size);
 	const texture = new THREE.CanvasTexture(canvas);
 	const whiteSide = new THREE.MeshBasicMaterial({ color: 'white' });
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
@@ -40,28 +43,47 @@ function createTipMesh({id, text, textSize, coord, rotation, size}) {
 /**
  * @param {string} id
  * @param {string} text
- * @param {!Array<number>} size
  * @param {number} textSize
+ * @param {string} html
+ * @param {!Array<number>} size
  * @return {!Element}
  */
-function createTipCanvas(id, text, size, textSize) {
+function createTipCanvas(id, text, textSize, html, size) {
 	const canvas = document.createElement("canvas");
 
 	canvas.id = id;
 	const [w, h] = size;
 	canvas.width = w;
 	canvas.height = h;
+    if (html.length > 0) {
+        const userDoc = document.implementation.createDocument('');
+        userDoc.documentElement.innerHTML = html;
+        html2canvas(userDoc, {width: w, height: h}).then(function(canvas) {
+            canvas.id = id;
+            return canvas;
+        });
+    }
+    else
+    {
+        const canvas = document.createElement("canvas");
 
-	const ctx = canvas.getContext('2d');
+        canvas.id = id;
+        const [w, h] = size;
+        canvas.width = w;
+        canvas.height = h;
 
-	ctx.fillStyle = '#ffffff';
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = '#000000';
-	ctx.textAlign = "center";
+        const ctx = canvas.getContext('2d');
 
-	wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, textSize);
-	
-	return canvas;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = "center";
+
+        wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, textSize);
+        return canvas;
+    }
+
+
 }
 
 /**

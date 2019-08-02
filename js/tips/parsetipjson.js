@@ -44,11 +44,26 @@ function verifyParsedJson(parsedJson) {
 function createTip(data) {
 	const noProperty = (property) => !data.hasOwnProperty(property);
 	
-	if (noProperty('id')
-		|| noProperty('text')
-		|| noProperty('textSize'))
+	if (noProperty('id'))
+	{
+		throw new Error('incorrect tip id');
+	}
+
+	if (noProperty('html') && noProperty('text')
+		&& noProperty('textSize'))
 	{
 		throw new Error('incorrect tip data');
+	}
+
+	if (!noProperty('text')
+		&& noProperty('textSize'))
+	{
+		throw new Error('incorrect tip text size');
+	}
+
+	if (noProperty('html'))
+	{
+		data['html'] = "";
 	}
 
 	if (noProperty('coord'))

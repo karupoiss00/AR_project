@@ -4,6 +4,7 @@
 			"id": "tip0",
 			"text": "This is cat. Cat can run at night, eat and scratch you.",
 			"textSize": 11,
+			"html":  "<html lang=\"en\" class=\"no-js\"><head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Website template that works like the Windows operating system</title>\n    <meta name=\"description\" content=\"A minimalist responsive template that lists HTML5 sectioning elements: header, nav, section, main, article, aside, footer, address.\">\n\t<link rel=\"stylesheet\" href=\"//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css\">\n    <link rel=\"stylesheet\" href=\"_style.css\">\n\t<script async=\"\" src=\"https://www.google-analytics.com/analytics.js\"></script><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js\"></script>\n\t<script src=\"https://code.jquery.com/ui/1.12.1/jquery-ui.js\"></script>\n    <script src=\"_script.js\"></script>\n</head>\n<body>\n\t<div class=\"headline\" style=\"display: none;\">\n\t\t<div>\n\t\t\t<a href=\"/\" id=\"logo\">HTML5 Templates</a>\n\t\t\t<div class=\"description\">\n\t\t\t\t<h1>Website template that works like the Windows operating system</h1>\n\t\t\t\t<p>Minimize the windows to the taskbar, make them full screen or close them. <br>Drag the title bar to move the windows or resize them from the bottom right corner.</p>\n\t\t\t</div>\n\t\t\t<div id=\"devices\">\n\t\t\t\t<a id=\"desktop\" class=\"active\" title=\"Desktop view\"> </a>\n\t\t\t\t<a id=\"tablet\" title=\"Tablet view\"> </a>\n\t\t\t\t<a id=\"tabletl\" title=\"Tablet landscape view\"> </a>\n\t\t\t\t<a id=\"mobile\" title=\"Mobile view\"> </a>\n\t\t\t\t<a id=\"mobilel\" title=\"Mobile landscape view\"> </a>\n\t\t\t</div>\n\t\t\t<a class=\"download\" title=\"Zip package\" href=\"https://html5-templates.com/download/windows.zip\">Download</a>\n\t\t\t<a class=\"closeheader\" title=\"Hide header\">➤</a>\n\t\t\t<div class=\"clearboth\">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div id=\"mainWrapper\" style=\"height: 858px;\">\n\t\t<div id=\"device\">\t\n\t\t\t<div id=\"wrapIframe\">\n\t\t\t\t<iframe id=\"demoFrame\" src=\"https://html5-templates.com/demo/windows/\">Iframes not supported</iframe>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div id=\"footerke\" style=\"display: none;\">\n\t\t<span>© This template can be downloaded and edited for free as long as you're linking back to html5-templates.com</span>\n\t\t<span class=\"mobileOnly\">© HTML5-Templates.com</span>\n\t</div>\n\n<script>\n  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');\n\n  ga('create', 'UA-100718332-1', 'auto');\n  ga('send', 'pageview');\n\n</script>\n\n\n</body></html>",
 			"coord": [0.3, 0.5, 0.2],
 			"rotation": [-30, 0, 0],
 			"size": [110, 80]
@@ -13,6 +14,7 @@
 			"id": "tip1",
 			"text": "And this is next tip and you can read it.",
 			"textSize": 11,
+			"html":  "",
 			"coord": [-0.5, 0.5, 0.2],
 			"rotation": [-30, 0, 0],
 			"size": [110, 80]
@@ -22,6 +24,7 @@
 			"id": "tip2",
 			"text": "This is any tip and you can read it.",
 			"textSize": 11,
+			"html":  "",
 			"coord": [-0.4, 1, -1.8],
 			"rotation": [0, 210, 0],
 			"size": [100, 60]
@@ -31,6 +34,7 @@
 			"id": "tip4",
 			"text": "This is next tip and you can read it.",
 			"textSize": 11,
+			"html":  "",
 			"coord": [0.8, 0.9, -2.0],
 			"rotation": [0, -210, 0],
 			"size": [100, 60]
