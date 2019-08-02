@@ -1,5 +1,1144 @@
 /*! rasterizeHTML.js - v1.3.0 - 2018-03-18
 * http://www.github.com/cburgmer/rasterizeHTML.js
 * Copyright (c) 2018 Christoph Burgmer; Licensed MIT */
+(function (root, factory) {
+    if (root === undefined && window !== undefined) root = window;
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module unless amdModuleId is set
+        define(["url","xmlserializer","sane-domparser-error","inlineresources"], function (a0,b1,c2,d3) {
+            return (root['rasterizeHTML'] = factory(a0,b1,c2,d3));
+        });
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require("url"),require("xmlserializer"),require("sane-domparser-error"),require("inlineresources"));
+    } else {
+        root['rasterizeHTML'] = factory(root["url"],root["xmlserializer"],root["sanedomparsererror"],root["inlineresources"]);
+    }
+}(this, function (url, xmlserializer, sanedomparsererror, inlineresources) {
 
-!function(o,i){void 0===o&&void 0!==window&&(o=window),"function"==typeof define&&define.amd?define(["url","xmlserializer","sane-domparser-error","inlineresources"],function(e,t,n,r){return o.rasterizeHTML=i(e,t,n,r)}):"object"==typeof module&&module.exports?module.exports=i(require("url"),require("xmlserializer"),require("sane-domparser-error"),require("inlineresources")):o.rasterizeHTML=i(o.url,o.xmlserializer,o.sanedomparsererror,o.inlineresources)}(this,function(e,t,n,r){var o=function(n){"use strict";var o={},t=[];o.joinUrl=function(e,t){return e?n.resolve(e,t):t},o.getConstantUniqueIdFor=function(e){return t.indexOf(e)<0&&t.push(e),t.indexOf(e)},o.clone=function(e){var t,n={};for(t in e)e.hasOwnProperty(t)&&(n[t]=e[t]);return n};return o.parseOptionalParameters=function(e){var t,n,r={canvas:null,options:{}};return null==e[0]||(t=e[0],"object"==typeof(n=t)&&null!==n&&Object.prototype.toString.apply(t).match(/\[object (Canvas|HTMLCanvasElement)\]/i))?(r.canvas=e[0]||null,r.options=o.clone(e[1])):r.options=o.clone(e[0]),r},o}(e),i=function(c){"use strict";var e={},u=function(e,t,n){var r=e[t];return e[t]=function(){var e=Array.prototype.slice.call(arguments);return n.apply(this,[e,r])},r};return e.baseUrlRespectingXhr=function(t,i){return function(){var e=new t;return u(e,"open",function(e,t){var n=e.shift(),r=e.shift(),o=c.joinUrl(i,r);return t.apply(this,[n,o].concat(e))}),e}},e.finishNotifyingXhr=function(t){var n,r=0,o=0,i=!1,e=new Promise(function(e){n=function(){r-o<=0&&i&&e({totalCount:r})}}),c=function(){var e=new t;return u(e,"send",function(e,t){return r+=1,t.apply(this,arguments)}),e.addEventListener("load",function(){o+=1,n()}),e};return c.waitForRequestsToFinish=function(){return i=!0,n(),e},c},e}(o),c=function(c){"use strict";var e={},o=function(e){return Array.prototype.slice.call(e)},u={active:!0,hover:!0,focus:!1,target:!1};return e.fakeUserAction=function(e,t,n){var r=e.querySelector(t),o=":"+n,i="rasterizehtml"+n;r&&(u[n]?c.addClassNameRecursively(r,i):c.addClassName(r,i),c.rewriteCssSelectorWith(e,o,"."+i))},e.persistInputValues=function(e){var t=e.querySelectorAll("input"),n=e.querySelectorAll("textarea"),r=function(e){return"checkbox"===e.type||"radio"===e.type};o(t).filter(r).forEach(function(e){e.checked?e.setAttribute("checked",""):e.removeAttribute("checked")}),o(t).filter(function(e){return!r(e)}).forEach(function(e){e.setAttribute("value",e.value)}),o(n).forEach(function(e){e.textContent=e.value})},e.rewriteTagNameSelectorsToLowerCase=function(e){c.lowercaseCssTypeSelectors(e,c.findHtmlOnlyNodeNames(e))},e}(function(){"use strict";var n={},u=function(e){return Array.prototype.slice.call(e)};n.addClassName=function(e,t){e.className+=" "+t},n.addClassNameRecursively=function(e,t){n.addClassName(e,t),e.parentNode!==e.ownerDocument&&n.addClassNameRecursively(e.parentNode,t)};var a=function(e,t){var n,r,o,i,c=e.cssText.replace(/^[^\{]+/,"");r=t+" "+c,o=(n=e).parentStyleSheet,i=u(o.cssRules).indexOf(n),o.insertRule(r,i+1),o.deleteRule(i)},s=function(e){var t;e.textContent=(t=e.sheet.cssRules,u(t).reduce(function(e,t){return e+t.cssText},""))},r=function(e,t,i){var c="((?:^|[^.#:\\w])|(?=\\W))("+t.join("|")+")(?=\\W|$)";u(e.querySelectorAll("style")).forEach(function(e){var t,n,r;void 0===e.sheet&&(t=e,n=document.implementation.createHTMLDocument(""),(r=document.createElement("style")).textContent=t.textContent,n.body.appendChild(r),t.sheet=r.sheet);var o=u(e.sheet.cssRules).filter(function(e){return e.selectorText&&new RegExp(c,"i").test(e.selectorText)});o.length&&(o.forEach(function(e){var t=e.selectorText.replace(new RegExp(c,"gi"),function(e,t,n){return t+i(n)});t!==e.selectorText&&a(e,t)}),s(e))})};return n.rewriteCssSelectorWith=function(e,t,n){r(e,[t],function(){return n})},n.lowercaseCssTypeSelectors=function(e,t){r(e,t,function(e){return e.toLowerCase()})},n.findHtmlOnlyNodeNames=function(e){for(var t,n=e.ownerDocument.createTreeWalker(e,NodeFilter.SHOW_ELEMENT),r={},o={};t=n.currentNode.tagName.toLowerCase(),"http://www.w3.org/1999/xhtml"===n.currentNode.namespaceURI?r[t]=!0:o[t]=!0,n.nextNode(););return Object.keys(r).filter(function(e){return!o[e]})},n}()),u=function(l,v,t,w){"use strict";var e={};e.executeJavascript=function(h,p){return new Promise(function(t){var e,n,r,o,i,c=(e=w.document,n="iframe",r=p.width,o=p.height,(i=e.createElement(n)).style.visibility="hidden",i.style.width=r+"px",i.style.height=o+"px",i.style.position="absolute",i.style.top=-1e4-o+"px",i.style.left=-1e4-r+"px",e.getElementsByTagName("body")[0].appendChild(i),i),u=h.outerHTML,a=[],s=p.executeJsTimeout||0,l=function(){var e=c.contentDocument;w.document.getElementsByTagName("body")[0].removeChild(c),t({document:e,errors:a})},f=c.contentWindow.XMLHttpRequest,m=v.finishNotifyingXhr(f),d=v.baseUrlRespectingXhr(m,p.baseUrl);c.onload=function(){var t;(t=s,0<t?new Promise(function(e){setTimeout(e,t)}):Promise.resolve()).then(m.waitForRequestsToFinish).then(l)},c.contentDocument.open(),c.contentWindow.XMLHttpRequest=d,c.contentWindow.onerror=function(e){a.push({resourceType:"scriptExecution",msg:e})},c.contentDocument.write("<!DOCTYPE html>"),c.contentDocument.write(u),c.contentDocument.close()})};var g=function(e,t,n,r,o){var i,c,u,a,s,l,f,m,d,h,p,v=Math.max(e.scrollWidth,e.clientWidth),g=Math.max(e.scrollHeight,e.clientHeight);return t?(i=(l=function(e,t){var n=e.querySelector(t);if(n)return n;if(e.ownerDocument.querySelector(t)===e)return e;throw{message:"Clipping selector not found"}}(e,t).getBoundingClientRect()).top,c=l.left,u=l.width,a=l.height):(c=i=0,u=v,a=g),m={width:u,height:a},d=n,h=r,p=o,f={width:Math.max(m.width*p,d),height:Math.max(m.height*p,h)},s=w.getComputedStyle(e.ownerDocument.documentElement).fontSize,{left:c,top:i,width:f.width,height:f.height,viewportWidth:v,viewportHeight:g,rootFontSize:s}};e.calculateDocumentContentSize=function(p,v){return new Promise(function(o,i){var c,e,t,n,r,u,a,s,l,f,m,d,h=v.zoom||1;e=v.width,t=v.height,n=h,l=Math.floor(e/n),f=Math.floor(t/n),r=w.document,u=l,a=f,(s=r.createElement("iframe")).style.width=u+"px",s.style.height=a+"px",s.style.visibility="hidden",s.style.position="absolute",s.style.top=-1e4-a+"px",s.style.left=-1e4-u+"px",s.style.borderWidth=0,s.sandbox="allow-same-origin",s.scrolling="no",c=s,w.document.getElementsByTagName("body")[0].appendChild(c),c.onload=function(){var e,t,n,r=c.contentDocument;try{e=g((t=r,n=p.tagName,t.querySelector(n)),v.clip,v.width,v.height,h),o(e)}catch(e){i(e)}finally{w.document.getElementsByTagName("body")[0].removeChild(c)}},c.contentDocument.open(),c.contentDocument.write("<!DOCTYPE html>"),c.contentDocument.write("html"===(d=(m=p).tagName.toLowerCase())||"body"===d?m.outerHTML:'<body style="margin: 0;">'+m.outerHTML+"</body>"),c.contentDocument.close()})},e.parseHtmlFragment=function(e){var t=w.document.implementation.createHTMLDocument("");t.documentElement.innerHTML=e;var n=t.querySelector("body").firstChild;if(!n)throw"Invalid source";return n};e.parseHTML=function(e){var t=w.document.implementation.createHTMLDocument("");return t.documentElement.innerHTML=e,function(e,t){var n,r,o,i,c=/<html((?:\s+[^>]*)?)>/im.exec(t),u=w.document.implementation.createHTMLDocument("");if(c)for(n="<div"+c[1]+"></div>",u.documentElement.innerHTML=n,o=u.querySelector("div"),r=0;r<o.attributes.length;r++)i=o.attributes[r],e.documentElement.setAttribute(i.name,i.value)}(t,e),t};var n=function(e){try{return t.failOnParseError(e)}catch(e){throw{message:"Invalid source",originalError:e}}};e.validateXHTML=function(e){var t=(new DOMParser).parseFromString(e,"application/xml");n(t)};var f=null,r=function(a,s){return new Promise(function(e,t){var n,r,o=new window.XMLHttpRequest,i=l.joinUrl(s.baseUrl,a),c=(n=i,"none"===(r=s.cache)||"repeated"===r?(null!==f&&"repeated"===r||(f=Date.now()),n+"?_="+f):n),u=function(e){t({message:"Unable to load page",originalError:e})};o.addEventListener("load",function(){200===o.status||0===o.status?e(o.responseXML):u(o.statusText)},!1),o.addEventListener("error",function(e){u(e)},!1);try{o.open("GET",c,!0),o.responseType="document",o.send(null)}catch(e){u(e)}})};return e.loadDocument=function(e,t){return r(e,t).then(function(e){return n(e)})},e}(o,i,n,window),a=function(r){"use strict";var e,t={},o=function(e,t){return t?URL.createObjectURL(new Blob([e],{type:"image/svg+xml"})):"data:image/svg+xml;charset=utf-8,"+encodeURIComponent(e)},c=function(e){e instanceof Blob&&URL.revokeObjectURL(e)},i='<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><foreignObject></foreignObject></svg>',u=function(o){return new Promise(function(t,e){var n=document.createElement("canvas"),r=new Image;r.onload=function(){var e=n.getContext("2d");try{e.drawImage(r,0,0),n.toDataURL("image/png"),t(!0)}catch(e){t(!1)}},r.onerror=e,r.src=o})},n=function(){return new Promise(function(t,e){var n;(function(){if(r.Blob)try{return new Blob(["<b></b>"],{type:"text/xml"}),!0}catch(e){}return!1})()&&r.URL?(n=o(i,!0),u(n).then(function(e){return c(n),!e&&u(o(i,!1)).then(function(e){return e})},function(){return!1})).then(function(e){t(!e)},function(){e()}):t(!1)})},a=function(t){return(void 0===e&&(e=n()),e).then(function(e){return o(t,e)})};return t.renderSvg=function(i){return new Promise(function(e,t){var n,r,o=function(){n&&c(n)};(r=new Image).onload=function(){r.onload=null,r.onerror=null,o(),e(r)},r.onerror=function(){o(),t()},a(i).then(function(e){n=e,r.src=n},t)})},t}(window);return function(f,u,m){"use strict";var a={};a.drawDocument=function(){var e,t,n,r,o,i,c,u=arguments[0],a=Array.prototype.slice.call(arguments,1),s=f.parseOptionalParameters(a),l=u.documentElement?u.documentElement:u;return m.rasterize(l,s.canvas,(n=(e=s).canvas,r=e.options,o=n?n.width:300,i=n?n.height:200,c={width:void 0!==r.width?r.width:o,height:void 0!==r.height?r.height:i},(t=f.clone(e.options)).width=c.width,t.height=c.height,t))};a.drawHTML=function(){var e,t,n,r,o=arguments[0],i=Array.prototype.slice.call(arguments,1),c=f.parseOptionalParameters(i);return e=o,t=c.canvas,n=c.options,r=u.parseHTML(e),a.drawDocument(r,t,n)};var r=function(n,r,o){return u.loadDocument(n,o).then(function(e){var t=function(e,t,n){var r=document.implementation.createHTMLDocument("");r.replaceChild(e.documentElement,r.documentElement);var o=n?f.clone(n):{};return n.baseUrl||(o.baseUrl=t),{document:r,options:o}}(e,n,o);return a.drawDocument(t.document,r,t.options)})};return a.drawURL=function(){var e=arguments[0],t=Array.prototype.slice.call(arguments,1),n=f.parseOptionalParameters(t);return r(e,n.canvas,n.options)},a}(o,u,function(n,i,c,r,e,u){"use strict";var t={},o=function(e){return{message:"Error rendering page",originalError:e}},a=function(t){return e.renderSvg(t).then(function(e){return{image:e,svg:t}},function(e){throw o(e)})},s=function(e,t,n){return r.drawDocumentAsSvg(e,n).then(a).then(function(e){return t&&function(e,t){try{t.getContext("2d").drawImage(e,0,0)}catch(e){throw o(e)}}(e.image,t),e})};return t.rasterize=function(r,e,o){var t;return(t=n.clone(o)).inlineScripts=!0===o.executeJs,u.inlineReferences(r,t).then(function(t){return o.executeJs?(e=r,n=o,i.executeJavascript(e,n).then(function(e){var t=e.document;return c.persistInputValues(t),{document:t,errors:e.errors}})).then(function(e){return{element:e.document.documentElement,errors:t.concat(e.errors)}}):{element:r,errors:t};var e,n}).then(function(t){return s(t.element,e,o).then(function(e){return{image:e.image,svg:e.svg,errors:t.errors}})})},t}(o,u,c,function(e,d,r,h){"use strict";var o={},p=function(t){var e=Object.keys(t);return e.length?" "+e.map(function(e){return e+'="'+t[e]+'"'}).join(" "):""},i=function(e,t,n){var r=h.serializeToString(e);d.validateXHTML(r);var o,i,c,u,a,s,l,f,m=(o=t,i=Math.round(o.viewportWidth),c=Math.round(o.viewportHeight),{x:-o.left,y:-o.top,width:i,height:c});return a=(u=m).style||"",u.style=a+"float: left;",m.externalResourcesRequired=!0,'<svg xmlns="http://www.w3.org/2000/svg"'+p((l=n||1,f={width:(s=t).width,height:s.height,"font-size":s.rootFontSize},1!==l&&(f.style="transform:scale("+l+"); transform-origin: 0 0;"),f))+'><style scoped="">html::-webkit-scrollbar { display: none; }</style><foreignObject'+p(m)+">"+r+"</foreignObject></svg>"};return o.getSvgForDocument=function(e,t,n){return r.rewriteTagNameSelectorsToLowerCase(e),i(e,t,n)},o.drawDocumentAsSvg=function(t,n){return["hover","active","focus","target"].forEach(function(e){n[e]&&r.fakeUserAction(t,n[e],e)}),d.calculateDocumentContentSize(t,n).then(function(e){return o.getSvgForDocument(t,e,n.zoom)})},o}(0,u,c,t),a,r))});
+    var util = (function (url) {
+        "use strict";
+
+        var module = {};
+
+        var uniqueIdList = [];
+
+        module.joinUrl = function (baseUrl, relUrl) {
+            if (!baseUrl) {
+                return relUrl;
+            }
+            return url.resolve(baseUrl, relUrl);
+        };
+
+        module.getConstantUniqueIdFor = function (element) {
+            // HACK, using a list results in O(n), but how do we hash e.g. a DOM node?
+            if (uniqueIdList.indexOf(element) < 0) {
+                uniqueIdList.push(element);
+            }
+            return uniqueIdList.indexOf(element);
+        };
+
+        module.clone = function (object) {
+            var theClone = {},
+                i;
+            for (i in object) {
+                if (object.hasOwnProperty(i)) {
+                    theClone[i] = object[i];
+                }
+            }
+            return theClone;
+        };
+
+        var isObject = function (obj) {
+            return typeof obj === "object" && obj !== null;
+        };
+
+        var isCanvas = function (obj) {
+            return isObject(obj) &&
+                Object.prototype.toString.apply(obj).match(/\[object (Canvas|HTMLCanvasElement)\]/i);
+        };
+
+        // args: canvas, options
+        module.parseOptionalParameters = function (args) {
+            var parameters = {
+                canvas: null,
+                options: {}
+            };
+
+            if (args[0] == null || isCanvas(args[0])) {
+                parameters.canvas = args[0] || null;
+
+                parameters.options = module.clone(args[1]);
+            } else {
+                parameters.options = module.clone(args[0]);
+            }
+
+            return parameters;
+        };
+
+        return module;
+    }(url));
+
+// Proxy objects by monkey patching
+    var proxies = (function (util) {
+        "use strict";
+
+        var module = {};
+
+        var monkeyPatchInstanceMethod = function (object, methodName, proxyFunc) {
+            var originalFunc = object[methodName];
+
+            object[methodName] = function () {
+                var args = Array.prototype.slice.call(arguments);
+
+                return proxyFunc.apply(this, [args, originalFunc]);
+            };
+
+            return originalFunc;
+        };
+
+        // Bases all XHR calls on the given base URL
+        module.baseUrlRespectingXhr = function (XHRObject, baseUrl) {
+            var xhrConstructor = function () {
+                var xhr = new XHRObject();
+
+                monkeyPatchInstanceMethod(xhr, 'open', function (args, originalOpen) {
+                    var method = args.shift(),
+                        url = args.shift(),
+                        joinedUrl = util.joinUrl(baseUrl, url);
+
+                    return originalOpen.apply(this, [method, joinedUrl].concat(args));
+                });
+
+                return xhr;
+            };
+
+            return xhrConstructor;
+        };
+
+        // Provides a convenient way of being notified when all pending XHR calls are finished
+        module.finishNotifyingXhr = function (XHRObject) {
+            var totalXhrCount = 0,
+                doneXhrCount = 0,
+                waitingForPendingToClose = false;
+            var checkAllRequestsFinished;
+
+            var promise = new Promise(function (resolve) {
+                checkAllRequestsFinished = function () {
+                    var pendingXhrCount = totalXhrCount - doneXhrCount;
+
+                    if (pendingXhrCount <= 0 && waitingForPendingToClose) {
+                        resolve({totalCount: totalXhrCount});
+                    }
+                };
+            });
+
+            var xhrConstructor = function () {
+                var xhr = new XHRObject();
+
+                monkeyPatchInstanceMethod(xhr, 'send', function (_, originalSend) {
+                    totalXhrCount += 1;
+                    return originalSend.apply(this, arguments);
+                });
+
+                xhr.addEventListener('load', function () {
+                    doneXhrCount += 1;
+
+                    checkAllRequestsFinished();
+                });
+
+                return xhr;
+            };
+
+            xhrConstructor.waitForRequestsToFinish = function () {
+                waitingForPendingToClose = true;
+                checkAllRequestsFinished();
+                return promise;
+            };
+
+            return xhrConstructor;
+        };
+
+        return module;
+    }(util));
+
+    var documentUtil = (function () {
+        "use strict";
+
+        var module = {};
+
+        var asArray = function (arrayLike) {
+            return Array.prototype.slice.call(arrayLike);
+        };
+
+        module.addClassName = function (element, className) {
+            element.className += ' ' + className;
+        };
+
+        module.addClassNameRecursively = function (element, className) {
+            module.addClassName(element, className);
+
+            if (element.parentNode !== element.ownerDocument) {
+                module.addClassNameRecursively(element.parentNode, className);
+            }
+        };
+
+        var changeCssRule = function (rule, newRuleText) {
+            var styleSheet = rule.parentStyleSheet,
+                ruleIdx = asArray(styleSheet.cssRules).indexOf(rule);
+
+            // Exchange rule with the new text
+            styleSheet.insertRule(newRuleText, ruleIdx+1);
+            styleSheet.deleteRule(ruleIdx);
+        };
+
+        var updateRuleSelector = function (rule, updatedSelector) {
+            var styleDefinitions = rule.cssText.replace(/^[^\{]+/, ''),
+                newRule = updatedSelector + ' ' + styleDefinitions;
+
+            changeCssRule(rule, newRule);
+        };
+
+        var cssRulesToText = function (cssRules) {
+            return asArray(cssRules).reduce(function (cssText, rule) {
+                return cssText + rule.cssText;
+            }, '');
+        };
+
+        var rewriteStyleContent = function (styleElement) {
+            styleElement.textContent = cssRulesToText(styleElement.sheet.cssRules);
+        };
+
+        var addSheetPropertyToSvgStyleElement = function (svgStyleElement) {
+            var doc = document.implementation.createHTMLDocument(''),
+                cssStyleElement = document.createElement('style');
+
+            cssStyleElement.textContent = svgStyleElement.textContent;
+            // the style will only be parsed once it is added to a document
+            doc.body.appendChild(cssStyleElement);
+
+            svgStyleElement.sheet = cssStyleElement.sheet;
+        };
+
+        var matchingSimpleSelectorsRegex = function (simpleSelectorList) {
+            return '(' +
+                '(?:^|[^.#:\\w])' +            // start of string or not a simple selector character,
+                '|' +                          // ... or ...
+                '(?=\\W)' +                    // the next character parsed is not an alphabetic character (and thus a natural boundary)
+                ')' +
+                '(' +
+                simpleSelectorList.join('|') + // one out of the given simple selectors
+                ')' +
+                '(?=\\W|$)';                   // followed either by a non-alphabetic character or the end of the string
+        };
+
+        var replaceSimpleSelectorsBy = function (element, simpleSelectorList, caseInsensitiveReplaceFunc) {
+            var selectorRegex = matchingSimpleSelectorsRegex(simpleSelectorList);
+
+            asArray(element.querySelectorAll('style')).forEach(function (styleElement) {
+                // SVGStyleElement doesn't have a property sheet in Safari, we need some workaround here
+                // more details can be found here: https://github.com/cburgmer/rasterizeHTML.js/issues/158
+                if (typeof styleElement.sheet === 'undefined') {
+                    addSheetPropertyToSvgStyleElement(styleElement);
+                }
+
+                var matchingRules = asArray(styleElement.sheet.cssRules).filter(function (rule) {
+                    return rule.selectorText && new RegExp(selectorRegex, 'i').test(rule.selectorText);
+                });
+
+                if (matchingRules.length) {
+                    matchingRules.forEach(function (rule) {
+                        var newSelector = rule.selectorText.replace(new RegExp(selectorRegex, 'gi'),
+                            function (_, prefixMatch, selectorMatch) {
+                                return prefixMatch + caseInsensitiveReplaceFunc(selectorMatch);
+                            });
+
+                        if (newSelector !== rule.selectorText) {
+                            updateRuleSelector(rule, newSelector);
+                        }
+                    });
+
+                    rewriteStyleContent(styleElement);
+                }
+            });
+        };
+
+        module.rewriteCssSelectorWith = function (element, oldSelector, newSelector) {
+            replaceSimpleSelectorsBy(element, [oldSelector], function () {
+                return newSelector;
+            });
+        };
+
+        module.lowercaseCssTypeSelectors = function (element, matchingTagNames) {
+            replaceSimpleSelectorsBy(element, matchingTagNames, function (match) {
+                return match.toLowerCase();
+            });
+        };
+
+        module.findHtmlOnlyNodeNames = function (element) {
+            var treeWalker = element.ownerDocument.createTreeWalker(element, NodeFilter.SHOW_ELEMENT),
+                htmlNodeNames = {},
+                nonHtmlNodeNames = {},
+                currentTagName;
+
+            do {
+                currentTagName = treeWalker.currentNode.tagName.toLowerCase();
+                if (treeWalker.currentNode.namespaceURI === 'http://www.w3.org/1999/xhtml') {
+                    htmlNodeNames[currentTagName] = true;
+                } else {
+                    nonHtmlNodeNames[currentTagName] = true;
+                }
+            } while(treeWalker.nextNode());
+
+            return Object.keys(htmlNodeNames).filter(function (tagName) {
+                return !nonHtmlNodeNames[tagName];
+            });
+        };
+
+        return module;
+    }());
+
+    var documentHelper = (function (documentUtil) {
+        "use strict";
+
+        var module = {};
+
+        var asArray = function (arrayLike) {
+            return Array.prototype.slice.call(arrayLike);
+        };
+
+        var cascadingAction = {
+            active: true,
+            hover: true,
+            focus: false,
+            target: false
+        };
+
+        module.fakeUserAction = function (element, selector, action) {
+            var elem = element.querySelector(selector),
+                pseudoClass = ':' + action,
+                fakeActionClass = 'rasterizehtml' + action;
+            if (! elem) {
+                return;
+            }
+
+            if (cascadingAction[action]) {
+                documentUtil.addClassNameRecursively(elem, fakeActionClass);
+            } else {
+                documentUtil.addClassName(elem, fakeActionClass);
+            }
+            documentUtil.rewriteCssSelectorWith(element, pseudoClass, '.' + fakeActionClass);
+        };
+
+        module.persistInputValues = function (doc) {
+            var inputs = doc.querySelectorAll('input'),
+                textareas = doc.querySelectorAll('textarea'),
+                isCheckable = function (input) {
+                    return input.type === 'checkbox' || input.type === 'radio';
+                };
+
+            asArray(inputs).filter(isCheckable)
+                .forEach(function (input) {
+                    if (input.checked) {
+                        input.setAttribute('checked', '');
+                    } else {
+                        input.removeAttribute('checked');
+                    }
+                });
+
+            asArray(inputs).filter(function (input) { return !isCheckable(input); })
+                .forEach(function (input) {
+                    input.setAttribute('value', input.value);
+                });
+
+            asArray(textareas)
+                .forEach(function (textarea) {
+                    textarea.textContent = textarea.value;
+                });
+        };
+
+        module.rewriteTagNameSelectorsToLowerCase = function (element) {
+            documentUtil.lowercaseCssTypeSelectors(element, documentUtil.findHtmlOnlyNodeNames(element));
+        };
+
+        return module;
+    }(documentUtil));
+
+    var browser = (function (util, proxies, sanedomparsererror, theWindow) {
+        "use strict";
+
+        var module = {};
+
+        var createHiddenElement = function (doc, tagName, width, height) {
+            var element = doc.createElement(tagName);
+            // 'display: none' doesn't cut it, as browsers seem to be lazy loading CSS
+            element.style.visibility = "hidden";
+            element.style.width = width + "px";
+            element.style.height = height + "px";
+            element.style.position = "absolute";
+            element.style.top = (-10000 - height) + "px";
+            element.style.left = (-10000 - width) + "px";
+            // We need to add the element to the document so that its content gets loaded
+            doc.getElementsByTagName("body")[0].appendChild(element);
+            return element;
+        };
+
+        var wait = function (timeout) {
+            if (timeout > 0) {
+                return new Promise(function (resolve) {
+                    setTimeout(resolve, timeout);
+                });
+            } else {
+                return Promise.resolve();
+            }
+        };
+
+        module.executeJavascript = function (element, options) {
+            return new Promise(function (resolve) {
+                var iframe = createHiddenElement(theWindow.document, "iframe", options.width, options.height),
+                    html = element.outerHTML,
+                    iframeErrorsMessages = [],
+                    executeJsTimeout = options.executeJsTimeout || 0;
+
+                var doResolve = function () {
+                    var doc = iframe.contentDocument;
+                    theWindow.document.getElementsByTagName("body")[0].removeChild(iframe);
+                    resolve({
+                        document: doc,
+                        errors: iframeErrorsMessages
+                    });
+                };
+
+                var xhr = iframe.contentWindow.XMLHttpRequest,
+                    finishNotifyXhrProxy = proxies.finishNotifyingXhr(xhr),
+                    baseUrlXhrProxy = proxies.baseUrlRespectingXhr(finishNotifyXhrProxy, options.baseUrl);
+
+                iframe.onload = function () {
+                    wait(executeJsTimeout)
+                        .then(finishNotifyXhrProxy.waitForRequestsToFinish)
+                        .then(doResolve);
+                };
+
+                iframe.contentDocument.open();
+                iframe.contentWindow.XMLHttpRequest = baseUrlXhrProxy;
+                iframe.contentWindow.onerror = function (msg) {
+                    iframeErrorsMessages.push({
+                        resourceType: "scriptExecution",
+                        msg: msg
+                    });
+                };
+
+                iframe.contentDocument.write('<!DOCTYPE html>');
+                iframe.contentDocument.write(html);
+                iframe.contentDocument.close();
+            });
+        };
+
+        var createHiddenSandboxedIFrame = function (doc, width, height) {
+            var iframe = doc.createElement('iframe');
+            iframe.style.width = width + "px";
+            iframe.style.height = height + "px";
+            // 'display: none' doesn't cut it, as browsers seem to be lazy loading content
+            iframe.style.visibility = "hidden";
+            iframe.style.position = "absolute";
+            iframe.style.top = (-10000 - height) + "px";
+            iframe.style.left = (-10000 - width) + "px";
+            // make sure content gets exact width independent of box-sizing value
+            iframe.style.borderWidth = 0;
+            // Don't execute JS, all we need from sandboxing is access to the iframe's document
+            iframe.sandbox = 'allow-same-origin';
+            // Don't include a scrollbar on Linux
+            iframe.scrolling = 'no';
+            return iframe;
+        };
+
+        var createIframeWithSizeAtZoomLevel1 = function (width, height, zoom) {
+            var scaledViewportWidth = Math.floor(width / zoom),
+                scaledViewportHeight = Math.floor(height / zoom);
+
+            return createHiddenSandboxedIFrame(theWindow.document, scaledViewportWidth, scaledViewportHeight);
+        };
+
+        var calculateZoomedContentSizeAndRoundUp = function (actualViewport, requestedWidth, requestedHeight, zoom) {
+            return {
+                width: Math.max(actualViewport.width * zoom, requestedWidth),
+                height: Math.max(actualViewport.height * zoom, requestedHeight)
+            };
+        };
+
+        var selectElementOrDescendant = function (element, selector) {
+            var descendant = element.querySelector(selector);
+            if (descendant) {
+                return descendant;
+            } else if (element.ownerDocument.querySelector(selector) === element) {
+                return element;
+            }
+
+            throw {
+                message: "Clipping selector not found"
+            };
+        };
+
+        var calculateContentSize = function (rootElement, selector, requestedWidth, requestedHeight, zoom) {
+            // clientWidth/clientHeight needed for PhantomJS
+            var actualViewportWidth = Math.max(rootElement.scrollWidth, rootElement.clientWidth),
+                actualViewportHeight = Math.max(rootElement.scrollHeight, rootElement.clientHeight),
+                top, left, originalWidth, originalHeight, rootFontSize,
+                element, rect, contentSize;
+
+            if (selector) {
+                element = selectElementOrDescendant(rootElement, selector);
+
+                rect = element.getBoundingClientRect();
+
+                top = rect.top;
+                left = rect.left;
+                originalWidth = rect.width;
+                originalHeight = rect.height;
+            } else {
+                top = 0;
+                left = 0;
+                originalWidth = actualViewportWidth;
+                originalHeight = actualViewportHeight;
+            }
+
+            contentSize = calculateZoomedContentSizeAndRoundUp({
+                    width: originalWidth,
+                    height: originalHeight
+                },
+                requestedWidth,
+                requestedHeight,
+                zoom);
+
+            rootFontSize = theWindow.getComputedStyle(rootElement.ownerDocument.documentElement).fontSize;
+
+            return {
+                left: left,
+                top: top,
+                width: contentSize.width,
+                height: contentSize.height,
+                viewportWidth: actualViewportWidth,
+                viewportHeight: actualViewportHeight,
+
+                rootFontSize: rootFontSize
+            };
+        };
+
+        var findCorrelatingElement = function (element, documentClone) {
+            var tagName = element.tagName;
+            // Stupid but simple method: find first match. Should work for a single HTML element, and any other element given as root
+            return documentClone.querySelector(tagName);
+        };
+
+        var elementToFullHtmlDocument = function (element) {
+            var tagName = element.tagName.toLowerCase();
+            if (tagName === 'html' || tagName === 'body') {
+                return element.outerHTML;
+            }
+
+            // Simple hack: hide the body from sizing, otherwise browser would apply a 8px margin
+            return '<body style="margin: 0;">' + element.outerHTML + '</body>';
+        };
+
+        module.calculateDocumentContentSize = function (element, options) {
+            return new Promise(function (resolve, reject) {
+                var zoom = options.zoom || 1,
+                    iframe;
+
+
+                iframe = createIframeWithSizeAtZoomLevel1(options.width, options.height, zoom);
+                // We need to add the element to the document so that its content gets loaded
+                theWindow.document.getElementsByTagName("body")[0].appendChild(iframe);
+
+                iframe.onload = function () {
+                    var doc = iframe.contentDocument,
+                        size;
+
+                    try {
+                        size = calculateContentSize(findCorrelatingElement(element, doc), options.clip, options.width, options.height, zoom);
+
+                        resolve(size);
+                    } catch (e) {
+                        reject(e);
+                    } finally {
+                        theWindow.document.getElementsByTagName("body")[0].removeChild(iframe);
+                    }
+                };
+
+                // srcdoc doesn't work in PhantomJS yet
+                iframe.contentDocument.open();
+                iframe.contentDocument.write('<!DOCTYPE html>');
+                iframe.contentDocument.write(elementToFullHtmlDocument(element));
+                iframe.contentDocument.close();
+            });
+        };
+
+        module.parseHtmlFragment = function (htmlFragment) {
+            var doc = theWindow.document.implementation.createHTMLDocument('');
+            doc.documentElement.innerHTML = htmlFragment;
+
+            var element = doc.querySelector('body').firstChild;
+
+            if (!element) {
+                throw "Invalid source";
+            }
+
+            return element;
+        };
+
+        var addHTMLTagAttributes = function (doc, html) {
+            var attributeMatch = /<html((?:\s+[^>]*)?)>/im.exec(html),
+                helperDoc = theWindow.document.implementation.createHTMLDocument(''),
+                htmlTagSubstitute,
+                i, elementSubstitute, attribute;
+
+            if (!attributeMatch) {
+                return;
+            }
+
+            htmlTagSubstitute = '<div' + attributeMatch[1] + '></div>';
+            helperDoc.documentElement.innerHTML = htmlTagSubstitute;
+            elementSubstitute = helperDoc.querySelector('div');
+
+            for (i = 0; i < elementSubstitute.attributes.length; i++) {
+                attribute = elementSubstitute.attributes[i];
+                doc.documentElement.setAttribute(attribute.name, attribute.value);
+            }
+        };
+
+        module.parseHTML = function (html) {
+            // We should be using the DOMParser, but it is not supported in older browsers
+            var doc = theWindow.document.implementation.createHTMLDocument('');
+            doc.documentElement.innerHTML = html;
+
+            addHTMLTagAttributes(doc, html);
+            return doc;
+        };
+
+        var failOnInvalidSource = function (doc) {
+            try {
+                return sanedomparsererror.failOnParseError(doc);
+            } catch (e) {
+                throw {
+                    message: "Invalid source",
+                    originalError: e
+                };
+            }
+        };
+
+        module.validateXHTML = function (xhtml) {
+            var p = new DOMParser(),
+                doc = p.parseFromString(xhtml, "application/xml");
+
+            failOnInvalidSource(doc);
+        };
+
+        var lastCacheDate = null;
+
+        var getUncachableURL = function (url, cache) {
+            if (cache === 'none' || cache === 'repeated') {
+                if (lastCacheDate === null || cache !== 'repeated') {
+                    lastCacheDate = Date.now();
+                }
+                return url + "?_=" + lastCacheDate;
+            } else {
+                return url;
+            }
+        };
+
+        var doDocumentLoad = function (url, options) {
+            return new Promise(function (resolve, reject) {
+                var xhr = new window.XMLHttpRequest(),
+                    joinedUrl = util.joinUrl(options.baseUrl, url),
+                    augmentedUrl = getUncachableURL(joinedUrl, options.cache),
+                    doReject = function (e) {
+                        reject({
+                            message: "Unable to load page",
+                            originalError: e
+                        });
+                    };
+
+                xhr.addEventListener("load", function () {
+                    if (xhr.status === 200 || xhr.status === 0) {
+                        resolve(xhr.responseXML);
+                    } else {
+                        doReject(xhr.statusText);
+                    }
+                }, false);
+
+                xhr.addEventListener("error", function (e) {
+                    doReject(e);
+                }, false);
+
+                try {
+                    xhr.open('GET', augmentedUrl, true);
+                    xhr.responseType = "document";
+                    xhr.send(null);
+                } catch (e) {
+                    doReject(e);
+                }
+            });
+        };
+
+        module.loadDocument = function (url, options) {
+            return doDocumentLoad(url, options)
+                .then(function (doc) {
+                    return failOnInvalidSource(doc);
+                });
+        };
+
+        return module;
+    }(util, proxies, sanedomparsererror, window));
+
+    var svg2image = (function (window) {
+        "use strict";
+
+        var module = {};
+
+        var urlForSvg = function (svg, useBlobs) {
+            if (useBlobs) {
+                return URL.createObjectURL(new Blob([svg], {"type": "image/svg+xml"}));
+            } else {
+                return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+            }
+        };
+
+        var cleanUpUrl = function (url) {
+            if (url instanceof Blob) {
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        var simpleForeignObjectSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><foreignObject></foreignObject></svg>';
+
+        var supportsReadingObjectFromCanvas = function (url) {
+            return new Promise(function (resolve, reject) {
+                var canvas = document.createElement("canvas"),
+                    image = new Image();
+
+                image.onload = function () {
+                    var context = canvas.getContext("2d");
+                    try {
+                        context.drawImage(image, 0, 0);
+                        // This will fail in Chrome & Safari
+                        canvas.toDataURL("image/png");
+                        resolve(true);
+                    } catch (e) {
+                        resolve(false);
+                    }
+                };
+                image.onerror = reject;
+                image.src = url;
+            });
+        };
+
+        var readingBackFromCanvasBenefitsFromOldSchoolDataUris = function () {
+            // Check for work around for https://code.google.com/p/chromium/issues/detail?id=294129
+            var blobUrl = urlForSvg(simpleForeignObjectSvg, true);
+            return supportsReadingObjectFromCanvas(blobUrl)
+                .then(function (supportsReadingFromBlobs) {
+                    cleanUpUrl(blobUrl);
+                    if (supportsReadingFromBlobs) {
+                        return false;
+                    }
+                    return supportsReadingObjectFromCanvas(urlForSvg(simpleForeignObjectSvg, false))
+                        .then(function (s) {
+                            return s;
+                        });
+                }, function () {
+                    return false;
+                });
+        };
+
+        var supportsBlobBuilding = function () {
+            if (window.Blob) {
+                // Available as constructor only in newer builds for all browsers
+                try {
+                    new Blob(['<b></b>'], { "type" : "text/xml" });
+                    return true;
+                } catch (err) {}
+            }
+            return false;
+        };
+
+        var checkBlobSupport = function () {
+            return new Promise(function (resolve, reject) {
+                if (supportsBlobBuilding() && window.URL) {
+                    readingBackFromCanvasBenefitsFromOldSchoolDataUris()
+                        .then(function (doesBenefit) {
+                            resolve(! doesBenefit);
+                        }, function () {
+                            reject();
+                        });
+                } else {
+                    resolve(false);
+                }
+            });
+        };
+
+        var checkForBlobsResult;
+
+        var checkForBlobs = function () {
+            if (checkForBlobsResult === undefined) {
+                checkForBlobsResult = checkBlobSupport();
+            }
+
+            return checkForBlobsResult;
+        };
+
+        var buildImageUrl = function (svg) {
+            return checkForBlobs().then(function (useBlobs) {
+                return urlForSvg(svg, useBlobs);
+            });
+        };
+
+        module.renderSvg = function (svg) {
+            return new Promise(function (resolve, reject) {
+                var url, image,
+                    resetEventHandlers = function () {
+                        image.onload = null;
+                        image.onerror = null;
+                    },
+                    cleanUp = function () {
+                        if (url) {
+                            cleanUpUrl(url);
+                        }
+                    };
+
+                image = new Image();
+                image.onload = function() {
+                    resetEventHandlers();
+                    cleanUp();
+
+                    resolve(image);
+                };
+                image.onerror = function () {
+                    cleanUp();
+
+                    // Webkit calls the onerror handler if the SVG is faulty
+                    reject();
+                };
+
+                buildImageUrl(svg).then(function (imageUrl) {
+                    url = imageUrl;
+                    image.src = url;
+                }, reject);
+            });
+        };
+
+        return module;
+    }(window));
+
+    var document2svg = (function (util, browser, documentHelper, xmlserializer) {
+        "use strict";
+
+        var module = {};
+
+        var svgAttributes = function (size, zoom) {
+            var zoomFactor = zoom || 1;
+
+            var attributes = {
+                width: size.width,
+                height: size.height,
+                'font-size': size.rootFontSize
+            };
+
+            if (zoomFactor !== 1) {
+                attributes.style = 'transform:scale(' + zoomFactor + '); transform-origin: 0 0;';
+            }
+
+            return attributes;
+        };
+
+        var foreignObjectAttributes = function (size) {
+            var closestScaledWith, closestScaledHeight,
+                offsetX, offsetY;
+
+            closestScaledWith = Math.round(size.viewportWidth);
+            closestScaledHeight = Math.round(size.viewportHeight);
+
+            offsetX = -size.left;
+            offsetY = -size.top;
+
+            var attributes = {
+                'x': offsetX,
+                'y': offsetY,
+                'width': closestScaledWith,
+                'height': closestScaledHeight
+            };
+
+            return attributes;
+        };
+
+        var workAroundCollapsingMarginsAcrossSVGElementInWebKitLike = function (attributes) {
+            var style = attributes.style || '';
+            attributes.style = style + 'float: left;';
+        };
+
+        var workAroundSafariSometimesNotShowingExternalResources = function (attributes) {
+            /* Let's hope that works some magic. The spec says SVGLoad only fires
+             * now when all externals are available.
+             * http://www.w3.org/TR/SVG/struct.html#ExternalResourcesRequired */
+            attributes.externalResourcesRequired = true;
+        };
+
+        var workAroundChromeShowingScrollbarsUnderLinuxIfHtmlIsOverflowScroll = function () {
+            return '<style scoped="">html::-webkit-scrollbar { display: none; }</style>';
+        };
+
+        var serializeAttributes = function (attributes) {
+            var keys = Object.keys(attributes);
+            if (!keys.length) {
+                return '';
+            }
+
+            return ' ' + keys.map(function (key) {
+                return key + '="' + attributes[key] + '"';
+            }).join(' ');
+        };
+
+        var convertElementToSvg = function (element, size, zoomFactor) {
+            var xhtml = xmlserializer.serializeToString(element);
+
+            browser.validateXHTML(xhtml);
+
+            var foreignObjectAttrs = foreignObjectAttributes(size);
+            workAroundCollapsingMarginsAcrossSVGElementInWebKitLike(foreignObjectAttrs);
+            workAroundSafariSometimesNotShowingExternalResources(foreignObjectAttrs);
+
+            return (
+                '<svg xmlns="http://www.w3.org/2000/svg"' +
+                serializeAttributes(svgAttributes(size, zoomFactor)) +
+                '>' +
+                workAroundChromeShowingScrollbarsUnderLinuxIfHtmlIsOverflowScroll() +
+                '<foreignObject' + serializeAttributes(foreignObjectAttrs) + '>' +
+                xhtml +
+                '</foreignObject>' +
+                '</svg>'
+            );
+        };
+
+        module.getSvgForDocument = function (element, size, zoomFactor) {
+            documentHelper.rewriteTagNameSelectorsToLowerCase(element);
+
+            return convertElementToSvg(element, size, zoomFactor);
+        };
+
+        module.drawDocumentAsSvg = function (element, options) {
+            ['hover', 'active', 'focus', 'target'].forEach(function (action) {
+                if (options[action]) {
+                    documentHelper.fakeUserAction(element, options[action], action);
+                }
+            });
+
+            return browser.calculateDocumentContentSize(element, options)
+                .then(function (size) {
+                    return module.getSvgForDocument(element, size, options.zoom);
+                });
+        };
+
+        return module;
+    }(util, browser, documentHelper, xmlserializer));
+
+    var rasterize = (function (util, browser, documentHelper, document2svg, svg2image, inlineresources) {
+        "use strict";
+
+        var module = {};
+
+        var generalDrawError = function (e) {
+            return {
+                message: "Error rendering page",
+                originalError: e
+            };
+        };
+
+        var drawSvgAsImg = function (svg) {
+            return svg2image.renderSvg(svg)
+                .then(function (image) {
+                    return {
+                        image: image,
+                        svg: svg
+                    };
+                }, function (e) {
+                    throw generalDrawError(e);
+                });
+        };
+
+        var drawImageOnCanvas = function (image, canvas) {
+            try {
+                canvas.getContext("2d").drawImage(image, 0, 0);
+            } catch (e) {
+                // Firefox throws a 'NS_ERROR_NOT_AVAILABLE' if the SVG is faulty
+                throw generalDrawError(e);
+            }
+        };
+
+        var doDraw = function (element, canvas, options) {
+            return document2svg.drawDocumentAsSvg(element, options)
+                .then(drawSvgAsImg)
+                .then(function (result) {
+                    if (canvas) {
+                        drawImageOnCanvas(result.image, canvas);
+                    }
+
+                    return result;
+                });
+        };
+
+        var operateJavaScriptOnDocument = function (element, options) {
+            return browser.executeJavascript(element, options)
+                .then(function (result) {
+                    var document = result.document;
+                    documentHelper.persistInputValues(document);
+
+                    return {
+                        document: document,
+                        errors: result.errors
+                    };
+                });
+        };
+
+        module.rasterize = function (element, canvas, options) {
+            var inlineOptions;
+
+            inlineOptions = util.clone(options);
+            inlineOptions.inlineScripts = options.executeJs === true;
+
+            return inlineresources.inlineReferences(element, inlineOptions)
+                .then(function (errors) {
+                    if (options.executeJs) {
+                        return operateJavaScriptOnDocument(element, options)
+                            .then(function (result) {
+                                return {
+                                    element: result.document.documentElement,
+                                    errors: errors.concat(result.errors)
+                                };
+                            });
+                    } else {
+                        return {
+                            element: element,
+                            errors: errors
+                        };
+                    }
+                }).then(function (result) {
+                    return doDraw(result.element, canvas, options)
+                        .then(function (drawResult) {
+                            return {
+                                image: drawResult.image,
+                                svg: drawResult.svg,
+                                errors: result.errors
+                            };
+                        });
+                });
+        };
+
+        return module;
+    }(util, browser, documentHelper, document2svg, svg2image, inlineresources));
+
+    var rasterizeHTML = (function (util, browser, rasterize) {
+        "use strict";
+
+        var module = {};
+
+        var getViewportSize = function (canvas, options) {
+            var defaultWidth = 300,
+                defaultHeight = 200,
+                fallbackWidth = canvas ? canvas.width : defaultWidth,
+                fallbackHeight = canvas ? canvas.height : defaultHeight,
+                width = options.width !== undefined ? options.width : fallbackWidth,
+                height = options.height !== undefined ? options.height : fallbackHeight;
+
+            return {
+                width: width,
+                height: height
+            };
+        };
+
+        var constructOptions = function (params) {
+            var viewport = getViewportSize(params.canvas, params.options),
+                options;
+
+            options = util.clone(params.options);
+            options.width = viewport.width;
+            options.height = viewport.height;
+
+            return options;
+        };
+
+        /**
+         * Draws a Document to the canvas.
+         * rasterizeHTML.drawDocument( document [, canvas] [, options] ).then(function (result) { ... });
+         */
+        module.drawDocument = function () {
+            var doc = arguments[0],
+                optionalArguments = Array.prototype.slice.call(arguments, 1),
+                params = util.parseOptionalParameters(optionalArguments);
+
+            var element = doc.documentElement ? doc.documentElement : doc;
+
+            return rasterize.rasterize(element, params.canvas, constructOptions(params));
+        };
+
+        var drawHTML = function (html, canvas, options) {
+            var doc = browser.parseHTML(html);
+
+            return module.drawDocument(doc, canvas, options);
+        };
+
+        /**
+         * Draws a HTML string to the canvas.
+         * rasterizeHTML.drawHTML( html [, canvas] [, options] ).then(function (result) { ... });
+         */
+        module.drawHTML = function () {
+            var html = arguments[0],
+                optionalArguments = Array.prototype.slice.call(arguments, 1),
+                params = util.parseOptionalParameters(optionalArguments);
+
+            return drawHTML(html, params.canvas, params.options);
+        };
+
+        // work around https://bugzilla.mozilla.org/show_bug.cgi?id=925493
+        var workAroundFirefoxNotLoadingStylesheetStyles = function (doc, url, options) {
+            var d = document.implementation.createHTMLDocument('');
+            d.replaceChild(doc.documentElement, d.documentElement);
+
+            var extendedOptions = options ? util.clone(options) : {};
+
+            if (!options.baseUrl) {
+                extendedOptions.baseUrl = url;
+            }
+
+            return {
+                document: d,
+                options: extendedOptions
+            };
+        };
+
+        var drawURL = function (url, canvas, options) {
+            return browser.loadDocument(url, options)
+                .then(function (doc) {
+                    var workaround = workAroundFirefoxNotLoadingStylesheetStyles(doc, url, options);
+                    return module.drawDocument(workaround.document, canvas, workaround.options);
+                });
+        };
+
+        /**
+         * Draws a page to the canvas.
+         * rasterizeHTML.drawURL( url [, canvas] [, options] ).then(function (result) { ... });
+         */
+        module.drawURL = function () {
+            var url = arguments[0],
+                optionalArguments = Array.prototype.slice.call(arguments, 1),
+                params = util.parseOptionalParameters(optionalArguments);
+
+            return drawURL(url, params.canvas, params.options);
+        };
+
+        return module;
+    }(util, browser, rasterize));
+
+    return rasterizeHTML;
+
+}));
