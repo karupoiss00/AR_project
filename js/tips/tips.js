@@ -1,4 +1,4 @@
-//import {html2canvas} from '/js/html2canvas/html2canvas.min.js';
+//import * as html2canvas from '/js/html2canvas/html2canvas.min.js';
 
 /**
  * @param {!{
@@ -57,7 +57,7 @@ function createTipCanvas(id, text, textSize, html, size) {
 	canvas.height = h;
     if (html.length > 0) {
         const userDoc = document.implementation.createDocument('', '');
-        userDoc.documentElement.innerHTML = html;
+        userDoc.innerHTML = html;
         html2canvas(userDoc, {width: w, height: h}).then(function(canvas) {
             canvas.id = id;
             return canvas;
