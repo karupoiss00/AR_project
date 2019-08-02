@@ -1,4 +1,4 @@
-import {html2canvas} from '/js/html2canvas/html2canvas.min.js';
+//import {html2canvas} from '/js/html2canvas/html2canvas.min.js';
 
 /**
  * @param {!{
