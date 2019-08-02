@@ -56,7 +56,7 @@ function createTipCanvas(id, text, textSize, html, size) {
 	canvas.width = w;
 	canvas.height = h;
     if (html.length > 0) {
-        const userDoc = document.implementation.createDocument('');
+        const userDoc = document.implementation.createDocument('', '');
         userDoc.documentElement.innerHTML = html;
         html2canvas(userDoc, {width: w, height: h}).then(function(canvas) {
             canvas.id = id;
