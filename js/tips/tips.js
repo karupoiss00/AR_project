@@ -66,7 +66,7 @@ function createTipCanvas(id, text, textSize, html, size) {
 	if (html.length > 0)
 	{
 		//var dom = document.implementation.createDocument('', 'html');
-		const tipDiv = document.body.createElement("div");
+		const tipDiv = document.createElement("div");
 		tipDiv.id = 'd' + id;
 		tipDiv.width = w;
 		tipDiv.height = h;
