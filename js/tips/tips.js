@@ -1,4 +1,4 @@
-import {html2canvas} from '/AR/html2canvas/html2canvas.js';
+import {html2canvas} from './html2canvas';
 
 /**
  * @param {!{
