@@ -37,6 +37,8 @@ function createTipMesh({id, text, textSize, html, coord, rotation, size}) {
 	const [rx, ry, rz] = rotation;
 	mesh.rotation.set(THREE.Math.degToRad(rx), THREE.Math.degToRad(ry), THREE.Math.degToRad(rz));
 
+	document.body.innerHTML = "";
+
 	return mesh;
 }
 
@@ -59,7 +61,6 @@ function createTipCanvas(id, text, textSize, html, size) {
         //const userDoc = document.implementation.createDocument('', '');
         html2canvas(document.body, {width: w, height: h}).then(function(canvas) {
             canvas.id = id;
-			document.body.innerHTML = "";
             return canvas;
         });
     }
