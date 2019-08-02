@@ -1,5 +1,3 @@
-//import * as html2canvas from '/js/html2canvas/html2canvas.min.js';
-
 /**
  * @param {!{
  *   id: string,
@@ -71,13 +69,13 @@ function createTipCanvas(id, text, textSize, html, size) {
 		tipDiv.width = w;
 		tipDiv.height = h;
 		tipDiv.innerHTML = html;
-		document.body.appendChild(tipDiv);
-		domtoimage.toPng(document.getElementById('d' + id))
-			.then(function (dataUrl) {
-				var img = new Image();
-				img.src = dataUrl;
-				ctx.drawImage(img, 0, 0);
-			})
+
+		var d = document.implementation.createHTMLDocument();
+		d.body.appendChild(tipDiv);
+
+		rasterizeHTML.drawDocument(d, canvas).then(function(renderResult) {
+			ctx.drawImage(renderResult.image, 0, 0);
+		});
 	}
 	else
 	{
