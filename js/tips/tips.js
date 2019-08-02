@@ -55,34 +55,31 @@ function createTipCanvas(id, text, textSize, html, size) {
 	const [w, h] = size;
 	canvas.width = w;
 	canvas.height = h;
-    if (html.length > 0) {
-        const userDoc = document.implementation.createDocument('', 'html');
-        userDoc.documentElement.innerHTML = html;
-        html2canvas(userDoc.documentElement, {width: w, height: h}).then(function(canvas) {
-            canvas.id = id;
-            return canvas;
-        });
-    }
-    else
-    {
-        const canvas = document.createElement("canvas");
 
-        canvas.id = id;
-        const [w, h] = size;
-        canvas.width = w;
-        canvas.height = h;
+	const ctx = canvas.getContext('2d');
 
-        const ctx = canvas.getContext('2d');
+	ctx.fillStyle = '#ffffff';
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = '#000000';
+	ctx.textAlign = "center";
 
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#000000';
-        ctx.textAlign = "center";
+	if (html.length > 0)
+	{
+		var dom = document.implementation.createDocument('', 'html');
+		dom.documentElement.innerHTML = html;
+		domtoimage.toPng(dom.documentElement)
+			.then(function (dataUrl) {
+				var img = new Image();
+				img.src = dataUrl;
+				ctx.drawImage(img, 0, 0);
+			})
+	}
+	else
+	{
+		wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, textSize);
+	}
 
-        wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, textSize);
-        return canvas;
-    }
-
+	return canvas;
 
 }
 
