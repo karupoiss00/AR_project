@@ -72,7 +72,7 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	heading.style.fontSize = titleStyle.size.toString() + 'px';
 	heading.style.backgroundColor = titleStyle.backgroundColor;
 	heading.style.color = titleStyle.color;
-	heading.innerText = title;
+	heading.innerHTML = "<center>" + title + "</center>";
 
 	const description = document.createElement("a");
 	description.style.font = textStyle.font;

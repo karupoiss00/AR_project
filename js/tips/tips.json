@@ -7,20 +7,20 @@
 			"titleStyle":
 				{
 					"font": "",
-					"size": 12,
+					"size": 16,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
 			"textStyle":
 				{
 					"font": "",
-					"size": 8,
+					"size": 12,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
 			"coord": [30, 50, 20],
 			"rotation": [-30, 0, 0],
-			"size": [300, 300]
+			"size": [140, 120]
 		},
 		{
 			"id": "tip1",
