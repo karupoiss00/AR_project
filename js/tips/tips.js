@@ -58,8 +58,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	canvas.height = h;
 
 	const ctx = canvas.getContext("2d")
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    /*ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);*/
 
 	const doc = document.implementation.createHTMLDocument();
 	const tipDiv = doc.createElement("div");
@@ -67,19 +67,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	tipDiv.width = w;
 	tipDiv.height = h;
 
-	const heading = document.createElement("h1");
-	heading.style.font = titleStyle.font;
-	heading.style.fontSize = titleStyle.size.toString() + 'px';
-	heading.style.backgroundColor = titleStyle.backgroundColor;
-	heading.style.color = titleStyle.color;
-	heading.innerHTML = "<center>" + title + "</center>";
-
-	const description = document.createElement("a");
-	description.style.font = textStyle.font;
-	description.style.fontSize = textStyle.size.toString() + 'px';
-	description.style.backgroundColor = textStyle.backgroundColor;
-	description.style.color = textStyle.color;
-	description.innerText = text;
+	const heading = createHeading(title, titleStyle);
+	const description = createDescription(text, textStyle);
 
 	tipDiv.appendChild(heading);
 	tipDiv.appendChild(description);
@@ -90,6 +79,36 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	});
 
 	return canvas;
+}
+
+/**
+ *  @param {string} title
+ *  @param {!Object} titleStyle
+ * @return {!Element}
+ */
+function createHeading(title, titleStyle) {
+	const heading = document.createElement("h1");
+	heading.style.font = titleStyle.font;
+	heading.style.fontSize = titleStyle.size.toString() + 'px';
+	heading.style.backgroundColor = titleStyle.backgroundColor;
+	heading.style.color = titleStyle.color;
+	heading.innerHTML = "<center>" + title + "</center>";
+	return heading;
+}
+
+/**
+ *  @param {string} text
+ *  @param {!Object} textStyle
+ * @return {!Element}
+ */
+function createDescription(text, textStyle) {
+	const description = document.createElement("a");
+	description.style.font = textStyle.font;
+	description.style.fontSize = textStyle.size.toString() + 'px';
+	description.style.backgroundColor = textStyle.backgroundColor;
+	description.style.color = textStyle.color;
+	description.innerText = text;
+	return description;
 }
 
 export {
