@@ -4,7 +4,7 @@
 			"id": "tip0",
 			"text": "This is cat. Cat can run at night, eat and scratch you.",
 			"textSize": 11,
-			"html":  "<style type=\"text/css\">\n  background: #918acf; H1 { \n    font-size: 100%; \n    font-family: Verdana, Arial, Helvetica, sans-serif;\n    color: #336; /* Цвет текста */\n   }\n  </style><center><h1>Cat</h1>\n<font color=#fafafa>This is <b>cat</b>. Cat can run at night, eat and scratch you.</font></center>",
+			"html":  "<style type=\"text/css\">\n   body { background-color: #8375ff} h1 { \n    font-size: 100%; \n    font-family: Verdana, Arial, Helvetica, sans-serif;\n    color: #f5f5f5;\n   }\n  </style><center><h1>Cat</h1>\n<font color=#fafafa>This is <b>cat</b>. Cat can run at night, eat and scratch you.</font></center>",
 			"coord": [0.3, 0.5, 0.2],
 			"rotation": [-30, 0, 0],
 			"size": [150, 170]
