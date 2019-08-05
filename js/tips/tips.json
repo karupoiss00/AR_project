@@ -8,15 +8,15 @@
 				{
 					"font": "",
 					"size": 16,
-					"color": "#000000",
-					"backgroundColor": "#ffffff"
+					"color": "#ffffff",
+					"backgroundColor": "#00a33f"
 				},
 			"textStyle":
 				{
 					"font": "",
 					"size": 12,
 					"color": "#000000",
-					"backgroundColor": "#ffffff"
+					"backgroundColor": "#91ffbb"
 				},
 			"color": "#91ffbb",
 			"coord": [30, 50, 20],
