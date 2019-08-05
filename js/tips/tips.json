@@ -7,7 +7,7 @@
 			"html":  "<style type=\"text/css\">\n   body { background-color: #008a15} h1 { \n    font-size: 150%; \n    font-family: Verdana, Arial, Helvetica, sans-serif;\n    color: #f5f5f5;\n   }  </style><center><h1>Cat</h1>\n<font color=#fafafa>This is <b>cat</b>. Cat can run at night, eat and scratch you.</font></center>",
 			"coord": [0.3, 0.5, 0.2],
 			"rotation": [-30, 0, 0],
-			"size": [150, 170]
+			"size": [140, 150]
 		},
 
 		{
