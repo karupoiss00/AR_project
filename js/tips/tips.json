@@ -7,7 +7,7 @@
 			"html":  "<center><h1>Cat</h1></center>\nThis is <b>cat</b>. Cat can run at night, eat and scratch you.",
 			"coord": [0.3, 0.5, 0.2],
 			"rotation": [-30, 0, 0],
-			"size": [300, 300]
+			"size": [150, 150]
 		},
 
 		{
