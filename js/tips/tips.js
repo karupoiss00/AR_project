@@ -69,17 +69,17 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 
 	const heading = document.createElement("h1");
 	heading.style.font = titleStyle.font;
-	heading.style.fontSize = titleStyle.size;
+	heading.style.fontSize = titleStyle.size.toString() + 'px';
 	heading.style.backgroundColor = titleStyle.backgroundColor;
 	heading.style.color = titleStyle.color;
 	heading.innerText = title;
 
 	const description = document.createElement("a");
 	description.style.font = textStyle.font;
-	description.style.fontSize = textStyle.size;
+	description.style.fontSize = textStyle.size.toString() + 'px';
 	description.style.backgroundColor = textStyle.backgroundColor;
 	description.style.color = textStyle.color;
-	heading.innerText = text;
+	description.innerText = text;
 
 	tipDiv.appendChild(heading);
 	tipDiv.appendChild(description);
