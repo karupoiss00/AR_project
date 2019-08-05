@@ -72,6 +72,8 @@ function createTipCanvas(id, text, textSize, html, size) {
 		d.body.appendChild(tipDiv);
 
 		rasterizeHTML.drawDocument(d, canvas).then(function(renderResult) {
+			renderResult.image.width = w;
+			renderResult.image.height = h;
 			ctx.drawImage(renderResult.image, 0, 0);
 		});
 	}
