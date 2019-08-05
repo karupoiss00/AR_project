@@ -5,18 +5,19 @@
  *   text: string,
  *   titleStyle: !Object,
  *   textStyle: !Object,
+ *   color: string
  *   coord: !Array<number>,
  *   rotation: !Array<number>,
  *   size: !Array<number>,
  * }} args
  * @return {!THREE.Mesh}
  */
-function createTipMesh({id, title, text, titleStyle, textStyle, coord, rotation, size}) {
+function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, rotation, size}) {
 	const coordsScale = 0.01;
 	const [w, h] = size;
-	const canvas = createTipCanvas(id, title, text, titleStyle, textStyle, size);
+	const canvas = createTipCanvas(id, title, text, titleStyle, textStyle, color, size);
 	const texture = new THREE.CanvasTexture(canvas);
-	const whiteSide = new THREE.MeshBasicMaterial({ color: 'white' });
+	const whiteSide = new THREE.MeshBasicMaterial({ color: color });
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
 	const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
 	const material = [
@@ -46,10 +47,11 @@ function createTipMesh({id, title, text, titleStyle, textStyle, coord, rotation,
  *  text: string,
  *  titleStyle: !Object,
  *  textStyle: !Object,
+ *  color: string,
  * @param {!Array<number>} size
  * @return {!Element}
  */
-function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
+function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	const canvas = document.createElement("canvas");
 
 	canvas.id = id;
@@ -58,8 +60,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	canvas.height = h;
 
 	const ctx = canvas.getContext("2d")
-    /*ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);*/
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	const doc = document.implementation.createHTMLDocument();
 	const tipDiv = doc.createElement("div");

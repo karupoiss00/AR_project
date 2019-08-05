@@ -48,7 +48,10 @@ function createTip(data) {
 	{
 		throw new Error('incorrect tip id');
 	}
-
+	if (noProperty('color'))
+	{
+		data['color'] = "#ffffff";
+	}
 	if (noProperty('coord'))
 	{
 		data['coord'] = [0, 0, 0];
