@@ -1,18 +1,20 @@
 /**
  * @param {!{
  *   id: string,
+ *   title: string,
  *   text: string,
- *   textSize: number,
- *   html: string,
+ *   titleStyle: !Object,
+ *   textStyle: !Object,
  *   coord: !Array<number>,
  *   rotation: !Array<number>,
  *   size: !Array<number>,
  * }} args
  * @return {!THREE.Mesh}
  */
-function createTipMesh({id, text, textSize, html, coord, rotation, size}) {
+function createTipMesh({id, title, text, titleStyle, textStyle, coord, rotation, size}) {
+	const coordsScale = 0.01;
 	const [w, h] = size;
-	const canvas = createTipCanvas(id, text, textSize, html, size);
+	const canvas = createTipCanvas(id, title, text, titleStyle, textStyle, size);
 	const texture = new THREE.CanvasTexture(canvas);
 	const whiteSide = new THREE.MeshBasicMaterial({ color: 'white' });
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
@@ -30,7 +32,7 @@ function createTipMesh({id, text, textSize, html, coord, rotation, size}) {
 	mesh.scale.set(0.01, 0.01, 0.01);
 
 	const [x, y, z] = coord;
-	mesh.position.set(x, y, z);
+	mesh.position.set(x * coordsScale, y * coordsScale, z * coordsScale);
 	
 	const [rx, ry, rz] = rotation;
 	mesh.rotation.set(THREE.Math.degToRad(rx), THREE.Math.degToRad(ry), THREE.Math.degToRad(rz));
@@ -39,14 +41,15 @@ function createTipMesh({id, text, textSize, html, coord, rotation, size}) {
 }
 
 /**
- * @param {string} id
- * @param {string} text
- * @param {number} textSize
- * @param {string} html
+ *  id: string,
+ *  title: string,
+ *  text: string,
+ *  titleStyle: !Object,
+ *  textStyle: !Object,
  * @param {!Array<number>} size
  * @return {!Element}
  */
-function createTipCanvas(id, text, textSize, html, size) {
+function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	const canvas = document.createElement("canvas");
 
 	canvas.id = id;
@@ -54,67 +57,33 @@ function createTipCanvas(id, text, textSize, html, size) {
 	canvas.width = w;
 	canvas.height = h;
 
-	const ctx = canvas.getContext('2d');
+	const doc = document.implementation.createHTMLDocument();
+	const tipDiv = doc.createElement("div");
+	tipDiv.id = 'd' + id;
+	tipDiv.width = w;
+	tipDiv.height = h;
 
-	ctx.fillStyle = '#ffffff';
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = '#000000';
-	ctx.textAlign = "center";
+	const heading = document.createElement("h1");
+	heading.style.font = titleStyle.font;
+	heading.style.fontSize = titleStyle.size;
+	heading.style.backgroundColor = titleStyle.backgroundColor;
+	heading.style.color = titleStyle.color;
 
-	if (html.length > 0)
-	{
-		var d = document.implementation.createHTMLDocument();
-		const tipDiv = d.createElement("div");
-		tipDiv.id = 'd' + id;
-		tipDiv.width = w;
-		tipDiv.height = h;
-		tipDiv.innerHTML = html;
-		d.body.appendChild(tipDiv);
-		rasterizeHTML.drawDocument(d, canvas).then(function(renderResult) {
-			ctx.drawImage(renderResult.image, 0, 0);
-		});
-	}
-	else
-	{
-		wrapText(ctx, text, canvas.width / 2, h * 0.2, w * 0.8,  h / 10, textSize);
-	}
+	const description = document.createElement("a");
+	description.style.font = textStyle.font;
+	description.style.fontSize = textStyle.size;
+	description.style.backgroundColor = textStyle.backgroundColor;
+	description.style.color = textStyle.color;
+
+	tipDiv.appendChild(heading);
+	tipDiv.appendChild(description);
+
+	doc.body.appendChild(tipDiv);
+	rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
+		ctx.drawImage(renderResult.image, 0, 0);
+	});
 
 	return canvas;
-
-}
-
-/**
- * @param context
- * @param {string} text
- * @param {number} x
- * @param {number} y
- * @param {number} maxWidth
- * @param {number} lineHeight
- */
-function wrapText(context, text, x, y, maxWidth, lineHeight, textSize) {
-	context.font = "normal normal ".concat(textSize, "px Verdana");
-	const words = text.split(' ');
-	let line = '';
-
-	for (let i = 0; i < words.length; ++i)
-	{
-		const testLine = line + words[i] + ' ';
-		const metrics = context.measureText(testLine);
-		const testWidth = metrics.width;
-
-		if ((testWidth > maxWidth) && (i > 0))
-		{
-			context.fillText(line, x, y);
-			line = words[i] + ' ';
-			y += textSize * 1.5;
-		}
-		else
-		{
-			line = testLine;
-		}
-	}
-
-	context.fillText(line, x, y);
 }
 
 export {
