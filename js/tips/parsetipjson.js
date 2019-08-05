@@ -43,27 +43,10 @@ function verifyParsedJson(parsedJson) {
  */
 function createTip(data) {
 	const noProperty = (property) => !data.hasOwnProperty(property);
-	
-	if (noProperty('id'))
+	data = checkTipStyles(data);
+	if (noProperty('id') || noProperty('text'))
 	{
 		throw new Error('incorrect tip id');
-	}
-
-	if (noProperty('html') && noProperty('text')
-		&& noProperty('textSize'))
-	{
-		throw new Error('incorrect tip data');
-	}
-
-	if (!noProperty('text')
-		&& noProperty('textSize'))
-	{
-		throw new Error('incorrect tip text size');
-	}
-
-	if (noProperty('html'))
-	{
-		data['html'] = "";
 	}
 
 	if (noProperty('coord'))
@@ -84,6 +67,49 @@ function createTip(data) {
 	return data;
 }
 
+/**
+ * @param {!Object} data
+ * @return {!Object}
+ */
+function checkTipStyles(data) {
+	const noProperty = (object, property) => !object.hasOwnProperty(property);
+	const styles = ["titleStyle", "textStyle"];
+	for (let style of styles)
+	{
+		if (noProperty(data, style))
+		{
+			data[style] =
+			{
+				font: "",
+				size: 22,
+				color: "#000000",
+				backgroundColor: "#ffffff",
+			};
+		}
+		else
+		{
+			if (noProperty(data[style], 'font'))
+			{
+				data[style].font = "";
+			}
+			if (noProperty(data[style], 'size'))
+			{
+				data[style].size = 22;
+			}
+			if (noProperty(data[style], 'color'))
+			{
+				data[style].color = "#000000";
+			}
+			if (noProperty(data[style], 'backgroundColor'))
+			{
+				data[style].backgroundColor = "#ffffff";
+			}
+		}
+	}
+
+	return data;
+
+}
 export {
 	parseTipJson,
 };
