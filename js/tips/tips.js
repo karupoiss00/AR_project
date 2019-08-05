@@ -58,6 +58,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, size) {
 	canvas.height = h;
 
 	const ctx = canvas.getContext("2d")
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 	const doc = document.implementation.createHTMLDocument();
 	const tipDiv = doc.createElement("div");
