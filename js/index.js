@@ -158,6 +158,7 @@ function loadTips(marker, url) {
             console.log(tip);
             const tipMesh = createTipMesh(tip);
             tipMeshes.push(tipMesh);
+            tipMesh.visible = true;
             marker.add(tipMesh);
         }
         console.log(tipMeshes);
@@ -194,7 +195,6 @@ function showTips() {
     {
         mesh.visible = false;
     }
-    tipMeshes[4].visible = true;
 	const {tipMesh, distance} = getNearestTip();
 
     if (distance < 25)
