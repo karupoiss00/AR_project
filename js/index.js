@@ -22,9 +22,9 @@ let markerRoot;
 /** @const {!THREE.Mesh} */
 const tipMeshes = [];
 /** @const {!Array<!Object>} */
-const tipsData = {
+const tipsData = [
 
-};
+];
 
 function initialize() {
     initArea();
