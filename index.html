@@ -25,10 +25,21 @@
 		overflow: hidden;
 		font-family: Monospace;
 	  }
+
+      textarea {
+        resize: none;
+        overflow:hidden;
+      }
     </style>
   </head>
-  <body>
+  <>
     <div id="UI">
+      <div id="idInput">
+        <br>
+        Tip id:
+        <input id="tipId" type="text"style="width:175px;"></input>
+        </br>
+      </div>
       <div id="titleInput">
         <br>
           Tip title:
@@ -39,7 +50,7 @@
         <br>
           Tip description:
         </br>
-        <textarea style="width:233px;height:107px;"></textarea>
+        <textarea id="description"style="width:230px;height:107px;"></textarea>
       </div>
       <details style="width:233px">
         <summary>Colors</summary>
@@ -75,9 +86,18 @@
       <details style="width:233px">
         <summary>Position</summary>
         <div id="coords">
-          <input type="number" min="0" max="500" value="0" id="x" style="width:65px">X</input>
-          <input type="number" min="0" max="500" value="0"  id="y" style="width:65px">Y</input>
-          <input type="number" min="0" max="500" value="0"  id="z" style="width:65px">Z</input>
+          Position:
+          <br>
+            <input type="number" min="-500" max="500" value="0" id="x" style="width:60px">X</input>
+            <input type="number" min="-500" max="500" value="0"  id="y" style="width:60px">Y</input>
+            <input type="number" min="-500" max="500" value="0"  id="z" style="width:60px">Z</input>
+          </br>
+          Rotation:
+          <br>
+            <input type="number" min="-360" max="360" value="0" id="rx" style="width:60px">X</input>
+            <input type="number" min="-360" max="360" value="0"  id="ry" style="width:60px">Y</input>
+            <input type="number" min="-360" max="360" value="0"  id="rz" style="width:60px">Z</input>
+          </br>
         </div>
       </details>
       <div id="actions">

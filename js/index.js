@@ -19,8 +19,8 @@ let arToolkitSource;
 let arToolkitContext;
 /** @type {!THREE.Group} */
 let markerRoot;
-/** @const {!Array<!THREE.Mesh>} */
-const tipMeshes = [];
+/** @const {!Array<string>} */
+const tipsData = [];
 
 function initialize() {
     initArea();
@@ -148,8 +148,16 @@ function loadTips(marker, url) {
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
-            tipMeshes.push(tipMesh);
             marker.add(tipMesh);
+        }
+        for (const tipData of tipsData)
+        {
+            const tips = parseTipJson(tipData);
+            for (const tip of tips)
+            {
+                const tipMesh = createTipMesh(tip);
+                marker.add(tipMesh);
+            }
         }
     };
     xhr.onerror = () => {
@@ -238,6 +246,75 @@ function start()
     document.body.innerHTML = "";
     initialize();
     animate();
+}
+
+function parseTipObject() {
+    const tipId = document.getElementById("tipId").value;
+
+    const title = document.getElementById("title").value;
+    const titleSize = document.getElementById("titleSize").value;
+    const titleColor = document.getElementById("titleTextColor").value;
+    const titleBackground = document.getElementById("titleBackgroundColor").value;
+
+    const description = document.getElementById("description").value;
+    const descriptionSize = document.getElementById("textSize").value;
+    const descriptionColor = document.getElementById("descriptionTextColor").value;
+    const descriptionBackground = document.getElementById("descriptionBackgroundColor").value;
+
+    const tipColor = document.getElementById("tipColor").value;
+
+    const positionX = document.getElementById("x").value;
+    const positionY = document.getElementById("y").value;
+    const positionZ = document.getElementById("z").value;
+
+    const rotationX = document.getElementById("rx").value;
+    const rotationY = document.getElementById("ry").value;
+    const rotationZ = document.getElementById("rz").value;
+
+    const width = document.getElementById("tipWidth").value;
+    const height = document.getElementById("tipHeight").value;
+
+    const coord = [positionX, positionY, positionZ];
+    const rotation = [rotationX, rotationY, rotationZ];
+    const size = [width, height];
+
+    if (tipId.length == 0
+        || title.length == 0
+        || description.length == 0) {
+        document.body.innerHTML += '<br><font color="red">Please, fill require fields</font></br>';
+    }
+    else
+    {
+        const tipData =
+            {
+                tips: [
+                    {
+                        id: tipId,
+                        title: title,
+                        text: description,
+                        titleStyle:
+                            {
+                                font: "",
+                                size: titleSize,
+                                color: titleColor,
+                                backgroundColor: titleBackground,
+                            },
+                        textStyle:
+                            {
+                                font: "",
+                                size: descriptionSize,
+                                color: descriptionColor,
+                                backgroundColor: descriptionBackground,
+                            },
+                        color: tipColor,
+                        coord: coord,
+                        rotation: rotation,
+                        size: size,
+                    }
+                ]
+            };
+        tipsData.push(JSON.stringify(tipData));
+    }
 }
 
 window.onload = function() {
