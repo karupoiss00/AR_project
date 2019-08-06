@@ -284,7 +284,7 @@ function addTip() {
         || description.length == 0
         || description.length == 0))
     {
-        tipsData.tips.push(
+        tipsData.push(
             {
                 id: tipId,
                 title: title,
