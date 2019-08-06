@@ -242,5 +242,5 @@ function start()
 
 window.onload = function() {
     const startButton = document.getElementById("start");
-    startButton.onclick = start();
+    startButton.onclick = start;
 };
