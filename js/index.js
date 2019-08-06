@@ -22,7 +22,9 @@ let markerRoot;
 /** @const {!THREE.Mesh} */
 const tipMeshes = [];
 /** @const {!Array<string>} */
-const tipsData = [];
+const tipsData = {
+    tips: [],
+};
 
 function initialize() {
     initArea();
@@ -146,23 +148,22 @@ function loadTips(marker, url) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = () => {
-        const tips = parseTipJson(xhr.responseText);
+        /*const tips = parseTipJson(xhr.responseText);
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
-            //tipMeshes.push(tipMesh);
+            tipMeshes.push(tipMesh);
             marker.add(tipMesh);
         }
-        for (const tipData of tipsData)
+         */
+        for (const tip of tipsData)
         {
-            const tips = parseTipJson(tipData);
-            for (const tip of tips)
-            {
-                const tipMesh = createTipMesh(tip);
-                tipMeshes.push(tipMesh);
-                marker.add(tipMesh);
-            }
+            const tipMesh = createTipMesh(tip);
+            tipMeshes.push(tipMesh);
+            marker.add(tipMesh);
         }
+
+
     };
     xhr.onerror = () => {
         console.log("Failed to load tips.json");
@@ -289,35 +290,31 @@ function addTip() {
     }
     else
     {
-        const tipData =
+        tipsData.tips.push(
             {
-                tips: [
+                id: tipId,
+                title: title,
+                text: description,
+                titleStyle:
                     {
-                        id: tipId,
-                        title: title,
-                        text: description,
-                        titleStyle:
-                            {
-                                font: "",
-                                size: titleSize,
-                                color: titleColor,
-                                backgroundColor: titleBackground,
-                            },
-                        textStyle:
-                            {
-                                font: "",
-                                size: descriptionSize,
-                                color: descriptionColor,
-                                backgroundColor: descriptionBackground,
-                            },
-                        color: tipColor,
-                        coord: coord,
-                        rotation: rotation,
-                        size: size,
-                    }
-                ]
-            };
-        tipsData.push(JSON.stringify(tipData));
+                        font: "",
+                        size: titleSize,
+                        color: titleColor,
+                        backgroundColor: titleBackground,
+                    },
+                textStyle:
+                    {
+                        font: "",
+                        size: descriptionSize,
+                        color: descriptionColor,
+                        backgroundColor: descriptionBackground,
+                    },
+                color: tipColor,
+                coord: coord,
+                rotation: rotation,
+                size: size,
+            }
+        );
     }
 }
 
