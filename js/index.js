@@ -248,7 +248,7 @@ function start()
     animate();
 }
 
-function parseTipObject() {
+function addTip() {
     const tipId = document.getElementById("tipId").value;
 
     const title = document.getElementById("title").value;
@@ -319,5 +319,7 @@ function parseTipObject() {
 
 window.onload = function() {
     const startButton = document.getElementById("start");
+    const addButton = document.getElementById("add");
+    addButton.onclick = addTip;
     startButton.onclick = start;
 };
