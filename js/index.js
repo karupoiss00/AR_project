@@ -156,7 +156,7 @@ function loadTips(marker, url) {
             marker.add(tipMesh);
         }
          */
-        for (const tip of tipsData)
+        for (const tip of tipsData.tips)
         {
             const tipMesh = createTipMesh(tip);
             tipMeshes.push(tipMesh);
@@ -283,12 +283,9 @@ function addTip() {
     const rotation = [rotationX, rotationY, rotationZ];
     const size = [width, height];
 
-    if (tipId.length == 0
+    if (!(tipId.length == 0
         || title.length == 0
-        || description.length == 0) {
-        document.body.innerHTML += '<br><font color="red">Please, fill require fields</font></br>';
-    }
-    else
+        || description.length == 0))
     {
         tipsData.tips.push(
             {
