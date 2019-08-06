@@ -233,11 +233,14 @@ function animate() {
 	render();
 }
 
+function start()
+{
+    document.body.innerHTML = "";
+    initialize();
+    animate();
+}
+
 window.onload = function() {
-    startButton = document.getElementById("start");
-    startButton.onclick = function() {
-        document.body.innerHTML = "";
-        initialize();
-        animate();
-    }
+    const startButton = document.getElementById("start");
+    startButton.onclick = start();
 };
