@@ -21,9 +21,9 @@ let arToolkitContext;
 let markerRoot;
 /** @const {!THREE.Mesh} */
 const tipMeshes = [];
-/** @const {!Array<string>} */
+/** @const {!Array<!Object>} */
 const tipsData = {
-    tips: [],
+
 };
 
 function initialize() {
@@ -148,12 +148,11 @@ function loadTips(marker, url) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = () => {
-        const tips = tipsData.tips//parseTipJson(xhr.responseText);
-        /*
-        for (const tip of tipsData.tips)
+        const tips = parseTipJson(xhr.responseText);
+        for (const data of tipsData)
         {
-            tips.push(tip);
-        }*/
+            tips.push(data);
+        }
         for (const tip of tips)
         {
             console.log(tip);
@@ -282,7 +281,7 @@ function addTip() {
     const size = [width, height];
 
     if (!(tipId.length == 0
-        || title.length == 0
+        || description.length == 0
         || description.length == 0))
     {
         tipsData.tips.push(
