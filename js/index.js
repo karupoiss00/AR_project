@@ -234,6 +234,10 @@ function animate() {
 }
 
 window.onload = function() {
-	initialize();
-	animate();
+    startButton = document.getElementById("start");
+    startButton.onclick = function() {
+        document.body.innerHTML = "";
+        initialize();
+        animate();
+    }
 };

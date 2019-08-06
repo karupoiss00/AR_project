@@ -27,5 +27,63 @@
 	  }
     </style>
   </head>
-  <body></body>
+  <body>
+    <div id="UI">
+      <div id="titleInput">
+        <br>
+          Tip title:
+          <input id="title" type="text"style="width:155px;"></input>
+        </br>
+      </div>
+      <div id="textInput">
+        <br>
+          Tip description:
+        </br>
+        <textarea style="width:233px;height:107px;"></textarea>
+      </div>
+      <details style="width:233px">
+        <summary>Colors</summary>
+        <div id="colors">
+          <input type="color" id="titleTextColor" value="#000000">
+          <label for="titleTextColor">Title text color</label>
+          <br>
+          <input type="color" id="titleBackgroundColor" value="#ffffff">
+          <label for="titleBackgroundColor">Title background</label>
+          <br>
+          <input type="color" id="descriptionTextColor" value="#000000">
+          <label for="descriptionTextColor">Description text color</label>
+          <br>
+          <input type="color" id="descriptionBackgroundColor" value="#ffffff">
+          <label for="descriptionBackgroundColor">Description background</label>
+          <br>
+          <input type="color" id="tipColor" value="#ffffff">
+          <label for="tipColor">Tip color</label>
+        </div>
+      </details>
+      <details style="width:233px">
+        <summary>Sizes</summary>
+        <div id="sizes">
+          <input type="range" min="10" max="500" value="100" id="tipWidth">Tip width</input>
+          <br>
+          <input type="range" min="1" max="500" value="100"  id="tipHeight">Tip height</input>
+          <br>
+          <input type="range" min="6" max="32" value="10"  id="titleSize">Title size</input>
+          <br>
+          <input type="range" min="6" max="32" value="10" id="textSize">Description size</input>
+        </div>
+      </details>
+      <details style="width:233px">
+        <summary>Position</summary>
+        <div id="coords">
+          <input type="number" min="0" max="500" value="0" id="x" style="width:65px">X</input>
+          <input type="number" min="0" max="500" value="0"  id="y" style="width:65px">Y</input>
+          <input type="number" min="0" max="500" value="0"  id="z" style="width:65px">Z</input>
+        </div>
+      </details>
+      <div id="actions">
+        <input type="button" value="Add" id="add" style="width:115px"></input>
+        <input type="button" value="Start" id="start" style="width:115px"></input>
+      </div>
+    </div>
+  </body>
 </html>
