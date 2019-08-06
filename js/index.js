@@ -148,11 +148,12 @@ function loadTips(marker, url) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = () => {
-        const tips = parseTipJson(xhr.responseText);
+        const tips = tipsData.tips//parseTipJson(xhr.responseText);
+        /*
         for (const tip of tipsData.tips)
         {
             tips.push(tip);
-        }
+        }*/
         for (const tip of tips)
         {
             console.log(tip);
@@ -194,7 +195,6 @@ function showTips() {
     {
         mesh.visible = false;
     }
-    tipMeshes[4].visible = true;
 	const {tipMesh, distance} = getNearestTip();
 
     if (distance < 25)
