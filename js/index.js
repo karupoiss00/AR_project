@@ -145,11 +145,14 @@ function loadModel(marker, path, mtlName, objName, scale) {
  * @param {string} url
  */
 function loadTips(marker, url) {
-    /*
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = () => {
         const tips = parseTipJson(xhr.responseText);
+        for (const tip of tipsData.tips)
+        {
+            tips.push(tip);
+        }
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
@@ -157,21 +160,13 @@ function loadTips(marker, url) {
             marker.add(tipMesh);
         }
 
-
-
-
     };
     xhr.onerror = () => {
         console.log("Failed to load tips.json");
     };
 
-    xhr.send();*/
-    for (const tip of tipsData.tips)
-    {
-        const tipMesh = createTipMesh(tip);
-        tipMeshes.push(tipMesh);
-        marker.add(tipMesh);
-    }
+    xhr.send();
+
 }
 
 function onResize() {
