@@ -156,6 +156,7 @@ function loadTips(marker, url) {
         }
         for (const tip of tips)
         {
+            console.log(tip);
             const tipMesh = createTipMesh(tip);
             tipMeshes.push(tipMesh);
             marker.add(tipMesh);
