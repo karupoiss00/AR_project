@@ -152,7 +152,7 @@ function loadTips(marker, url) {
         for (const tip of tipsData.tips)
         {
             tips.push(tip);
-            console.log(tip);
+            //console.log(tip);
         }
         for (const tip of tips)
         {
