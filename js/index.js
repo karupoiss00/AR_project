@@ -256,27 +256,27 @@ function addTip() {
     const tipId = document.getElementById("tipId").value;
 
     const title = document.getElementById("title").value;
-    const titleSize = document.getElementById("titleSize").value;
+    const titleSize = Number(document.getElementById("titleSize").value);
     const titleColor = document.getElementById("titleTextColor").value;
     const titleBackground = document.getElementById("titleBackgroundColor").value;
 
     const description = document.getElementById("description").value;
-    const descriptionSize = document.getElementById("textSize").value;
+    const descriptionSize = Number(document.getElementById("textSize").value);
     const descriptionColor = document.getElementById("descriptionTextColor").value;
     const descriptionBackground = document.getElementById("descriptionBackgroundColor").value;
 
     const tipColor = document.getElementById("tipColor").value;
 
-    const positionX = document.getElementById("x").value;
-    const positionY = document.getElementById("y").value;
-    const positionZ = document.getElementById("z").value;
+    const positionX = Number(document.getElementById("x").value);
+    const positionY = Number(document.getElementById("y").value);
+    const positionZ = Number(document.getElementById("z").value);
 
-    const rotationX = document.getElementById("rx").value;
-    const rotationY = document.getElementById("ry").value;
-    const rotationZ = document.getElementById("rz").value;
+    const rotationX = Number(document.getElementById("rx").value);
+    const rotationY = Number(document.getElementById("ry").value);
+    const rotationZ = Number(document.getElementById("rz").value);
 
-    const width = document.getElementById("tipWidth").value;
-    const height = document.getElementById("tipHeight").value;
+    const width = Number(document.getElementById("tipWidth").value);
+    const height = Number(document.getElementById("tipHeight").value);
 
     const coord = [positionX, positionY, positionZ];
     const rotation = [rotationX, rotationY, rotationZ];
