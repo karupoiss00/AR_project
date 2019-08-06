@@ -19,6 +19,8 @@ let arToolkitSource;
 let arToolkitContext;
 /** @type {!THREE.Group} */
 let markerRoot;
+/** @const {!THREE.Mesh} */
+const tipMeshes = [];
 /** @const {!Array<string>} */
 const tipsData = [];
 
@@ -148,6 +150,7 @@ function loadTips(marker, url) {
         for (const tip of tips)
         {
             const tipMesh = createTipMesh(tip);
+            //tipMeshes.push(tipMesh);
             marker.add(tipMesh);
         }
         for (const tipData of tipsData)
@@ -156,6 +159,7 @@ function loadTips(marker, url) {
             for (const tip of tips)
             {
                 const tipMesh = createTipMesh(tip);
+                tipMeshes.push(tipMesh);
                 marker.add(tipMesh);
             }
         }
