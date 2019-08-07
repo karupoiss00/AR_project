@@ -249,6 +249,7 @@ function animate() {
 function start()
 {
     document.getElementById("UI").style.visibility = "hidden";
+    document.getElementById("edit").style.visibility = "visible";
     initialize();
     animate();
 }
@@ -283,7 +284,7 @@ function addTip() {
 function back()
 {
     renderer.domElement.style.visibility = "hidden";
-    document.getElementById("transfer").style.visibility = "hidden";
+    document.getElementById("edit").style.visibility = "hidden";
     document.getElementById("UI").style.visibility = "visible";
 }
 window.onload = function() {
