@@ -1,6 +1,6 @@
 import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh} from './tips/tips.js';
-import {getTipId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize} from '/UI.js';
+import {getTitle, getDescription, getTipColor, getPosition, getRotation, getSize} from '/UI.js';
 
 /** @type {!THREE.Scene} */
 let scene;
