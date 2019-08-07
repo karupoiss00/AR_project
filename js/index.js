@@ -248,18 +248,9 @@ function animate() {
 
 function start()
 {
-    if (renderer == undefined)
-    {
-        document.getElementById("UI").style.visibility = "hidden";
-        initialize();
-        animate();
-    }
-    else
-    {
-        renderer.domElement.style.visibility = "visible";
-        document.getElementById("transfer").style.visibility = "visible";
-        document.getElementById("UI").style.visibility = "hidden";
-    }
+    document.getElementById("UI").style.visibility = "hidden";
+    initialize();
+    animate();
 }
 
 function addTip() {
