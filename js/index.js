@@ -254,35 +254,30 @@ function start()
 }
 
 function addTip() {
-    if (!(getTipId.length == 0
-        || getDescription.text.length == 0))
-    {
-        tipsData.push(
-            {
-                id: getTipId(),
-                title: getTitle().text,
-                text: getDescription().text,
-                titleStyle:
-                    {
-                        font: "",
-                        size: getTitle().size,
-                        color: getTitle().color,
-                        backgroundColor: getTitle().background,
-                    },
-                textStyle:
-                    {
-                        font: "",
-                        size: getDescription().size,
-                        color: getDescription().color,
-                        backgroundColor: getDescription().background,
-                    },
-                color: getTipColor(),
-                coord: getPosition(),
-                rotation: getRotation(),
-                size: getSize(),
-            }
-        );
-    }
+    tipsData.push(
+        {
+            id: getTipId(),
+            title: getTitle().text,
+            text: getDescription().text,
+            titleStyle:
+                {
+                    font: "",
+                    size: getTitle().size,
+                    color: getTitle().color,
+                    backgroundColor: getTitle().background,
+                },
+            textStyle:
+                {
+                    font: "",
+                    size: getDescription().size,
+                    color: getDescription().color,
+                    backgroundColor: getDescription().background,
+                },
+            color: getTipColor(),
+            coord: getPosition(),
+            rotation: getRotation(),
+            size: getSize(),
+        });
 }
 
 window.onload = function() {
