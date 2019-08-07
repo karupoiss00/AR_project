@@ -88,6 +88,7 @@ function initRenderer(screenWidth, screenHeight) {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '0px';
     renderer.domElement.style.left = '0px';
+    renderer.domElement.id = 'renderer';
     document.body.appendChild(renderer.domElement);
 }
 
@@ -248,7 +249,7 @@ function animate() {
 
 function start()
 {
-    document.body.innerHTML = "";
+    document.getElementById("UI").style.visibility = "hidden";
     initialize();
     animate();
 }
