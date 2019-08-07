@@ -83,7 +83,7 @@ function getNumberValue(id) {
  * * @return {string}
  */
 function getStringValue(id) {
-    return Number(document.getElementById(id).value);
+    return document.getElementById(id).value;
 }
 
 export {
