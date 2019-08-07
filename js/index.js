@@ -1,6 +1,9 @@
 import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh} from './tips/tips.js';
-import {getTipId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize} from '/js/UI.js';
+import {clearFields, getTipId,
+        getTitle, getDescription,
+        getTipColor, getPosition,
+        getRotation, getSize} from '/js/UI.js';
 
 /** @type {!THREE.Scene} */
 let scene;
@@ -26,19 +29,6 @@ const tipMeshes = [];
 const tipsData = [
 
 ];
-
-function deinitialize()
-{
-    let scene = undefined;
-    let camera = undefined;
-    let renderer = undefined;
-    let clock = undefined;
-    let deltaTime = undefined;
-    let totalTime = undefined;
-    let arToolkitSource = undefined;
-    let arToolkitContext = undefined;
-    let markerRoot = undefined;
-}
 
 function initialize() {
     initArea();
@@ -292,6 +282,7 @@ function addTip() {
             rotation: getRotation(),
             size: getSize(),
         });
+    clearFields();
 }
 
 function back()

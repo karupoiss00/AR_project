@@ -1,3 +1,24 @@
+function clearFields()
+{
+    setStringValue("title", "");
+    setStringValue("description", "#");
+    setStringValue("titleTextColor", "#000000");
+    setStringValue("titleBackgroundColor", "#ffffff");
+    setStringValue("descriptionTextColor", "#000000");
+    setStringValue("descriptionBackgroundColor", "#ffffff");
+    setStringValue("tipColor", "#ffffff");
+    setStringValue("tipWidth", "100");
+    setStringValue("tipHeight", "100");
+    setStringValue("titleSize", "10");
+    setStringValue("textSize", "10");
+    setStringValue("x", "0");
+    setStringValue("y", "0");
+    setStringValue("z", "0");
+    setStringValue("rx", "0");
+    setStringValue("ry", "0");
+    setStringValue("rz", "0");
+}
+
 /**
  * * @return {string}
  */
@@ -85,8 +106,16 @@ function getNumberValue(id) {
 function getStringValue(id) {
     return document.getElementById(id).value;
 }
+/**
+ * @param {string} id
+ * @param {string} value
+ */
+function setStringValue(id, value) {
+    document.getElementById(id).value = value;
+}
 
 export {
+    clearFields,
     getTipId,
     getTitle,
     getDescription,
