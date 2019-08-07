@@ -1,7 +1,7 @@
 function clearFields()
 {
     setStringValue("title", "");
-    setStringValue("description", "#");
+    setStringValue("description", "");
     setStringValue("titleTextColor", "#000000");
     setStringValue("titleBackgroundColor", "#ffffff");
     setStringValue("descriptionTextColor", "#000000");
