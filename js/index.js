@@ -296,6 +296,7 @@ function back()
     document.getElementById("UI").style.visibility = "visible";
 }
 window.onload = function() {
+    document.getElementById("transfer").style.visibility = "hidden";
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
