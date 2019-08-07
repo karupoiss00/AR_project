@@ -27,6 +27,19 @@ const tipsData = [
 
 ];
 
+function deinitialize()
+{
+    let scene = undefined;
+    let camera = undefined;
+    let renderer = undefined;
+    let clock = undefined;
+    let deltaTime = undefined;
+    let totalTime = undefined;
+    let arToolkitSource = undefined;
+    let arToolkitContext = undefined;
+    let markerRoot = undefined;
+}
+
 function initialize() {
     initArea();
     initRenderer(1440, 1080);
@@ -283,7 +296,7 @@ function addTip() {
 
 function back()
 {
-    renderer.domElement.style.visibility = "hidden";
+    deinitialize();
     document.getElementById("edit").style.visibility = "hidden";
     document.getElementById("UI").style.visibility = "visible";
 }
