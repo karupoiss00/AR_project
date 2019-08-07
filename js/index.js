@@ -88,7 +88,6 @@ function initRenderer(screenWidth, screenHeight) {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '0px';
     renderer.domElement.style.left = '0px';
-    renderer.domElement.id = 'renderer';
     document.body.appendChild(renderer.domElement);
 }
 
@@ -249,9 +248,18 @@ function animate() {
 
 function start()
 {
-    document.getElementById("UI").style.visibility = "hidden";
-    initialize();
-    animate();
+    if (renderer == undefined)
+    {
+        document.getElementById("UI").style.visibility = "hidden";
+        initialize();
+        animate();
+    }
+    else
+    {
+        renderer.domElement.style.visibility = "visible";
+        document.getElementById("transfer").style.visibility = "visible";
+        document.getElementById("UI").style.visibility = "hidden";
+    }
 }
 
 function addTip() {
@@ -281,9 +289,17 @@ function addTip() {
         });
 }
 
+function back()
+{
+    renderer.domElement.style.visibility = "hidden";
+    document.getElementById("transfer").style.visibility = "hidden";
+    document.getElementById("UI").style.visibility = "visible";
+}
 window.onload = function() {
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
+    const backButton = document.getElementById("edit");
     addButton.onclick = addTip;
     startButton.onclick = start;
+    backButton.onclick = back;
 };
