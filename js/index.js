@@ -296,7 +296,8 @@ function addTip() {
 
 function back()
 {
-    deinitialize();
+    arToolkitSource.domElement.style.visibility = "hidden";
+    renderer.domElement.style.visibility = "hidden";
     document.getElementById("edit").style.visibility = "hidden";
     document.getElementById("UI").style.visibility = "visible";
 }
