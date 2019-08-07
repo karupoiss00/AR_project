@@ -1,5 +1,6 @@
 import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh} from './tips/tips.js';
+import {getTipId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize} from '/UI.js';
 
 /** @type {!THREE.Scene} */
 let scene;
@@ -259,62 +260,32 @@ function start()
 }
 
 function addTip() {
-    const tipId = document.getElementById("tipId").value;
-
-    const title = document.getElementById("title").value;
-    const titleSize = Number(document.getElementById("titleSize").value);
-    const titleColor = document.getElementById("titleTextColor").value;
-    const titleBackground = document.getElementById("titleBackgroundColor").value;
-
-    const description = document.getElementById("description").value;
-    const descriptionSize = Number(document.getElementById("textSize").value);
-    const descriptionColor = document.getElementById("descriptionTextColor").value;
-    const descriptionBackground = document.getElementById("descriptionBackgroundColor").value;
-
-    const tipColor = document.getElementById("tipColor").value;
-
-    const positionX = Number(document.getElementById("x").value);
-    const positionY = Number(document.getElementById("y").value);
-    const positionZ = Number(document.getElementById("z").value);
-
-    const rotationX = Number(document.getElementById("rx").value);
-    const rotationY = Number(document.getElementById("ry").value);
-    const rotationZ = Number(document.getElementById("rz").value);
-
-    const width = Number(document.getElementById("tipWidth").value);
-    const height = Number(document.getElementById("tipHeight").value);
-
-    const coord = [positionX, positionY, positionZ];
-    const rotation = [rotationX, rotationY, rotationZ];
-    const size = [width, height];
-
-    if (!(tipId.length == 0
-        || description.length == 0
-        || description.length == 0))
+    if (!(getTipId.length == 0
+        || getDescription.text.length == 0))
     {
         tipsData.push(
             {
-                id: tipId,
-                title: title,
-                text: description,
+                id: getTipId(),
+                title: getTitle().text,
+                text: getDescription().text,
                 titleStyle:
                     {
                         font: "",
-                        size: titleSize,
-                        color: titleColor,
-                        backgroundColor: titleBackground,
+                        size: getTitle().size,
+                        color: getTitle().color,
+                        backgroundColor: getTitle().background,
                     },
                 textStyle:
                     {
                         font: "",
-                        size: descriptionSize,
-                        color: descriptionColor,
-                        backgroundColor: descriptionBackground,
+                        size: getDescription().size,
+                        color: getDescription().color,
+                        backgroundColor: getDescription().background,
                     },
-                color: tipColor,
-                coord: coord,
-                rotation: rotation,
-                size: size,
+                color: getTipColor(),
+                coord: getPosition(),
+                rotation: getRotation(),
+                size: getSize(),
             }
         );
     }
