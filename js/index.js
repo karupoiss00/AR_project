@@ -173,7 +173,7 @@ function saveTips(json) {
     xhr.onerror = () => {
         console.log("Failed to load tips.json");
     };
-    const request = "dir=" + encodeURIComponent(workId + '/')
+    const request = "dir=" + encodeURIComponent(workId)
         + "&filename=" + encodeURIComponent('tips.json')
             + "&content=" + encodeURIComponent(json);
     xhr.send(request);
