@@ -3,5 +3,5 @@
     $filename = urldecode($_POST["filename"]);
     $content = urldecode($_POST["content"]);
 
-    mkdir('saves/'.$dir);
+    mkdir('saves/'.$dir, 0777, true);
 ?>
