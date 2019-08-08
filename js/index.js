@@ -176,7 +176,7 @@ function saveTips(json) {
     const request = "dir=" + encodeURIComponent(workId + '/')
         + "&filename=" + encodeURIComponent('tips.json')
             + "&content=" + encodeURIComponent(json);
-    xmlhttp.send(request);
+    xhr.send(request);
 }
 
 /**
