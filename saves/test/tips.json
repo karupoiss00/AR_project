@@ -1,0 +1,96 @@
+{
+	"tips": [
+		{
+			"id": "tip0",
+			"title": "Cat",
+			"text": "This is cat. Cat can run at night, eat and scratch you.",
+			"titleStyle":
+				{
+					"font": "",
+					"size": 16,
+					"color": "#ffffff",
+					"backgroundColor": "#00a33f"
+				},
+			"textStyle":
+				{
+					"font": "",
+					"size": 12,
+					"color": "#000000",
+					"backgroundColor": "#91ffbb"
+				},
+			"color": "#91ffbb",
+			"coord": [30, 50, 20],
+			"rotation": [-30, 0, 0],
+			"size": [140, 120]
+		},
+		{
+			"id": "tip1",
+			"title": "",
+			"text": "And this is next tip and you can read it.",
+			"titleStyle":
+				{
+					"font": "",
+					"size": 16,
+					"color": "#000000",
+					"backgroundColor": "#ffffff"
+				},
+			"textStyle":
+				{
+					"font": "",
+					"size": 12,
+					"color": "#000000",
+					"backgroundColor": "#ffffff"
+				},
+			"coord": [-50, 50, 20],
+			"rotation": [-30, 0, 0],
+			"size": [120, 80]
+		},
+
+		{
+			"id": "tip2",
+			"title": "",
+			"text": "This is any tip and you can read it.",
+			"titleStyle":
+				{
+					"font": "",
+					"size": 16,
+					"color": "#000000",
+					"backgroundColor": "#ffffff"
+				},
+			"textStyle":
+				{
+					"font": "",
+					"size": 12,
+					"color": "#000000",
+					"backgroundColor": "#ffffff"
+				},
+			"coord": [-40, 100, -180],
+			"rotation": [0, 210, 0],
+			"size": [100, 80]
+		},
+
+		{
+			"id": "tip4",
+			"title": "",
+			"text": "This is next tip and you can read it.",
+			"titleStyle":
+				{
+					"font": "",
+					"size": 16,
+					"color": "#000000",
+					"backgroundColor": "#ffffff"
+				},
+			"textStyle":
+				{
+					"font": "",
+					"size": 12,
+					"color": "#000000",
+					"backgroundColor": "#ffffff"
+				},
+			"coord": [80, 90, -200],
+			"rotation": [0, -210, 0],
+			"size": [100, 80]
+		}
+
+	]
+}

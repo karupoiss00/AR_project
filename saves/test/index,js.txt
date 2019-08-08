@@ -1,9 +1,5 @@
-import {parseTipJson} from './tips/parsetipjson.js';
-import {createTipMesh} from './tips/tips.js';
-import {clearFields, getTipId,
-        getTitle, getDescription,
-        getTipColor, getPosition,
-        getRotation, getSize} from '/js/UI.js';
+import {parseTipJson} from 'js/tips/parsetipjson.js';
+import {createTipMesh} from 'js/tips/tips.js';
 
 /** @type {!THREE.Scene} */
 let scene;
@@ -26,9 +22,6 @@ let markerRoot;
 /** @const {!THREE.Mesh} */
 const tipMeshes = [];
 /** @const {!Array<!Object>} */
-const tipsData = [
-
-];
 
 function initialize() {
     initArea();
@@ -38,7 +31,7 @@ function initialize() {
     initMarker("/AR/data/hiro.patt");
 
 	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-    loadTips(markerRoot, 'js/tips/tips.json');
+    loadTips(markerRoot, './tips.json');
 }
 
 /**
@@ -149,14 +142,15 @@ function loadModel(marker, path, mtlName, objName, scale) {
  * @param {string} url
  */
 function loadTips(marker, url) {
-    /*
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.onload = () => {
         const tips = parseTipJson(xhr.responseText);
         for (const tip of tips)
         {
-            tipsData.push(tip);
+            const tipMesh = createTipMesh(tip);
+            tipMeshes.push(tipMesh);
+            marker.add(tipMesh);
         }
 
         console.log(tipMeshes);
@@ -165,7 +159,14 @@ function loadTips(marker, url) {
         console.log("Failed to load tips.json");
     };
 
-    xhr.send();*/
+    xhr.send();
+}
+
+/**
+ * @param {!THREE.Group} marker
+ * @param {string} url
+ */
+function updateTips(marker) {
     for (const tip of tipsData)
     {
         console.log(JSON.stringify(tip));
@@ -249,54 +250,7 @@ function animate() {
 	render();
 }
 
-function start()
-{
-    document.getElementById("UI").style.visibility = "hidden";
-    document.getElementById("edit").style.visibility = "visible";
+window.onload = function() {
     initialize();
     animate();
-}
-
-function addTip() {
-    tipsData.push(
-        {
-            id: getTipId(),
-            title: getTitle().text,
-            text: getDescription().text,
-            titleStyle:
-                {
-                    font: "",
-                    size: getTitle().size,
-                    color: getTitle().color,
-                    backgroundColor: getTitle().background,
-                },
-            textStyle:
-                {
-                    font: "",
-                    size: getDescription().size,
-                    color: getDescription().color,
-                    backgroundColor: getDescription().background,
-                },
-            color: getTipColor(),
-            coord: getPosition(),
-            rotation: getRotation(),
-            size: getSize(),
-        });
-    clearFields();
-}
-
-function back()
-{
-    arToolkitSource.domElement.style.visibility = "hidden";
-    renderer.domElement.style.visibility = "hidden";
-    document.getElementById("edit").style.visibility = "hidden";
-    document.getElementById("UI").style.visibility = "visible";
-}
-window.onload = function() {
-    const startButton = document.getElementById("start");
-    const addButton = document.getElementById("add");
-    const backButton = document.getElementById("edit");
-    addButton.onclick = addTip;
-    startButton.onclick = start;
-    backButton.onclick = back;
 };
