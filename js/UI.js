@@ -22,7 +22,7 @@ function clearFields()
 /**
  * * @return {string}
  */
-function getTipId() {
+function randomId() {
     var x = 2147483648;
     return Math.floor(Math.random() * x).toString(36) +
         Math.abs(Math.floor(Math.random() * x) ^ +new Date()).toString(36);
@@ -116,7 +116,7 @@ function setStringValue(id, value) {
 
 export {
     clearFields,
-    getTipId,
+    randomId,
     getTitle,
     getDescription,
     getTipColor,

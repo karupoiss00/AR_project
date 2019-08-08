@@ -1,6 +1,6 @@
 import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh} from './tips/tips.js';
-import {clearFields, getTipId,
+import {clearFields, randomId,
         getTitle, getDescription,
         getTipColor, getPosition,
         getRotation, getSize} from '/js/UI.js';
@@ -149,23 +149,6 @@ function loadModel(marker, path, mtlName, objName, scale) {
  * @param {string} url
  */
 function loadTips(marker, url) {
-    /*
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.onload = () => {
-        const tips = parseTipJson(xhr.responseText);
-        for (const tip of tips)
-        {
-            tipsData.push(tip);
-        }
-
-        console.log(tipMeshes);
-    };
-    xhr.onerror = () => {
-        console.log("Failed to load tips.json");
-    };
-
-    xhr.send();*/
     for (const tip of tipsData)
     {
         console.log(JSON.stringify(tip));
@@ -174,6 +157,37 @@ function loadTips(marker, url) {
         marker.add(tipMesh);
     }
 
+}
+/**
+ * @param {string} json
+ */
+function saveTips(json) {
+    const workId = randomId();
+    const xhr = new XMLHttpRequest();
+    xmlhttp.open('POST', 'php/saveFile.php', true); // Открываем асинхронное соединение
+    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем кодировку
+
+    xhr.onload = () => {
+        document.body.innerHTML += 'Your work saved to: https://karproject.herokuapp.com/saves/' + workId;
+    };
+    xhr.onerror = () => {
+        console.log("Failed to load tips.json");
+    };
+    const request = "dir=" + encodeURIComponent(workId + '/')
+        + "&filename=" + encodeURIComponent('tips.json')
+            + "&content=" + encodeURIComponent(json);
+    xmlhttp.send(request);
+}
+
+/**
+ * @param {!Array<!Object>} tipsData
+ * @return {string}
+ */
+function getJSON(tipsData) {
+    const tips = {
+        tips: tipsData,
+    }
+    return JSON.stringify(tips);
 }
 
 function onResize() {
@@ -260,7 +274,7 @@ function start()
 function addTip() {
     tipsData.push(
         {
-            id: getTipId(),
+            id: randomId(),
             title: getTitle().text,
             text: getDescription().text,
             titleStyle:
@@ -292,11 +306,19 @@ function back()
     document.getElementById("edit").style.visibility = "hidden";
     document.getElementById("UI").style.visibility = "visible";
 }
+
+function save() {
+    document.getElementById("save").style.visibility = 'hidden';
+    saveTips(getJSON(tipsData));
+}
+
 window.onload = function() {
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
+    const saveButton = document.getElementById("save");
     addButton.onclick = addTip;
     startButton.onclick = start;
     backButton.onclick = back;
+    saveButton.onclick = save;
 };
