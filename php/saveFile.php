@@ -3,11 +3,11 @@
     $filename = urldecode($_POST["filename"]);
     $content = urldecode($_POST["content"]);
 
-    mkdir('saves/'.$dir);
+    mkdir('saves/example');
 
-    copy('php/index.html', 'saves/'.$dir.'/index.html');
-    copy('php/index.js', 'saves/'.$dir.'/index.js');
-    $file = fopen('saves/'.$dir.'/'.$filename, 'w') or die("Can't open file");
+    copy('./index.html', 'saves/example/index.html');
+    copy('./index.js', 'saves/example/index.js');
+    $file = fopen('saves/example/'.$filename, 'w') or die("Can't open file");
     fwrite($file, $content);
     fclose($file);
 ?>
