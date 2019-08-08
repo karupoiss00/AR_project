@@ -164,8 +164,8 @@ function loadTips(marker, url) {
 function saveTips(json) {
     const workId = randomId();
     const xhr = new XMLHttpRequest();
-    xmlhttp.open('POST', 'php/saveFile.php', true); // Открываем асинхронное соединение
-    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем кодировку
+    xhr.open('POST', 'php/saveFile.php', true); // Открываем асинхронное соединение
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем кодировку
 
     xhr.onload = () => {
         document.body.innerHTML += 'Your work saved to: https://karproject.herokuapp.com/saves/' + workId;
