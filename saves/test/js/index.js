@@ -1,5 +1,5 @@
-import {parseTipJson} from 'js/tips/parsetipjson.js';
-import {createTipMesh} from 'js/tips/tips.js';
+import {parseTipJson} from '/js/tips/parsetipjson.js';
+import {createTipMesh} from '/js/tips/tips.js';
 
 /** @type {!THREE.Scene} */
 let scene;
