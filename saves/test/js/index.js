@@ -31,7 +31,7 @@ function initialize() {
     initMarker("/AR/data/hiro.patt");
 
 	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-    loadTips(markerRoot, './tips.json');
+    loadTips(markerRoot, './js/tips.json');
 }
 
 /**
