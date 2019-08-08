@@ -179,17 +179,6 @@ function saveTips(json) {
     xhr.send(request);
 }
 
-/**
- * @param {!Array<!Object>} tipsData
- * @return {string}
- */
-function getJSON(tipsData) {
-    const tips = {
-        tips: tipsData,
-    }
-    return JSON.stringify(tips);
-}
-
 function onResize() {
     arToolkitSource.onResize();
     arToolkitSource.copySizeTo(renderer.domElement);
@@ -309,7 +298,6 @@ function back()
 
 function save() {
     document.getElementById("save").style.visibility = 'hidden';
-    saveTips(getJSON(tipsData));
 }
 
 window.onload = function() {
