@@ -156,26 +156,24 @@ function loadTips(marker, url) {
         tipMeshes.push(tipMesh);
         marker.add(tipMesh);
     }
-
 }
+
 /**
- * @param {string} json
+ * @param {!Array<!Object>>} tipsData
  */
-function saveTips(json) {
+function saveTips(tipsData) {
     const workId = randomId();
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'php/saveFile.php', true); // Открываем асинхронное соединение
+    xhr.open('POST', 'http://karupoiss00.tk/saveWork.php', true); // Открываем асинхронное соединение
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем кодировку
 
     xhr.onload = () => {
-        document.body.innerHTML += 'Your work saved to: https://karproject.herokuapp.com/saves/' + workId;
+        document.body.innerHTML += 'Your work id: ' + workId;
     };
     xhr.onerror = () => {
         console.log("Failed to load tips.json");
     };
-    const request = "dir=" + encodeURIComponent('example')
-        + "&filename=" + encodeURIComponent('tips.json')
-            + "&content=" + encodeURIComponent(json);
+    const request = "workName=" + encodeURIComponent(workId) + "&content=" + encodeURIComponent(tipsData);
     xhr.send(request);
 }
 
@@ -254,10 +252,16 @@ function animate() {
 
 function start()
 {
-    document.getElementById("UI").style.visibility = "hidden";
-    document.getElementById("edit").style.visibility = "visible";
+    hideElement("UI");
+    showElement("edit");
     initialize();
     animate();
+}
+
+function startCreator() {
+    showElement("UI");
+    hideElement("creator");
+    hideElement("viewer");
 }
 
 function addTip() {
@@ -292,19 +296,38 @@ function back()
 {
     arToolkitSource.domElement.style.visibility = "hidden";
     renderer.domElement.style.visibility = "hidden";
-    document.getElementById("edit").style.visibility = "hidden";
-    document.getElementById("UI").style.visibility = "visible";
+    hideElement("edit");
+    showElement("UI");
 }
 
 function save() {
-    document.getElementById("save").style.visibility = 'hidden';
+    hideElement("save");
+    saveTips(tipsData);
+}
+
+/**
+ * @param {string} id
+ */
+function hideElement(id) {
+    document.getElementById(id).style.visibility = 'hidden';
+}
+
+/**
+ * @param {string} id
+ */
+function showElement(id) {
+    document.getElementById(id).style.visibility = 'visible';
 }
 
 window.onload = function() {
+    const creator = document.getElementById("creator");
+    const viewer = document.getElementById("viewer");
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
     const saveButton = document.getElementById("save");
+
+    creator.onclick = startCreator;
     addButton.onclick = addTip;
     startButton.onclick = start;
     backButton.onclick = back;
