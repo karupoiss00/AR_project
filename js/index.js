@@ -3,7 +3,8 @@ import {createTipMesh} from './tips/tips.js';
 import {clearFields, randomId,
         getTitle, getDescription,
         getTipColor, getPosition,
-        getRotation, getSize} from '/js/UI.js';
+        getRotation, getSize,
+        showElement, hideElement} from '/js/UI.js';
 
 /** @type {!THREE.Scene} */
 let scene;
@@ -158,24 +159,6 @@ function loadTips(marker, url) {
     }
 }
 
-/**
- * @param {!Array<!Object>>} tipsData
- */
-function saveTips(tipsData) {
-    const workId = randomId();
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://karupoiss00.000webhostapp.com/saveWork.php', true); // Открываем асинхронное соединение
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = () => {
-        document.body.innerHTML += 'Your work id: ' + workId;
-    };
-    xhr.onerror = () => {
-        console.log("Failed to load tips.json");
-    };
-    const request = "workName=" + encodeURIComponent(workId) + "&content=" + encodeURIComponent(tipsData);
-    xhr.send(request);
-}
-
 function onResize() {
     arToolkitSource.onResize();
     arToolkitSource.copySizeTo(renderer.domElement);
@@ -257,12 +240,6 @@ function start()
     animate();
 }
 
-function startCreator() {
-    showElement("UI");
-    hideElement("creator");
-    hideElement("viewer");
-}
-
 function addTip() {
     tipsData.push(
         {
@@ -304,31 +281,12 @@ function save() {
     saveTips(tipsData);
 }
 
-/**
- * @param {string} id
- */
-function hideElement(id) {
-    document.getElementById(id).style.visibility = 'hidden';
-}
-
-/**
- * @param {string} id
- */
-function showElement(id) {
-    document.getElementById(id).style.visibility = 'visible';
-}
-
 window.onload = function() {
-    const creator = document.getElementById("creator");
-    const viewer = document.getElementById("viewer");
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
-    const saveButton = document.getElementById("save");
 
-    creator.onclick = startCreator;
     addButton.onclick = addTip;
     startButton.onclick = start;
     backButton.onclick = back;
-    saveButton.onclick = save;
 };

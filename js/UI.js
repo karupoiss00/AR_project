@@ -114,6 +114,21 @@ function setStringValue(id, value) {
     document.getElementById(id).value = value;
 }
 
+/**
+ * @param {string} id
+ */
+function hideElement(id) {
+    document.getElementById(id).style.visibility = 'hidden';
+}
+
+/**
+ * @param {string} id
+ */
+function showElement(id) {
+    document.getElementById(id).style.visibility = 'visible';
+}
+
+
 export {
     clearFields,
     randomId,
@@ -122,6 +137,8 @@ export {
     getTipColor,
     getPosition,
     getRotation,
-    getSize
+    getSize,
+    showElement,
+    hideElement
 }
 
