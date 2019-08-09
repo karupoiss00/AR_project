@@ -165,8 +165,7 @@ function saveTips(tipsData) {
     const workId = randomId();
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://karupoiss00.000webhostapp.com/saveWork.php', true); // Открываем асинхронное соединение
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем кодировку
-    xhr.setRequestHeader('CAccess-Control-Allow-Origin', '*');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = () => {
         document.body.innerHTML += 'Your work id: ' + workId;
     };
