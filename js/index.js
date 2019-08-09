@@ -164,7 +164,7 @@ function loadTips(marker, url) {
 function saveTips(tipsData) {
     const workId = randomId();
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://karupoiss00.tk/saveWork.php', true); // Открываем асинхронное соединение
+    xhr.open('POST', 'https://karupoiss00.000webhostapp.com/saveWork.php', true); // Открываем асинхронное соединение
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Отправляем кодировку
 
     xhr.onload = () => {
