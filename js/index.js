@@ -30,52 +30,71 @@ const tipMeshes = [];
 const tipsData = [
 
 ];
-
-function initialize() {
-    initArea();
+/**
+ * @param {boolean} hasCamera
+ */
+function initialize(hasCamera) {
+    initArea(hasCamera);
     initRenderer(1440, 1080);
     initClock();
-    initArToolKit('/AR/data/camera_para.dat');
-    initMarker("/AR/data/hiro.patt");
+    initArToolKit(hasCamera, '/AR/data/camera_para.dat');
+    initMarker(hasCamera, "/AR/data/hiro.patt");
 
-	loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
+    loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
     loadTips(markerRoot, 'js/tips/tips.json');
+
 }
 
 /**
+ * @param {boolean} hasCamera
  * @param {string} url
  */
-function initArToolKit(url) {
-    arToolkitSource = new THREEx.ArToolkitSource({
-        sourceType : 'webcam',
-    });
+function initArToolKit(hasCamera, url) {
+    if (hasCamera)
+    {
+        arToolkitSource = new THREEx.ArToolkitSource({
+            sourceType : 'webcam',
+        });
 
-    arToolkitSource.init(function onReady(){
-        onResize()
-    });
+        arToolkitSource.init(function onReady(){
+            onResize(true)
+        });
 
-    window.addEventListener('resize', function(){
-        onResize()
-    });
+        window.addEventListener('resize', function(){
+            onResize(true)
+        });
 
-    arToolkitContext = new THREEx.ArToolkitContext({
-        cameraParametersUrl: url,
-        detectionMode: 'mono'
-    });
+        arToolkitContext = new THREEx.ArToolkitContext({
+            cameraParametersUrl: url,
+            detectionMode: 'mono'
+        });
 
-    arToolkitContext.init(function onCompleted() {
-        camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-    });
+        arToolkitContext.init(function onCompleted() {
+            camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+        });
+    }
+
 }
 
-function initArea() {
+/**
+ * @param {boolean} hasCamera
+ */
+function initArea(hasCamera) {
     scene = new THREE.Scene();
 
     const ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
     scene.add(ambientLight);
+    if (hasCamera)
+    {
+        camera = new THREE.Camera();
+    }
+    else {
+        camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 2, 4);
+        camera.lookAt(scene.position);
+    }
 
-    camera = new THREE.Camera();
-    scene.add(camera);
+    scene.add( camera );
 }
 
 /**
@@ -102,14 +121,18 @@ function initClock() {
 }
 
 /**
+ * @param {boolean} hasCamera
  * @param {string} markerUrl
  */
-function initMarker(markerUrl) {
+function initMarker(hasCamera, markerUrl) {
     markerRoot = new THREE.Group();
     scene.add(markerRoot);
-    const markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-        type: 'pattern', patternUrl: markerUrl,
-    });
+    if (hasCamera)
+    {
+        new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+            type: 'pattern', patternUrl: markerUrl,
+        });
+    }
 }
 
 /**
@@ -159,22 +182,44 @@ function loadTips(marker, url) {
     }
 }
 
-function onResize() {
-    arToolkitSource.onResize();
-    arToolkitSource.copySizeTo(renderer.domElement);
-
-    if (arToolkitContext.arController !== null)
+/**
+ * @param {boolean} hasCamera
+ */
+function onResize(hasCamera) {
+    if (hasCamera)
     {
-        arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+        arToolkitSource.onResize();
+        arToolkitSource.copySizeTo(renderer.domElement);
+
+        if (arToolkitContext.arController !== null)
+        {
+            arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+        }
     }
+    else
+    {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
 }
 
-function update() {
-    // update artoolkit on every frame
-    if (arToolkitSource.ready !== false)
+/**
+ * @param {boolean} hasCamera
+ */
+function update(hasCamera) {
+    if (hasCamera)
     {
-        arToolkitContext.update(arToolkitSource.domElement);
-        showTips();
+        if (arToolkitSource.ready !== false)
+        {
+            arToolkitContext.update(arToolkitSource.domElement);
+            showTips();
+        }
+    }
+    else
+    {
+        markerRoot.rotation.y += 0.01;
     }
 }
 
@@ -224,11 +269,14 @@ function render() {
 	renderer.render(scene, camera);
 }
 
-function animate() {
+/**
+ * @param {boolean} hasCamera
+ */
+function animate(hasCamera) {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	update();
+	update(hasCamera);
 	render();
 }
 
@@ -236,8 +284,8 @@ function start()
 {
     hideElement("UI");
     showElement("edit");
-    initialize();
-    animate();
+    initialize(isMobile.any());
+    animate(isMobile.any());
 }
 
 function addTip() {
@@ -276,10 +324,26 @@ function back()
     showElement("UI");
 }
 
-function save() {
-    hideElement("save");
-    saveTips(tipsData);
-}
+var isMobile = {
+    Android: () => {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: () => {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: () => {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: () => {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: () => {
+        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: () => {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
 
 window.onload = function() {
     const startButton = document.getElementById("start");
