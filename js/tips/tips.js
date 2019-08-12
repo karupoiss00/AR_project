@@ -62,7 +62,9 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	const ctx = canvas.getContext("2d")
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+	ctx.fillStyle = "#000000";
+	ctx.moveTo(20, 20);
+	ctx.lineTo(20, 100);
 	const doc = document.implementation.createHTMLDocument();
 	const tipDiv = doc.createElement("div");
 	tipDiv.id = 'd' + id;
@@ -77,8 +79,7 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 
 	doc.body.appendChild(tipDiv);
 	rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
-		ctx.moveTo(20, 20);
-		ctx.lineTo(20, 100);
+
 		//ctx.drawImage(renderResult.image, 0, 0);
 	});
 	return canvas;
