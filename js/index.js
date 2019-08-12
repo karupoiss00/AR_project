@@ -282,11 +282,14 @@ function animate(hasCamera) {
 
 function start()
 {
-    const device = isMobile.any();
+    navigator.getUserMedia = navigator.getUserMedia
+        ||navigator.webkitGetUserMedia
+        ||navigator.mozGetUserMedia
+        ||navigator.msGetUserMedia;
     hideElement("UI");
     showElement("edit");
-    initialize(device);
-    animate(device);
+    initialize(navigator.getUserMedia);
+    animate(navigator.getUserMedia);
 }
 
 function addTip() {
@@ -324,27 +327,6 @@ function back()
     hideElement("edit");
     showElement("UI");
 }
-
-var isMobile = {
-    Android: () => {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: () => {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: () => {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: () => {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: () => {
-        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
-    },
-    any: () => {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};
 
 window.onload = function() {
     const startButton = document.getElementById("start");
