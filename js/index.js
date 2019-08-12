@@ -35,7 +35,7 @@ const tipsData = [
  */
 function initialize(hasCamera) {
     initArea(hasCamera);
-    initRenderer(1440, 1080);
+    initRenderer(hasCamera,1440, 1080);
     initClock();
     initArToolKit(hasCamera, '/AR/data/camera_para.dat');
     initMarker(hasCamera, "/AR/data/hiro.patt");
@@ -99,10 +99,11 @@ function initArea(hasCamera) {
 }
 
 /**
+ * @param {boolean} hasCamera
  * @param {number} screenWidth
  * @param {number} screenHeight
  */
-function initRenderer(screenWidth, screenHeight) {
+function initRenderer(hasCamera, screenWidth, screenHeight) {
     renderer = new THREE.WebGLRenderer({
         antialias : true,
         alpha: true
@@ -112,6 +113,11 @@ function initRenderer(screenWidth, screenHeight) {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '20px';
     renderer.domElement.style.left = '0px';
+    window.addEventListener( 'resize', () => onResize(hasCamera), false );
+    if (!hasCamera)
+    {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
     document.body.appendChild(renderer.domElement);
 }
 
@@ -153,7 +159,6 @@ function loadModel(marker, path, mtlName, objName, scale) {
                 .setPath(path)
                 .load(objName, function (group) {
                     const cat = group.children[0];
-                    cat.material.side = THREE.DoubleSide;
                     cat.position.set(0, 0, 0);
                     cat.scale.set(scale, scale, scale);
                     marker.add(cat);
@@ -222,7 +227,6 @@ function update(hasCamera) {
     else
     {
         markerRoot.rotation.y += 0.01;
-        showTips();
     }
 }
 
