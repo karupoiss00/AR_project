@@ -92,6 +92,7 @@ function initArea(hasCamera) {
         camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 2, 4);
         camera.lookAt(scene.position);
+        scene.background = new THREE.Color(0x000000);
     }
 
     scene.add( camera );
