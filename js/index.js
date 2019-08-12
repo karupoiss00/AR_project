@@ -282,10 +282,11 @@ function animate(hasCamera) {
 
 function start()
 {
+    const device = isMobile.any();
     hideElement("UI");
     showElement("edit");
-    initialize(isMobile.any());
-    animate(isMobile.any());
+    initialize(device);
+    animate(device);
 }
 
 function addTip() {
