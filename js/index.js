@@ -40,7 +40,7 @@ function initialize(hasCamera) {
     initArToolKit(hasCamera, '/AR/data/camera_para.dat');
     initMarker(hasCamera, "/AR/data/hiro.patt");
 
-    loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
+    //loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
     loadTips(markerRoot, 'js/tips/tips.json');
 
 }
@@ -226,7 +226,7 @@ function update(hasCamera) {
     }
     else
     {
-        markerRoot.rotation.y += 0.01;
+        //markerRoot.rotation.y += 0.01;
     }
 }
 
