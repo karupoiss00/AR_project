@@ -316,9 +316,14 @@ function addTip() {
     clearFields();
 }
 
-function back()
+/**
+ * @param {string} hasCamera
+ */
+function back(hasCamera)
 {
-    arToolkitSource.domElement.style.visibility = "hidden";
+    if (hasCamera) {
+        arToolkitSource.domElement.style.visibility = "hidden";
+    }
     renderer.domElement.style.visibility = "hidden";
     hideElement("edit");
     showElement("UI");
