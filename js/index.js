@@ -286,8 +286,8 @@ function start()
 {
     hideElement("UI");
     showElement("edit");
-    initialize(false);
-    animate(false);
+    initialize(true);
+    animate(true);
 }
 
 function addTip() {
