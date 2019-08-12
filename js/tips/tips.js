@@ -21,12 +21,12 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
 	const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
 	const material = [
-		colorSide,
-		colorSide,
-		colorSide,
-		colorSide,
 		tipSide,
-		colorSide
+		tipSide,
+		tipSide,
+		tipSide,
+		tipSide,
+		tipSide
 	];
 
 	const mesh = new THREE.Mesh(geometry, material);
@@ -78,7 +78,6 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	doc.body.appendChild(tipDiv);
 	rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
 		ctx.drawImage(renderResult.image, 0, 0);
-		document.body.appendChild(renderResult.image);
 	});
 	return canvas;
 }
