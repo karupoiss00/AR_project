@@ -28,7 +28,29 @@ let markerRoot;
 const tipMeshes = [];
 /** @const {!Array<!Object>} */
 const tipsData = [
-
+    {
+        id: "test",
+        title: "Title",
+        text: "Description",
+        titleStyle:
+            {
+                font: "",
+                size: 12,
+                color: "#000000",
+                backgroundColor: "#ffffff",
+            },
+        textStyle:
+            {
+                font: "",
+                size: 12,
+                color: "#000000",
+                backgroundColor: "#ffffff",
+            },
+        color:"#ffffff",
+        coord: [0, 0, 0],
+        rotation: [0, 0, 0],
+        size: [100, 100],
+    }
 ];
 /**
  * @param {boolean} hasCamera
