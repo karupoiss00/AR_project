@@ -21,12 +21,12 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
 	const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
 	const material = [
+		colorSide,
+		colorSide,
+		colorSide,
+		colorSide,
 		tipSide,
-		tipSide,
-		tipSide,
-		tipSide,
-		tipSide,
-		tipSide
+		colorSide
 	];
 
 	const mesh = new THREE.Mesh(geometry, material);
