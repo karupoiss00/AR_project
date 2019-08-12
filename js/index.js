@@ -273,7 +273,7 @@ function render() {
  * @param {boolean} hasCamera
  */
 function animate(hasCamera) {
-	requestAnimationFrame(animate);
+	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update(hasCamera);
