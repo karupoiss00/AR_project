@@ -321,7 +321,7 @@ function addTip() {
  */
 function back(hasCamera)
 {
-    if (arToolkitSource != null) {
+    if (arToolkitSource != undefined) {
         arToolkitSource.domElement.style.visibility = "hidden";
     }
     renderer.domElement.style.visibility = "hidden";
