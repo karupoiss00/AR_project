@@ -78,8 +78,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	doc.body.appendChild(tipDiv);
 	rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
 		ctx.drawImage(renderResult.image, 0, 0);
+		document.body.appendChild(renderResult.image);
 	});
-	document.body.appendChild(canvas);
 	return canvas;
 }
 
