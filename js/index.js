@@ -282,14 +282,10 @@ function animate(hasCamera) {
 
 function start()
 {
-    navigator.getUserMedia = navigator.getUserMedia
-        ||navigator.webkitGetUserMedia
-        ||navigator.mozGetUserMedia
-        ||navigator.msGetUserMedia;
     hideElement("UI");
     showElement("edit");
-    initialize(navigator.getUserMedia);
-    animate(navigator.getUserMedia);
+    initialize(false);
+    animate(false);
 }
 
 function addTip() {
