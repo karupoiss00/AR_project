@@ -222,6 +222,7 @@ function update(hasCamera) {
     else
     {
         markerRoot.rotation.y += 0.01;
+        showTips();
     }
 }
 
