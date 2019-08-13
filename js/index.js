@@ -314,6 +314,7 @@ function start()
     hideElement("UI");
     showElement("edit");
     initialize(isMobile.any());
+    console.log(markerRoot.position);
     animate(isMobile.any());
 }
 
