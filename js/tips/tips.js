@@ -28,7 +28,7 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 		tipSide,
 		colorSide
 	];
-
+	material.map.needsUpdate = true;
 	const mesh = new THREE.Mesh(geometry, material);
 	mesh.scale.set(0.01, 0.01, 0.01);
 

@@ -207,7 +207,7 @@ function loadTips(marker, url) {
         console.log(tip);
         const tipMesh = createTipMesh(tip);
         tipMeshes.push(tipMesh);
-        scene.add(tipMesh);
+        marker.add(tipMesh);
     }
 }
 
