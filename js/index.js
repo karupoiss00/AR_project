@@ -235,7 +235,7 @@ function onResize(hasCamera) {
 }
 
 function updateGroupPosition() {
-    const groupPos = new THREE.Vector3(markerRoot.position.x, markerRoot.position.y, tipMeshes[i].position.z);
+    const groupPos = new THREE.Vector3(markerRoot.position.x, markerRoot.position.y, markerRoot.position.z);
     const distance = THREE.Vector3(0, 0, 0).distanceToSquared(groupPos);
     console.log(distance);
 }
