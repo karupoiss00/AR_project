@@ -16,8 +16,7 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 	const coordsScale = 0.01;
 	const [w, h] = size;
 	const canvas = createTipCanvas(id, title, text, titleStyle, textStyle, color, size);
-	const texture = new THREE.Texture(canvas);
-	texture.needsUpdate = true;
+	const texture = new THREE.CanvasTexture(canvas);
 	const colorSide = new THREE.MeshBasicMaterial({ color: color });
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
 	const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
@@ -78,6 +77,10 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
 		ctx.drawImage(renderResult.image, 0, 0);
 	});
+
+	var image = new Image(512, 512);   // Размер изображения
+	image.src = '/AR/images/basketball.png';
+	ctx.drawImage(image, 0, 0);
 
 	return canvas;
 }
