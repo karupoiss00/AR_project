@@ -305,6 +305,7 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+    console.log(markerRoot.getWorldPosition());
 	update(hasCamera);
 	render();
 }
@@ -314,7 +315,6 @@ function start()
     hideElement("UI");
     showElement("edit");
     initialize(isMobile.any());
-    console.log(markerRoot.getWorldPosition());
     animate(isMobile.any());
 }
 
