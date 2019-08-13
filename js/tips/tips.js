@@ -75,15 +75,25 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 
 	doc.body.appendChild(tipDiv);
 	rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
-		ctx.drawImage(renderResult.image, 0, 0);
+		if(renderResult.image.complete)
+		{
+			callback(renderResult.image);
+		}
+		else
+		{
+			renderResult.image.onload = callback;
+		}
 	});
 
-	var image = new Image(512, 512);   // Размер изображения
-	image.src = '/AR/images/basketball.png';
-	ctx.drawImage(image, 0, 0);
-
 	return canvas;
+
+
+	var callback = function(image) {
+		if(!image) image = this;
+		ctx.drawImage(image, 0, 0);
+	}
 }
+
 
 /**
  *  @param {string} title
