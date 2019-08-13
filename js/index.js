@@ -249,6 +249,7 @@ function update(hasCamera) {
         if (arToolkitSource.ready !== false)
         {
             arToolkitContext.update(arToolkitSource.domElement);
+            updateGroupPosition();
             showTips();
         }
     }
@@ -311,7 +312,6 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-    console.log(markerRoot.getWorldPosition());
 	update(hasCamera);
 	render();
 }
