@@ -16,7 +16,7 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 	const coordsScale = 0.01;
 	const [w, h] = size;
 	const canvas = createTipCanvas(id, title, text, titleStyle, textStyle, color, size);
-	const texture = new THREE.CanvasTexture(canvas, THREE.RepeatWrapping);
+	const texture = new THREE.Texture(canvas);
 	const colorSide = new THREE.MeshBasicMaterial({ color: color });
 	const tipSide = new THREE.MeshBasicMaterial({ map: texture });
 	const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
@@ -28,7 +28,8 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 		tipSide,
 		colorSide
 	];
-	material.map.needsUpdate = true;
+
+	texture.needsUpdate = true;
 	const mesh = new THREE.Mesh(geometry, material);
 	mesh.scale.set(0.01, 0.01, 0.01);
 
@@ -60,8 +61,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	canvas.height = h;
 
 	const ctx = canvas.getContext("2d")
-	ctx.fillStyle = "#000000"; //color;
-    ctx.fillRect(0, 0, canvas.width / 2, canvas.height / 2);
+	ctx.fillStyle = "#ffffff"; //color;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 	const doc = document.implementation.createHTMLDocument();
 	const tipDiv = doc.createElement("div");
 	tipDiv.id = 'd' + id;
