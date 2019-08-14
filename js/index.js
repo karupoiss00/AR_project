@@ -239,8 +239,7 @@ function update(hasCamera) {
 
     if (isFixed) {
         const sensorAbs = new AbsoluteOrientationSensor();
-        sensorAbs.onreading = () => markerRoot.quaternion.fromArray(sensorAbs.quaternion);
-        sensorAbs.start();
+        sensorAbs
     }
 }
 
@@ -381,4 +380,13 @@ window.onload = function() {
     addButton.onclick = addTip;
     startButton.onclick = start;
     backButton.onclick = fixGroupPosition;
+
+    const sensor = new AbsoluteOrientationSensor({frequency: 60});
+    sensor.onerror = event => {
+        if (event.error.name == 'NotReadableError') {
+            document.body.style.background = "#ff0000";
+        }
+    }
+    sensor.start();
+}
 };
