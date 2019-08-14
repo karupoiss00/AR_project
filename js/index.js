@@ -235,6 +235,7 @@ function update(hasCamera) {
         if (isFixed)
         {
             console.log(markerRoot.getWorldPosition());
+            console.log(markerRoot.position);
         }
     }
     else
