@@ -205,9 +205,10 @@ function loadTips(marker, url) {
     {
         console.log(JSON.stringify(tip));
         console.log(tip);
-        const tipMesh = createTipMesh(tip);
-        tipMeshes.push(tipMesh);
-        marker.add(tipMesh);
+        createTipMesh(tip).then((tipMesh) => {
+            tipMeshes.push(tipMesh);
+            marker.add(tipMesh);
+        });
     }
 }
 
