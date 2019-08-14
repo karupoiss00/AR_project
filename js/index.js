@@ -388,5 +388,4 @@ window.onload = function() {
         }
     }
     sensor.start();
-}
 };
