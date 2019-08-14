@@ -238,8 +238,7 @@ function update(hasCamera) {
     }
 
     if (isFixed) {
-        const sensorAbs = new AbsoluteOrientationSensor();
-        sensorAbs
+        markerRoot.rotation.y += 0.01;
     }
 }
 
