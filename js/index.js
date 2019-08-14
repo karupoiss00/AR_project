@@ -28,30 +28,12 @@ let markerRoot;
 const tipMeshes = [];
 /** @const {!Array<!Object>} */
 const tipsData = [
-    {
-        id: "test",
-        title: "Title",
-        text: "Description",
-        titleStyle:
-            {
-                font: "",
-                size: 12,
-                color: "#000000",
-                backgroundColor: "#ffffff",
-            },
-        textStyle:
-            {
-                font: "",
-                size: 12,
-                color: "#000000",
-                backgroundColor: "#ffffff",
-            },
-        color:"#ffffff",
-        coord: [0, 0, 0],
-        rotation: [0, 0, 0],
-        size: [100, 100],
-    }
+
 ];
+/** @type {boolean} */
+let isFixed = false;
+
+
 /**
  * @param {boolean} hasCamera
  */
@@ -205,9 +187,10 @@ function loadTips(marker, url) {
     {
         console.log(JSON.stringify(tip));
         console.log(tip);
-        const tipMesh = createTipMesh(tip);
-        tipMeshes.push(tipMesh);
-        marker.add(tipMesh);
+        createTipMesh(tip).then((tipMesh) => {
+            tipMeshes.push(tipMesh);
+            marker.add(tipMesh);
+        });
     }
 }
 
@@ -254,10 +237,10 @@ function updateGroupPosition(prevGroupPos) {
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false)
+        if (arToolkitSource.ready !== false && !isFixed)
         {
             arToolkitContext.update(arToolkitSource.domElement);
-            updateGroupPosition();
+            //updateGroupPosition();
             showTips();
         }
     }
@@ -327,6 +310,7 @@ function animate(hasCamera) {
 function start()
 {
     hideElement("UI");
+    document.body.style.background = "#000000";
     showElement("edit");
     initialize(isMobile.any());
     animate(isMobile.any());
@@ -369,6 +353,7 @@ function back(hasCamera)
         arToolkitSource.domElement.style.visibility = "hidden";
     }
     renderer.domElement.style.visibility = "hidden";
+    document.body.style.background = "#ffffff";
     hideElement("edit");
     showElement("UI");
 }
@@ -401,5 +386,6 @@ window.onload = function() {
 
     addButton.onclick = addTip;
     startButton.onclick = start;
-    backButton.onclick = back;
+    //backButton.onclick = back;
+    backButton.onclick = () => { isFixed = !isFixed };
 };
