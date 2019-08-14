@@ -334,7 +334,7 @@ function back(hasCamera)
         arToolkitSource.domElement.style.visibility = "hidden";
     }
     renderer.domElement.style.visibility = "hidden";
-    document.body.style.color = "#ffffff";
+    document.body.style.background = "#ffffff";
     hideElement("edit");
     showElement("UI");
 }
