@@ -140,9 +140,9 @@ function initMarker(hasCamera, markerUrl) {
     scene.add(markerRoot);
     if (hasCamera)
     {
-        new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-            type: 'pattern', patternUrl: markerUrl,
-        });
+        //new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+            //type: 'pattern', patternUrl: markerUrl,
+        //});
     }
 }
 
@@ -217,18 +217,8 @@ function onResize(hasCamera) {
 
 }
 
-/**
- * @param {THREE.Vector3} prevGroupPos
- */
-function updateGroupPosition(prevGroupPos) {
-    const groupPos = new THREE.Vector3(markerRoot.position.x, markerRoot.position.y, markerRoot.position.z);
-    const distance = groupPos.distanceToSquared(new THREE.Vector3(0, 0, 0));
-    console.log(distance);
-    console.log(groupPos);
-    if (distance > 35)
-    {
+function fixGroupPosition(prevGroupPos) {
 
-    }
 }
 
 /**
@@ -237,10 +227,9 @@ function updateGroupPosition(prevGroupPos) {
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false && !isFixed)
+        if (arToolkitSource.ready !== false)
         {
             arToolkitContext.update(arToolkitSource.domElement);
-            //updateGroupPosition();
             showTips();
         }
     }
@@ -386,6 +375,6 @@ window.onload = function() {
 
     addButton.onclick = addTip;
     startButton.onclick = start;
-    //backButton.onclick = back;
-    backButton.onclick = () => { isFixed = !isFixed };
+    backButton.onclick = back;
+    //backButton.onclick = ;
 };
