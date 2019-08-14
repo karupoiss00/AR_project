@@ -291,7 +291,7 @@ function animate(hasCamera) {
 function start()
 {
     hideElement("UI");
-    document.body.style.color = "#000000";
+    document.body.style.background = "#000000";
     showElement("edit");
     initialize(isMobile.any());
     animate(isMobile.any());
