@@ -67,7 +67,6 @@ function initArToolKit(hasCamera, url) {
         window.addEventListener('resize', function(){
             onResize(true)
         });
-
         arToolkitContext = new THREEx.ArToolkitContext({
             cameraParametersUrl: url,
             detectionMode: 'mono'
@@ -228,9 +227,9 @@ function fixGroupPosition() {
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false && !isFixed)
+        if (arToolkitSource.ready !== false)
         {
-            arToolkitContext.update(arToolkitSource.domElement);
+            arToolkitContext.update(arToolkitSource.domElement, isFixed);
             showTips();
         }
     }

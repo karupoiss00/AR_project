@@ -128,7 +128,7 @@ ARjs.Context.prototype.init = function(onCompleted){
 ////////////////////////////////////////////////////////////////////////////////
 //          update function
 ////////////////////////////////////////////////////////////////////////////////
-ARjs.Context.prototype.update = function(srcElement){
+ARjs.Context.prototype.update = function(srcElement, isFixed){
 
 	// be sure arController is fully initialized
         if(this.parameters.trackingBackend === 'artoolkit' && this.arController === null) return false;
@@ -142,7 +142,7 @@ ARjs.Context.prototype.update = function(srcElement){
 
 	// mark all markers to invisible before processing this frame
 	this._arMarkersControls.forEach(function(markerControls){
-		markerControls.object3d.visible = false
+		markerControls.object3d.visible = isFixed
 	})
 
 	// process this frame
