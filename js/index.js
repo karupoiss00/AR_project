@@ -30,9 +30,6 @@ const tipMeshes = [];
 const tipsData = [
 
 ];
-/** @type {boolean} */
-let isFixed = false;
-let markerControls;
 
 /**
  * @param {boolean} hasCamera
@@ -139,7 +136,7 @@ function initMarker(hasCamera, markerUrl) {
     scene.add(markerRoot);
     if (hasCamera)
     {
-        markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+        new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
             type: 'pattern', patternUrl: markerUrl,
         });
 
@@ -217,25 +214,16 @@ function onResize(hasCamera) {
 
 }
 
-function fixGroupPosition() {
-    isFixed = !isFixed;
-}
-
 /**
  * @param {boolean} hasCamera
  */
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false && !isFixed)
+        if (arToolkitSource.ready !== false)
         {
             arToolkitContext.update(arToolkitSource.domElement);
             showTips();
-        }
-        if (isFixed)
-        {
-            console.log(markerRoot.getWorldPosition(), ' wp');
-            console.log(markerRoot.position, 'p');
         }
     }
     else
@@ -384,5 +372,5 @@ window.onload = function() {
 
     addButton.onclick = addTip;
     startButton.onclick = start;
-    backButton.onclick = fixGroupPosition;
+    backButton.onclick = back;
 };
