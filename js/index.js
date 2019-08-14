@@ -304,9 +304,6 @@ function start()
     hideElement("UI");
     document.body.style.background = "#000000";
     showElement("edit");
-    const sensor = new AbsoluteOrientationSensor({frequency: 60});
-    sensor.onreading = () => markerRoot.quaternion.fromArray(sensor.quaternion);
-    sensor.start();
     initialize(isMobile.any());
     animate(isMobile.any());
 }
@@ -382,4 +379,13 @@ window.onload = function() {
     addButton.onclick = addTip;
     startButton.onclick = start;
     backButton.onclick = fixGroupPosition;
+
+    const sensor = new AbsoluteOrientationSensor({frequency: 60});
+    sensor.onreading = () => markerRoot.quaternion.fromArray(sensor.quaternion);
+    sensor.onerror = event => {
+        if (event.error.name == 'NotReadableError') {
+            document.body.style.background = "#ff0000";
+        }
+    }
+    sensor.start();
 }
