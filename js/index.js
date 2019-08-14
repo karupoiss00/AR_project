@@ -227,7 +227,7 @@ function fixGroupPosition() {
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false && !isFixed)
+        if (arToolkitSource.ready !== false)
         {
             arToolkitContext.update(arToolkitSource.domElement);
             showTips();
