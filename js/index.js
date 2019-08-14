@@ -227,14 +227,14 @@ function fixGroupPosition() {
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false)
+        if (arToolkitSource.ready !== false && !isFixed)
         {
             arToolkitContext.update(arToolkitSource.domElement);
             showTips();
         }
         if (isFixed)
         {
-            arToolkitContext.removeMarker(markerControls);
+            console.log(markerRoot.getWorldPosition());
         }
     }
     else
