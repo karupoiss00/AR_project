@@ -234,8 +234,8 @@ function update(hasCamera) {
         }
         if (isFixed)
         {
-            console.log(markerRoot.getWorldPosition());
-            console.log(markerRoot.position);
+            console.log(markerRoot.getWorldPosition(), ' wp');
+            console.log(markerRoot.position, 'p');
         }
     }
     else
