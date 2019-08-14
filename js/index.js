@@ -291,6 +291,7 @@ function animate(hasCamera) {
 function start()
 {
     hideElement("UI");
+    document.body.style.color = "#000000";
     showElement("edit");
     initialize(isMobile.any());
     animate(isMobile.any());
@@ -333,6 +334,7 @@ function back(hasCamera)
         arToolkitSource.domElement.style.visibility = "hidden";
     }
     renderer.domElement.style.visibility = "hidden";
+    document.body.style.color = "#ffffff";
     hideElement("edit");
     showElement("UI");
 }
