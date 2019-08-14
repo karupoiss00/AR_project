@@ -30,6 +30,8 @@ const tipMeshes = [];
 const tipsData = [
 
 ];
+/** @type {boolean} */
+let isFixed = false;
 
 /**
  * @param {boolean} hasCamera
@@ -214,13 +216,17 @@ function onResize(hasCamera) {
 
 }
 
+function fixGroupPosition() {
+    isFixed = !isFixed;
+}
+
 /**
  * @param {boolean} hasCamera
  */
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false)
+        if (arToolkitSource.ready !== false && !isFixed)
         {
             arToolkitContext.update(arToolkitSource.domElement);
             showTips();
@@ -229,6 +235,12 @@ function update(hasCamera) {
     else
     {
         markerRoot.rotation.y += 0.01;
+    }
+
+    if (isFixed) {
+        const sensorAbs = new AbsoluteOrientationSensor();
+        sensorAbs.onreading = () => markerRoot.quaternion.fromArray(sensorAbs.quaternion);
+        sensorAbs.start();
     }
 }
 
@@ -368,5 +380,5 @@ window.onload = function() {
 
     addButton.onclick = addTip;
     startButton.onclick = start;
-    backButton.onclick = back;
+    backButton.onclick = fixGroupPosition;
 };
