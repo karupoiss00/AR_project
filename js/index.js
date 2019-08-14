@@ -32,6 +32,7 @@ const tipsData = [
 ];
 /** @type {boolean} */
 let isFixed = false;
+let markerControls;
 
 
 /**
@@ -140,9 +141,10 @@ function initMarker(hasCamera, markerUrl) {
     scene.add(markerRoot);
     if (hasCamera)
     {
-        //new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
-            //type: 'pattern', patternUrl: markerUrl,
-        //});
+        markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+            type: 'pattern', patternUrl: markerUrl,
+        });
+
     }
 }
 
@@ -375,6 +377,5 @@ window.onload = function() {
 
     addButton.onclick = addTip;
     startButton.onclick = start;
-    backButton.onclick = back;
-    //backButton.onclick = ;
+    backButton.onclick = () => {markerControls.context.removeMarker();};//back;
 };
