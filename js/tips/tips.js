@@ -16,7 +16,7 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 	const coordsScale = 0.01;
 	const [w, h] = size;
 	const canvasPromise = createTipCanvas(id, title, text, titleStyle, textStyle, color, size);
-	canvasPromise.then((canvas) => {
+	return canvasPromise.then((canvas) => {
 		const texture = new THREE.CanvasTexture(canvas);
 		const colorSide = new THREE.MeshBasicMaterial({ color: color });
 		const tipSide = new THREE.MeshBasicMaterial({ map: texture });
@@ -38,19 +38,19 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 		const [rx, ry, rz] = rotation;
 		mesh.rotation.set(THREE.Math.degToRad(rx), THREE.Math.degToRad(ry), THREE.Math.degToRad(rz));
 
-		resolve(mesh);
+        return Promise.resolve(mesh);
 	});
 }
 
 /**
- *  id: string,
- *  title: string,
- *  text: string,
- *  titleStyle: !Object,
- *  textStyle: !Object,
- *  color: string,
+ * @param {string} id,
+ * @param {string} title,
+ * @param {string} text,
+ * @param {!Object} titleStyle,
+ * @param {!Object} textStyle,
+ * @param {string} color,
  * @param {!Array<number>} size
- * @return {!Promise}
+ * @return {!Promise<!Element>}
  */
 function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 	const canvas = document.createElement("canvas");
@@ -79,10 +79,8 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 
 	return rasterizeHTML.drawDocument(doc, canvas).then(function(renderResult) {
 		ctx.drawImage(renderResult.image, 0, 0);
-		resolve(canvas);
+        return Promise.resolve(canvas);
 	});
-
-	//return canvas;
 }
 
 
