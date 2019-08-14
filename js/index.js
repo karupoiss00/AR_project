@@ -230,10 +230,6 @@ function update(hasCamera) {
     {
         markerRoot.rotation.y += 0.01;
     }
-
-    if (isFixed) {
-
-    }
 }
 
 function showTips() {
