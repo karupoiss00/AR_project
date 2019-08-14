@@ -204,13 +204,9 @@ function onResize(hasCamera) {
         arToolkitSource.onResize();
         arToolkitSource.copySizeTo(renderer.domElement);
 
-        if (arToolkitContext.arController !== null && !isFixed)
+        if (arToolkitContext.arController !== null)
         {
             arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
-        }
-
-        if (isFixed) {
-
         }
     }
     else
@@ -232,7 +228,7 @@ function fixGroupPosition() {
 function update(hasCamera) {
     if (hasCamera)
     {
-        if (arToolkitSource.ready !== false)
+        if (arToolkitSource.ready !== false && !isFixed)
         {
             arToolkitContext.update(arToolkitSource.domElement);
             showTips();
@@ -241,6 +237,10 @@ function update(hasCamera) {
     else
     {
         markerRoot.rotation.y += 0.01;
+    }
+
+    if (isFixed) {
+
     }
 }
 
