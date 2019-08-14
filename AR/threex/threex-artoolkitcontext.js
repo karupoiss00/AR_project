@@ -142,7 +142,7 @@ ARjs.Context.prototype.update = function(srcElement, isFixed){
 
 	// mark all markers to invisible before processing this frame
 	this._arMarkersControls.forEach(function(markerControls){
-		markerControls.object3d.visible = isFixed
+		markerControls.object3d.visible = false
 	})
 
 	// process this frame
