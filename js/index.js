@@ -31,7 +31,7 @@ const tipsData = [
 
 ];
 /** @type {boolean} */
-let isFixed = true;
+let isFixed = false;
 
 /**
  * @param {boolean} hasCamera
