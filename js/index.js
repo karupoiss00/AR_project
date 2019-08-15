@@ -385,10 +385,6 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-
-            markerRoot.rotation.set(markerRoot.getWorldRotation().x + 1.2,
-                                    markerRoot.getWorldRotation().y + 0.025,
-                                    markerRoot.getWorldRotation().z - 2.4);
         }
     };
     sensor.onerror = event => {
