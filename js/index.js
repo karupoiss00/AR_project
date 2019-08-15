@@ -381,7 +381,6 @@ window.onload = function() {
 
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
-            rotationMatrix.multiplyVector3(markerRoot.position);
             markerRoot.matrix.fromArray(rotationMatrix);
         }
     };
