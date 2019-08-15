@@ -388,7 +388,7 @@ window.onload = function() {
 
             markerRoot.rotation.set(markerRoot.getWorldRotation().x + 1.2,
                                     markerRoot.getWorldRotation().y + 0.025,
-                                    markerRoot.getWorldRotation().z - 2.4;
+                                    markerRoot.getWorldRotation().z - 2.4);
         }
     };
     sensor.onerror = event => {
