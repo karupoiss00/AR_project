@@ -380,9 +380,10 @@ window.onload = function() {
         {
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
-            rotationMatrix[12] = markerRoot.getWorldPosition().y;
-            rotationMatrix[13] = markerRoot.getWorldPosition().x;
+            rotationMatrix[12] = markerRoot.getWorldPosition().x;
+            rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
+            rotationMatrix.rotateZ(-90);
             markerRoot.matrix.fromArray(rotationMatrix);
         }
     };
