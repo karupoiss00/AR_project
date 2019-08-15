@@ -297,6 +297,7 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+    console.log(markerRoot.getWorldRotation());
 	update(hasCamera);
 	render();
 }
@@ -387,8 +388,7 @@ window.onload = function() {
 
             markerRoot.rotation.set(markerRoot.getWorldRotation().x + 1.2,
                                     markerRoot.getWorldRotation().y + 0.025,
-                                    markerRoot.getWorldRotation().z - 2.4)
-            console.log(markerRoot.getWorldRotation());
+                                    markerRoot.getWorldRotation().z - 2.4;
         }
     };
     sensor.onerror = event => {
