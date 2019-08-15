@@ -383,7 +383,7 @@ window.onload = function() {
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
-            rotationMatrix.rotateZ(-90);
+            //rotationMatrix.rotateZ(-90);
             markerRoot.matrix.fromArray(rotationMatrix);
         }
     };
