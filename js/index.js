@@ -293,6 +293,8 @@ function animate(hasCamera) {
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
     console.log(markerRoot.getWorldRotation());
+    let rotation = new THREE.Euler(0.6, 0.01, 0.08, "XYZ");
+    markerRoot.setRotationFromEuler(rotation);
 	update(hasCamera);
 	render();
 }
@@ -375,14 +377,11 @@ window.onload = function() {
         if (isFixed)
         {
             let rotationMatrix = new Float32Array(16);
-            let rotation = new THREE.Euler(0.6, 0.01, 0.08, "XYZ");
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-
-            markerRoot.setRotationFromEuler(rotation);
         }
     };
     sensor.onerror = event => {
