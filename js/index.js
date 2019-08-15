@@ -381,14 +381,12 @@ window.onload = function() {
         {
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
-            let groupRotation = markerRoot.getWorldRotation();
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            markerRoot.rotation.x = groupRotation.x;
-            markerRoot.rotation.y = groupRotation.y;
-            markerRoot.rotation.z = groupRotation.z;
+
+            markerRoot.rotation.set(0.6, 0.01, 0.08);
         }
     };
     sensor.onerror = event => {
