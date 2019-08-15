@@ -374,11 +374,15 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new AbsoluteOrientationSensor({frequency: 60});
+    sensor = new RelativeOrientationSensor({frequency: 60});
     sensor.onreading = () => {
         if (isFixed)
         {
-            markerRoot.quaternion.fromArray(sensor.quanternion);
+
+            let rotationMatrix = new Float32Array(16);
+            sensor.populateMatrix(rotationMatrix);
+            rotationMatrix.multiplyVector3(markerRoot.position);
+            markerRoot.matrix.fromArray(rotationMatrix);
         }
     };
     sensor.onerror = event => {
