@@ -32,6 +32,7 @@ const tipsData = [
 ];
 /** @type {boolean} */
 let isFixed = false;
+let sensor;
 
 /**
  * @param {boolean} hasCamera
@@ -239,6 +240,7 @@ function update(hasCamera) {
 
     if (isFixed) {
         markerRoot.rotation.y += 0.01;
+
     }
 }
 
@@ -372,6 +374,22 @@ const isMobile = {
 };
 
 window.onload = function() {
+    sensor = new RelativeOrientationSensor({frequency: 60});
+    sensor.onreading = () => {
+        if (isFixed)
+        {
+            let rotationMatrix = new Float32Array(16);
+            sensor.populateMatrix(rotationMatrix);
+            markerRoot.matrix.fromArray(rotationMatrix);
+        }
+    };
+    sensor.onerror = event => {
+        if (event.error.name == 'NotReadableError') {
+            document.body.style.background = "#ff0000";
+        }
+    }
+    sensor.start();
+
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
@@ -380,12 +398,4 @@ window.onload = function() {
     startButton.onclick = start;
     backButton.onclick = fixGroupPosition;
 
-    const sensor = new AbsoluteOrientationSensor({frequency: 60});
-    sensor.onreading = () => markerRoot.quaternion.fromArray(sensor.quaternion);
-    sensor.onerror = event => {
-        if (event.error.name == 'NotReadableError') {
-            document.body.style.background = "#ff0000";
-        }
-    }
-    sensor.start();
 }
