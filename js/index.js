@@ -378,9 +378,7 @@ window.onload = function() {
     sensor.onreading = () => {
         if (isFixed)
         {
-            let rotationMatrix = new Float32Array(16);
-            sensor.populateMatrix(rotationMatrix);
-            markerRoot.matrix.fromArray(rotationMatrix);
+            markerRoot.quaternion.fromArray(sensor.quanternion);
         }
     };
     sensor.onerror = event => {
