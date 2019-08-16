@@ -383,7 +383,7 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            console.log(markerRoot.localToWorld(rotation), "ltw");
+            markerRoot.lookAt(0, 0, 0);
         }
     };
     sensor.onerror = event => {
