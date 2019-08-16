@@ -377,18 +377,16 @@ window.onload = function() {
     sensor.onreading = () => {
         if (isFixed)
         {
+            markerRoot.rotation.set(
+            THREE.Math.degToRad(0),
+            THREE.Math.degToRad(0),
+            THREE.Math.degToRad(-90));
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            markerRoot.rotation.x = rotation.x;
-            markerRoot.rotation.y = rotation.y;
-            /*markerRoot.rotation.set(THREE.Math.degToRad(0),
-                                    THREE.Math.degToRad(0),
-                                    THREE.Math.degToRad(210))*/
-            markerRoot.rotation.y += 0.01;
         }
     };
     sensor.onerror = event => {
