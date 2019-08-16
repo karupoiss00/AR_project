@@ -385,9 +385,9 @@ window.onload = function() {
             markerRoot.matrix.fromArray(rotationMatrix);
             markerRoot.rotation.x = rotation.x;
             markerRoot.rotation.y = rotation.y;
-            markerRoot.rotation.set(THREE.Math.degToRad(90),
-                                    THREE.Math.degToRad(90),
-                                    THREE.Math.degToRad(90))
+            markerRoot.rotation.set(THREE.Math.degToRad(0),
+                                    THREE.Math.degToRad(0),
+                                    THREE.Math.degToRad(210))
         }
     };
     sensor.onerror = event => {
