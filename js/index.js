@@ -377,19 +377,28 @@ window.onload = function() {
     sensor.onreading = () => {
         if (isFixed)
         {
-            let rotationMatrix = new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]);
+            let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
         }
-    };
+    }
     sensor.onerror = event => {
         if (event.error.name == 'NotReadableError') {
             document.body.style.background = "#ff0000";
         }
     }
+
+    const sensorAbs = new AbsoluteOrientationSensor();
+    sensorAbs.onreading = () => {
+        if (isFixed)
+        {
+            markerRoot.quaternion.fromArray(sensorAbs.quaternion);
+        }
+    }
+    sensorAbs.start();
     sensor.start();
 
     const startButton = document.getElementById("start");
