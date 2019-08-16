@@ -383,7 +383,7 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            markerRoot.lookAt(0, 0, 0);
+            markerRoot.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1).normalize(), 2.0944);
         }
     };
     sensor.onerror = event => {
