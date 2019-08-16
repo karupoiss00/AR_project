@@ -293,6 +293,7 @@ function animate(hasCamera) {
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
     console.log(markerRoot.rotation);
+    console.log(markerRoot.getWorldRotation());
 	update(hasCamera);
 	render();
 }
