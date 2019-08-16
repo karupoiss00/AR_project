@@ -388,7 +388,7 @@ window.onload = function() {
             /*markerRoot.rotation.set(THREE.Math.degToRad(0),
                                     THREE.Math.degToRad(0),
                                     THREE.Math.degToRad(210))*/
-            cube.rotation.y += 0.01;
+            markerRoot.rotation.y += 0.01;
         }
     };
     sensor.onerror = event => {
