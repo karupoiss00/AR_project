@@ -219,11 +219,19 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotation = markerRoot.getWorldPosition();
+    rotateGroup(60, 90, 0);
     isFixed = !isFixed;
+}
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ */
+function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
-        markerRoot.children[i].rotation.set(THREE.Math.degToRad(90), THREE.Math.degToRad(90), THREE.Math.degToRad(0));
+        markerRoot.children[i].rotation.set(THREE.Math.degToRad(x), THREE.Math.degToRad(y), THREE.Math.degToRad(z));
     }
 }
 
