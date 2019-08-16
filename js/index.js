@@ -220,7 +220,6 @@ function onResize(hasCamera) {
 
 function fixGroupPosition() {
     rotation = markerRoot.getWorldPosition();
-    rotateGroup(rotation.y - 0.53, rotation.x + 1.66, rotation.z - 4.6);
     isFixed = !isFixed;
 }
 
@@ -395,6 +394,7 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
+            rotateGroup(rotation.y, rotation.x , rotation.z );
         }
     }
 
