@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotateGroup(90, 90, 0);
+    rotateGroup(0, 90, 0);
     isFixed = !isFixed;
 }
 
@@ -231,7 +231,10 @@ function fixGroupPosition() {
 function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
-        markerRoot.children[i].rotation.set(THREE.Math.degToRad(x), THREE.Math.degToRad(y), THREE.Math.degToRad(z));
+        markerRoot.children[i].rotation.set(
+            THREE.Math.degToRad(markerRoot.children[i].getWorldRotation().x),
+            THREE.Math.degToRad(markerRoot.children[i].getWorldRotation().y),
+            THREE.Math.degToRad(markerRoot.children[i].getWorldRotation().z));
     }
 }
 
