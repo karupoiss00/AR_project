@@ -373,6 +373,7 @@ const isMobile = {
 };
 
 window.onload = function() {
+    /*
     sensor = new RelativeOrientationSensor({frequency: 60});
     sensor.onreading = () => {
         if (isFixed)
@@ -389,7 +390,7 @@ window.onload = function() {
         if (event.error.name == 'NotReadableError') {
             document.body.style.background = "#ff0000";
         }
-    }
+    }*/
 
     const sensorAbs = new AbsoluteOrientationSensor();
     sensorAbs.onreading = () => {
@@ -399,7 +400,7 @@ window.onload = function() {
         }
     }
     sensorAbs.start();
-    sensor.start();
+    //sensor.start();
 
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
