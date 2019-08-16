@@ -33,6 +33,7 @@ const tipsData = [
 /** @type {boolean} */
 let isFixed = false;
 let sensor;
+let rotation;
 
 /**
  * @param {boolean} hasCamera
@@ -218,6 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
+    rotation = markerRoot.getWorldPosition();
     isFixed = !isFixed;
 }
 
@@ -384,7 +386,6 @@ window.onload = function() {
         if (isFixed)
         {
             let rotationMatrix = new Float32Array(16);
-            let rotation = markerRoot.rotation;
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
