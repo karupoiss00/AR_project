@@ -292,7 +292,7 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-    console.log(markerRoot.getWorldRotation());
+    console.log(markerRoot.rotation);
 	update(hasCamera);
 	render();
 }
@@ -381,7 +381,7 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            markerRoot.rotation.set(rotation.x, rotation.y, rotation.z);
+            markerRoot.rotation.set(THREE.Math.degToRad(), THREE.Math.degToRad(), THREE.Math.degToRad());
         }
     };
     sensor.onerror = event => {
