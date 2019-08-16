@@ -166,7 +166,6 @@ function loadModel(marker, path, mtlName, objName, scale) {
                     const cat = group.children[0];
                     cat.position.set(0, 0, 0);
                     cat.scale.set(scale, scale, scale);
-                    cat.rotation.set(THREE.Math.degToRad(90), THREE.Math.degToRad(90), THREE.Math.degToRad(0));
                     marker.add(cat);
                 }, onProgress, onError);
         });
@@ -222,6 +221,10 @@ function onResize(hasCamera) {
 function fixGroupPosition() {
     rotation = markerRoot.getWorldPosition();
     isFixed = !isFixed;
+    for (var i = 0; i < markerRoot.children.length; i++)
+    {
+        markerRoot.children[i].rotation.set(THREE.Math.degToRad(90), THREE.Math.degToRad(90), THREE.Math.degToRad(0));
+    }
 }
 
 /**
@@ -295,7 +298,6 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	console.log(markerRoot.children);
 	update(hasCamera);
 	render();
 }
