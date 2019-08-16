@@ -91,6 +91,7 @@ function initArea(hasCamera) {
     if (hasCamera)
     {
         camera = new THREE.Camera();
+        camera.eulerOrder = "YXZ"
     }
     else {
         camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -220,7 +221,6 @@ function onResize(hasCamera) {
 
 function fixGroupPosition() {
     rotation = markerRoot.getWorldPosition();
-    camera.eulerOrder = "YXZ"
     markerRoot.rotation.set(THREE.Math.degToRad(0), THREE.Math.degToRad(0), THREE.Math.degToRad(180));
     isFixed = !isFixed;
 }
@@ -296,7 +296,6 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	console.log(markerRoot.matrix);
 	update(hasCamera);
 	render();
 }
