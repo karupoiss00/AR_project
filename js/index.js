@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotateGroup(0, 90, 0);
+    rotation = markerRoot.getWordlRotation();
     isFixed = !isFixed;
 }
 
@@ -231,10 +231,7 @@ function fixGroupPosition() {
 function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
-        markerRoot.children[i].rotation.set(
-            markerRoot.children[i].getWorldRotation().x + 1.5,
-            markerRoot.children[i].getWorldRotation().y + 0.04,
-            markerRoot.children[i].getWorldRotation().z) - 1.1;
+        markerRoot.children[i].rotation.set(x, y, z);
     }
 }
 
@@ -397,6 +394,7 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
+            rotateGroup(rotation.x, rotation.y, rotation.z);
         }
     }
 
