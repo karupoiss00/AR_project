@@ -91,7 +91,7 @@ function initArea(hasCamera) {
     if (hasCamera)
     {
         camera = new THREE.Camera();
-        camera.eulerOrder = "YXZ"
+        camera.rotation.order = 'YXZ';
     }
     else {
         camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
