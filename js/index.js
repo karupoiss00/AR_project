@@ -232,9 +232,9 @@ function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
         markerRoot.children[i].rotation.set(
-            THREE.Math.degToRad(markerRoot.children[i].getWorldRotation().x),
-            THREE.Math.degToRad(markerRoot.children[i].getWorldRotation().y),
-            THREE.Math.degToRad(markerRoot.children[i].getWorldRotation().z));
+            markerRoot.children[i].getWorldRotation().x,
+            markerRoot.children[i].getWorldRotation().y,
+            markerRoot.children[i].getWorldRotation().z);
     }
 }
 
