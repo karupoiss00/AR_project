@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotation = markerRoot.getWordlRotation();
+    rotation = markerRoot.getWorldRotation();
     isFixed = !isFixed;
 }
 
