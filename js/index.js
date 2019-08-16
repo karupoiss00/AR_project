@@ -372,14 +372,6 @@ const isMobile = {
     }
 };
 
-function rotateAroundWorldAxis(object, axis, radians) {
-    let rotWorldMatrix = new THREE.Matrix4();
-    rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);
-    rotWorldMatrix.multiply(object.matrix);        // pre-multiply
-    object.matrix = rotWorldMatrix;
-    object.rotation.setFromRotationMatrix(object.matrix);
-}
-
 window.onload = function() {
     sensor = new RelativeOrientationSensor({frequency: 60});
     sensor.onreading = () => {
@@ -391,9 +383,9 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            rotateAroundWorldAxis(markerRoot, new THREE.Vector3(1, 0, 0), rotation.x);
-            rotateAroundWorldAxis(markerRoot, new THREE.Vector3(0, 1, 0), rotation.y);
-            rotateAroundWorldAxis(markerRoot, new THREE.Vector3(0, 0, 1), rotation.z);
+            markerRoot.rotation.x = rotation.x;
+            markerRoot.rotation.y = rotation.y;
+            markerRoot.rotation.z = rotation.z;
         }
     };
     sensor.onerror = event => {
