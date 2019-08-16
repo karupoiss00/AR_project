@@ -220,6 +220,7 @@ function onResize(hasCamera) {
 
 function fixGroupPosition() {
     rotation = markerRoot.getWorldPosition();
+    camera.eulerOrder = "YXZ"
     markerRoot.rotation.set(THREE.Math.degToRad(0), THREE.Math.degToRad(0), THREE.Math.degToRad(180));
     isFixed = !isFixed;
 }
@@ -379,9 +380,9 @@ window.onload = function() {
         {
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
-            rotationMatrix[12] = markerRoot.getWorldPosition().y;
-            rotationMatrix[13] = markerRoot.getWorldPosition().z;
-            rotationMatrix[14] = markerRoot.getWorldPosition().x;
+            rotationMatrix[12] = markerRoot.getWorldPosition().x;
+            rotationMatrix[13] = markerRoot.getWorldPosition().y;
+            rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
         }
     }
