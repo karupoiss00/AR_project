@@ -377,7 +377,7 @@ window.onload = function() {
     sensor.onreading = () => {
         if (isFixed)
         {
-            let rotationMatrix = new Float32Array(16);
+            let rotationMatrix = new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]);
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
