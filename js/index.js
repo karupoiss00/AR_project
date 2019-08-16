@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotateGroup(90, 90, 30);
+    rotateGroup(90, 60, 0);
     isFixed = !isFixed;
 }
 
