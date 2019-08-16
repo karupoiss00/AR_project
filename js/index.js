@@ -373,8 +373,7 @@ const isMobile = {
 };
 
 window.onload = function() {
-    /*
-    sensor = new RelativeOrientationSensor({frequency: 60});
+    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     sensor.onreading = () => {
         if (isFixed)
         {
@@ -386,21 +385,13 @@ window.onload = function() {
             markerRoot.matrix.fromArray(rotationMatrix);
         }
     }
+
     sensor.onerror = event => {
         if (event.error.name == 'NotReadableError') {
             document.body.style.background = "#ff0000";
         }
-    }*/
-
-    const sensorAbs = new AbsoluteOrientationSensor();
-    sensorAbs.onreading = () => {
-        if (isFixed)
-        {
-            markerRoot.quaternion.fromArray(sensorAbs.quaternion);
-        }
     }
-    sensorAbs.start();
-    //sensor.start();
+    sensor.start();
 
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
