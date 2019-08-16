@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotateGroup(60, 90, 0);
+    rotateGroup(90, 90, 30);
     isFixed = !isFixed;
 }
 
@@ -350,8 +350,7 @@ function addTip() {
 /**
  * @param {string} hasCamera
  */
-function back(hasCamera)
-{
+function back(hasCamera) {
     if (arToolkitSource != undefined) {
         arToolkitSource.domElement.style.visibility = "hidden";
     }
