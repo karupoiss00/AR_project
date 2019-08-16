@@ -232,9 +232,9 @@ function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
         markerRoot.children[i].rotation.set(
-            markerRoot.children[i].getWorldRotation().y,
-            markerRoot.children[i].getWorldRotation().z,
-            markerRoot.children[i].getWorldRotation().x);
+            markerRoot.children[i].getWorldRotation().x + 1.5,
+            markerRoot.children[i].getWorldRotation().y + 0.04,
+            markerRoot.children[i].getWorldRotation().z) - 1.1;
     }
 }
 
