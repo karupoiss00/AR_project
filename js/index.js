@@ -220,7 +220,7 @@ function onResize(hasCamera) {
 
 function fixGroupPosition() {
     rotation = markerRoot.getWorldPosition();
-    markerRoot.rotation.order = 'YXZ';
+    markerRoot.rotation.set(THREE.Math.degToRad(90), THREE.Math.degToRad(90), THREE.Math.degToRad(0));
     isFixed = !isFixed;
 }
 
