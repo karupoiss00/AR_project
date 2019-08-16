@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotateGroup(0, 90, 0);
+    //rotateGroup(0, 90, 0);
     isFixed = !isFixed;
 }
 
@@ -309,6 +309,8 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+	console.log(markerRoot.getWorldRotation());
+	console.log(markerRoot.position);
 	update(hasCamera);
 	render();
 }
