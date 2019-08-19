@@ -361,6 +361,7 @@ function addTip() {
  * @param {string} hasCamera
  */
 function back(hasCamera) {
+    isFixed = false;
     if (arToolkitSource != undefined) {
         arToolkitSource.domElement.style.visibility = "hidden";
     }
