@@ -398,6 +398,7 @@ window.onload = function() {
             {
                 markerRoot.children[i].quaternion.fromArray(absoluteSensor.quaternion);
             }
+            rotateGroup(0, 0, 0);
         }
     }
     absoluteSensor.onerror = event => {
