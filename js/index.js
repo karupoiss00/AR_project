@@ -388,16 +388,19 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    sensor = AbsoluteOrientationSensor();//sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     sensor.onreading = () => {
         if (isFixed)
         {
+            /*
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
-            markerRoot.children[0].matrix.fromArray(rotationMatrix);
+            markerRoot.matrix.fromArray(rotationMatrix);*/
+            markerRoot.children[0].quaternion.fromArray(sensor.quaternion);
+            markerRoot.children[0].quaternion.setFromEuler(new THREE.Euler(0, 0, 0));
         }
     }
 
