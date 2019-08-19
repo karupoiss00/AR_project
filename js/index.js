@@ -394,9 +394,7 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            rotateGroup(rotation.x - markerRoot.getWorldRotation.x,
-                        rotation.y - markerRoot.getWorldRotation.y,
-                        rotation.z - markerRoot.getWorldRotation.z);
+            rotateGroup(rotation.x, rotation.y, rotation.z)
         }
     }
 
