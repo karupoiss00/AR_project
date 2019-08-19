@@ -117,11 +117,11 @@ function initRenderer(hasCamera, screenWidth, screenHeight) {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '20px';
     renderer.domElement.style.left = '0px';
-    renderer.domElement.style.bottom = '30px';
+    renderer.domElement.style.bottom = '50px';
     window.addEventListener( 'resize', () => onResize(hasCamera), false );
     if (!hasCamera)
     {
-        renderer.setSize(window.innerWidth, window.innerHeight -30);
+        renderer.setSize(window.innerWidth, window.innerHeight -50);
     }
     document.body.appendChild(renderer.domElement);
 }
