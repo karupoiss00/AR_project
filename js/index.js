@@ -32,7 +32,7 @@ const tipsData = [
 ];
 /** @type {boolean} */
 let isFixed = false;
-let sensor;
+let realativeSensor, absoluteSensor;
 let rotation;
 
 /**
@@ -115,7 +115,7 @@ function initRenderer(hasCamera, screenWidth, screenHeight) {
     renderer.setClearColor(new THREE.Color('lightgrey'), 0);
     renderer.setSize(screenWidth, screenHeight);
     renderer.domElement.style.position = 'absolute';
-    renderer.domElement.style.top = '80px';
+    renderer.domElement.style.top = '20px';
     renderer.domElement.style.left = '0px';
     window.addEventListener( 'resize', () => onResize(hasCamera), false );
     if (!hasCamera)
@@ -388,30 +388,33 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
-    sensor.onreading = () => {
+    realativeSensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    absoluteSensor = new AbsoluteOrientationSensor({frequency: 60});
+    absoluteSensor.onreading = () => markerRoot.children[0].quaternion.fromArray(absoluteSensor.quaternion);
+    realativeSensor.onreading = () => {
         if (isFixed)
         {
             let rotationMatrix = new Float32Array(16);
-            sensor.populateMatrix(rotationMatrix);
+            realativeSensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            rotateGroup(rotation.z + THREE.Math.degToRad(getNumberValue('wx')),
-                        rotation.y + THREE.Math.degToRad(getNumberValue('wy')),
-                        rotation.x + THREE.Math.degToRad(getNumberValue('wz')));
-            console.log(getNumberValue('wx'), ' ', getNumberValue('wy'), ' ', getNumberValue('wz'));
         }
     }
 
-    sensor.onerror = event => {
+    realativeSensor.onerror = event => {
         if (event.error.name == 'NotReadableError') {
             document.body.style.background = "#ff0000";
         }
     }
-    sensor.start();
-
+    absoluteSensor.onerror = event => {
+        if (event.error.name == 'NotReadableError') {
+            console.log("Sensor is not available.");
+        }
+    }
+    realativeSensor.start();
+    absoluteSensor.start();
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
