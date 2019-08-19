@@ -388,7 +388,7 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new AbsoluteOrientationSensor();//sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     sensor.onreading = () => {
         if (isFixed)
         {
