@@ -306,8 +306,8 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	console.log(markerRoot.getWorldRotation());
-	console.log(markerRoot.position);
+	console.log(markerRoot.children[0].getWorldRotation());
+	console.log(markerRoot.children[0].rotation);
 	update(hasCamera);
 	render();
 }
