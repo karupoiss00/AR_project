@@ -139,6 +139,7 @@ export {
     getRotation,
     getSize,
     showElement,
-    hideElement
+    hideElement,
+    getNumberValue
 }
 

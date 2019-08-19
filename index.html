@@ -36,7 +36,15 @@
     </style>
   </head>
   <body>
-      <center><input type="button" value="Back to editor" id="edit" style="width:115px; visibility: hidden"></input></center>
+      <center>
+        <input type="button" value="Back to editor" id="edit" style="width:115px; visibility: hidden"></input>
+        <br>
+        <input type="range" min="-180" max="180" value="0"  id="wx">x</input>
+        <br>
+        <input type="range" min="-180" max="180" value="0"   id="wy">y</input>
+        <br>
+        <input type="range" min="-180" max="180" value="0"  id="wz">z</input>
+      </center>
       <div id="UI">
         <div id="titleInput">
             Tip title:
