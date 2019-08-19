@@ -396,7 +396,7 @@ window.onload = function() {
             markerRoot.matrix.fromArray(rotationMatrix);
             rotateGroup(rotation.x + THREE.Math.degToRad(90),
                         rotation.y + THREE.Math.degToRad(90),
-                        rotation.z + THREE.Math.degToRad(90))
+                        rotation.z - THREE.Math.degToRad(45))
         }
     }
 
