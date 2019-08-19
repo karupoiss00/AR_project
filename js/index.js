@@ -117,11 +117,10 @@ function initRenderer(hasCamera, screenWidth, screenHeight) {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '20px';
     renderer.domElement.style.left = '0px';
-    renderer.domElement.style.bottom = '50px';
     window.addEventListener( 'resize', () => onResize(hasCamera), false );
     if (!hasCamera)
     {
-        renderer.setSize(window.innerWidth, window.innerHeight -50);
+        renderer.setSize(window.innerWidth, window.innerHeight);
     }
     document.body.appendChild(renderer.domElement);
 }
@@ -322,7 +321,10 @@ function start()
     hideElement("UI");
     document.body.style.background = "#000000";
     showElement("edit");
-    showElement("fix");
+    if (isMobile.Android())
+    {
+        showElement("fix");
+    }
     initialize(isMobile.any());
     animate(isMobile.any());
 }
