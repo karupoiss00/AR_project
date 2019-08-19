@@ -235,7 +235,9 @@ function fixGroupPosition() {
 function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
-        markerRoot.children[i].rotation.set(x, y, z);
+        markerRoot.children[i].rotation.x = x;
+        markerRoot.children[i].rotation.y = y;
+        markerRoot.children[i].rotation.z = z;
     }
 }
 
