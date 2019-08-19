@@ -388,7 +388,7 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    sensor = AbsoluteOrientationSensor();//sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     sensor.onreading = () => {
         if (isFixed)
         {
@@ -397,7 +397,7 @@ window.onload = function() {
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
-            markerRoot.matrix.fromArray(rotationMatrix);
+            markerRoot.children[0].matrix.fromArray(rotationMatrix);
         }
     }
 
