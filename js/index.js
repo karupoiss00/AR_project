@@ -388,29 +388,14 @@ const isMobile = {
 };
 
 window.onload = function() {
-    relativeSensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     absoluteSensor = new AbsoluteOrientationSensor({frequency: 60});
     absoluteSensor.onreading = () => {
         if (isFixed)
         {
-            markerRoot.children[0].quaternion.fromArray(absoluteSensor.quaternion);
-        }
-    }
-    relativeSensor.onreading = () => {
-        if (isFixed)
-        {
-            let rotationMatrix = new Float32Array(16);
-            relativeSensor.populateMatrix(rotationMatrix);
-            rotationMatrix[12] = markerRoot.getWorldPosition().x;
-            rotationMatrix[13] = markerRoot.getWorldPosition().y;
-            rotationMatrix[14] = markerRoot.getWorldPosition().z;
-            markerRoot.matrix.fromArray(rotationMatrix);
-        }
-    }
-
-    relativeSensor.onerror = event => {
-        if (event.error.name == 'NotReadableError') {
-            document.body.style.background = "#ff0000";
+            for (var i = 0; i < markerRoot.children.length; i++)
+            {
+                markerRoot.children[i].quaternion.fromArray(absoluteSensor.quaternion);
+            }
         }
     }
     absoluteSensor.onerror = event => {
@@ -418,7 +403,6 @@ window.onload = function() {
             console.log("Sensor is not available.");
         }
     }
-    //relativeSensor.start();
     absoluteSensor.start();
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
