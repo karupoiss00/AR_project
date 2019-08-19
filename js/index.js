@@ -395,6 +395,7 @@ window.onload = function() {
             for (var i = 0; i < markerRoot.children.length; i++)
             {
                 markerRoot.children[i].quaternion.fromArray(absoluteSensor.quaternion);
+                rotateGroup(0, 0, 0);
             }
         }
     }
