@@ -310,7 +310,7 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	console.log(markerRoot.children[0].getWorldRotation());
+	console.log(markerRoot.children[0].getWorldPosition());
 	console.log(markerRoot.children[0].rotation);
 	update(hasCamera);
 	render();
@@ -388,19 +388,16 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new AbsoluteOrientationSensor();//sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     sensor.onreading = () => {
         if (isFixed)
         {
-            /*
             let rotationMatrix = new Float32Array(16);
             sensor.populateMatrix(rotationMatrix);
             rotationMatrix[12] = markerRoot.getWorldPosition().x;
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
-            markerRoot.matrix.fromArray(rotationMatrix);*/
-            markerRoot.children[0].quaternion.fromArray(sensor.quaternion);
-            markerRoot.children[0].quaternion.setFromEuler(new THREE.Euler(0, 0, 0));
+            markerRoot.matrix.fromArray(rotationMatrix);
         }
     }
 
