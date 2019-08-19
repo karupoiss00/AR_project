@@ -32,7 +32,7 @@ const tipsData = [
 ];
 /** @type {boolean} */
 let isFixed = false;
-let relativeSensor, absoluteSensor;
+let sensor;
 let rotation;
 
 /**
@@ -235,9 +235,7 @@ function fixGroupPosition() {
 function rotateGroup(x, y, z) {
     for (var i = 0; i < markerRoot.children.length; i++)
     {
-        markerRoot.children[i].rotation.x = x;
-        markerRoot.children[i].rotation.y = y;
-        markerRoot.children[i].rotation.z = z;
+        markerRoot.children[i].rotation.set(x, y, z);
     }
 }
 
@@ -390,23 +388,26 @@ const isMobile = {
 };
 
 window.onload = function() {
-    absoluteSensor = new AbsoluteOrientationSensor({frequency: 60});
-    absoluteSensor.onreading = () => {
+    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    sensor.onreading = () => {
         if (isFixed)
         {
-            for (var i = 0; i < markerRoot.children.length; i++)
-            {
-                markerRoot.children[i].quaternion.fromArray(absoluteSensor.quaternion);
-            }
-            rotateGroup(0, 0, 0);
+            let rotationMatrix = new Float32Array(16);
+            sensor.populateMatrix(rotationMatrix);
+            rotationMatrix[12] = markerRoot.getWorldPosition().x;
+            rotationMatrix[13] = markerRoot.getWorldPosition().y;
+            rotationMatrix[14] = markerRoot.getWorldPosition().z;
+            markerRoot.matrix.fromArray(rotationMatrix);
         }
     }
-    absoluteSensor.onerror = event => {
+
+    sensor.onerror = event => {
         if (event.error.name == 'NotReadableError') {
-            console.log("Sensor is not available.");
+            document.body.style.background = "#ff0000";
         }
     }
-    absoluteSensor.start();
+    sensor.start();
+
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
