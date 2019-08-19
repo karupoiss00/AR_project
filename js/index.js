@@ -221,6 +221,16 @@ function onResize(hasCamera) {
 function fixGroupPosition() {
     rotation = markerRoot.getWorldRotation();
     isFixed = !isFixed;
+    if (!isFixed)
+    {
+        rotateGroup(0, 0, 0);
+    }
+    else
+    {
+        rotateGroup(rotation.x + THREE.Math.degToRad(getNumberValue('wx')),
+            rotation.y + THREE.Math.degToRad(getNumberValue('wy')),
+            rotation.z + THREE.Math.degToRad(getNumberValue('wz')));
+    }
 }
 
 /**
