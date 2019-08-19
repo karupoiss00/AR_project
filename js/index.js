@@ -219,7 +219,7 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotation = markerRoot.getWorldRotation();
+    rotation = markerRoot.children[0].getWorldRotation();
     isFixed = !isFixed;
     if (!isFixed)
     {
@@ -398,10 +398,9 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            rotateGroup(THREE.Math.degToRad(getNumberValue('wx')),
-                        THREE.Math.degToRad(getNumberValue('wy')),
-                        THREE.Math.degToRad(getNumberValue('wz')));
-            console.log(getNumberValue('wx'), ' ', getNumberValue('wy'), ' ', getNumberValue('wz'));
+            rotateGroup(rotation.x - markerRoot.children[0].getWorldRotation().x,
+                        rotation.y - markerRoot.children[0].getWorldRotation().y,
+                        rotation.z - markerRoot.children[0].getWorldRotation().z);
         }
     }
 
