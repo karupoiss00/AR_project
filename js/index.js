@@ -225,12 +225,6 @@ function fixGroupPosition() {
     {
         rotateGroup(0, 0, 0);
     }
-    else
-    {
-        rotateGroup(rotation.y - markerRoot.children[0].getWorldRotation().y,
-                rotation.x - markerRoot.children[0].getWorldRotation().x,
-                rotation.z - markerRoot.children[0].getWorldRotation().z);
-    }
 }
 
 /**
@@ -316,6 +310,9 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+    rotateGroup(THREE.Math.degToRad(getNumberValue('wx')),
+                THREE.Math.degToRad(getNumberValue('wy')),
+                THREE.Math.degToRad(getNumberValue('wz')));
 	console.log(markerRoot.children[0].getWorldRotation());
 	console.log(markerRoot.children[0].rotation);
 	update(hasCamera);
