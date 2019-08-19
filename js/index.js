@@ -398,8 +398,8 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            rotateGroup(rotation.x + THREE.Math.degToRad(getNumberValue('wx')),
-                        rotation.y + THREE.Math.degToRad(getNumberValue('wy')),
+            rotateGroup(rotation.y + THREE.Math.degToRad(getNumberValue('wx')),
+                        rotation.x + THREE.Math.degToRad(getNumberValue('wy')),
                         rotation.z + THREE.Math.degToRad(getNumberValue('wz')));
             console.log(getNumberValue('wx'), ' ', getNumberValue('wy'), ' ', getNumberValue('wz'));
         }
