@@ -225,12 +225,6 @@ function fixGroupPosition() {
     {
         rotateGroup(0, 0, 0);
     }
-    else
-    {
-        rotateGroup(rotation.x + THREE.Math.degToRad(60),
-            rotation.y + THREE.Math.degToRad(90),
-            rotation.z + THREE.Math.degToRad(0));
-    }
 }
 
 /**
@@ -404,10 +398,9 @@ window.onload = function() {
             rotationMatrix[13] = markerRoot.getWorldPosition().y;
             rotationMatrix[14] = markerRoot.getWorldPosition().z;
             markerRoot.matrix.fromArray(rotationMatrix);
-            /*
-            rotateGroup(rotation.x + THREE.Math.degToRad(getNumberValue('wx')),
-                        rotation.y + THREE.Math.degToRad(getNumberValue('wy')),
-                        rotation.z + THREE.Math.degToRad(getNumberValue('wz')));
+            rotateGroup(THREE.Math.degToRad(getNumberValue('wx')),
+                        THREE.Math.degToRad(getNumberValue('wy')),
+                        THREE.Math.degToRad(getNumberValue('wz')));
             console.log(getNumberValue('wx'), ' ', getNumberValue('wy'), ' ', getNumberValue('wz'));*/
         }
     }
