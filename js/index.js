@@ -117,6 +117,7 @@ function initRenderer(hasCamera, screenWidth, screenHeight) {
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '20px';
     renderer.domElement.style.left = '0px';
+    renderer.domElement.style.ищеещь = '20px';
     window.addEventListener( 'resize', () => onResize(hasCamera), false );
     if (!hasCamera)
     {
