@@ -401,7 +401,7 @@ window.onload = function() {
             rotateGroup(THREE.Math.degToRad(getNumberValue('wx')),
                         THREE.Math.degToRad(getNumberValue('wy')),
                         THREE.Math.degToRad(getNumberValue('wz')));
-            console.log(getNumberValue('wx'), ' ', getNumberValue('wy'), ' ', getNumberValue('wz'));*/
+            console.log(getNumberValue('wx'), ' ', getNumberValue('wy'), ' ', getNumberValue('wz'));
         }
     }
 
