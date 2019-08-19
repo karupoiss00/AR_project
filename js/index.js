@@ -310,7 +310,7 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	console.log(markerRoot.children[0].getWorldPosition());
+	console.log(markerRoot.children[0].getWorldRotation());
 	console.log(markerRoot.children[0].rotation);
 	update(hasCamera);
 	render();
@@ -321,6 +321,7 @@ function start()
     hideElement("UI");
     document.body.style.background = "#000000";
     showElement("edit");
+    showElement("fix");
     initialize(isMobile.any());
     animate(isMobile.any());
 }
@@ -363,6 +364,7 @@ function back(hasCamera) {
     renderer.domElement.style.visibility = "hidden";
     document.body.style.background = "#ffffff";
     hideElement("edit");
+    hideElement("fix");
     showElement("UI");
 }
 
@@ -401,19 +403,15 @@ window.onload = function() {
         }
     }
 
-    sensor.onerror = event => {
-        if (event.error.name == 'NotReadableError') {
-            document.body.style.background = "#ff0000";
-        }
-    }
     sensor.start();
 
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
     const backButton = document.getElementById("edit");
+    const fixButton = document.getElementById("fix");
 
     addButton.onclick = addTip;
     startButton.onclick = start;
-    backButton.onclick = fixGroupPosition;
-
+    backButton.onclick = back;
+    fixButton.onclick = fixGroupPosition;
 }
