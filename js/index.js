@@ -270,7 +270,14 @@ function update(hasCamera) {
     {
         hideElement('rotator');
         markerRoots[0].rotation.y += 0.01;
-        setNumberValue('rotator', THREE.Math.radToDeg(markerRoots[0].rotation.y));
+        if (markerRoots[0].rotation.y > 2 * Math.PI)
+        {
+            setNumberValue('rotator', THREE.Math.radToDeg(markerRoots[0].rotation.y - 2 * Math.PI));
+        }
+        else
+        {
+            setNumberValue('rotator', THREE.Math.radToDeg(markerRoots[0].rotation.y));
+        }
     }
 }
 
