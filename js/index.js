@@ -53,7 +53,7 @@ function initialize(hasCamera) {
     addMarker(hasCamera, "/AR/data/kanji.patt");
 
     loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-    loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.01);
+    loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.1);
     loadTips(markerRoots[0]);
     loadTips(markerRoots[1]);
 }
