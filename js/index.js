@@ -334,13 +334,13 @@ function animate(hasCamera) {
 function start()
 {
     document.body.style.background = "#000000";
-    if (hasSensor)
+    if (hasSensor || !isMobile.any())
     {
         showElement("fix");
+        showElement("rotator");
     }
     showElement("edit");
     hideElement("UI");
-
     initialize(isMobile.any());
     animate(isMobile.any());
 }
@@ -385,6 +385,7 @@ function back(hasCamera) {
     document.body.style.background = "#ffffff";
     hideElement("edit");
     hideElement("fix");
+    hideElement("rotator");
     showElement("UI");
 }
 /**
