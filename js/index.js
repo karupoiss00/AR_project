@@ -229,7 +229,10 @@ function fixGroupPosition() {
     isFixed = !isFixed;
     if (!isFixed)
     {
-        rotateGroup(0, 0, 0);
+        for (let group of markerRoots) {
+            rotateGroup(group, 0, 0, 0);
+        }
+
     }
 }
 
@@ -258,7 +261,7 @@ function update(hasCamera) {
             showTips();
         }
     }
-    else
+    else if (!isFixed)
     {
         markerRoots[0].rotation.y += 0.01;
     }
@@ -382,11 +385,16 @@ function back(hasCamera) {
  * @param {Object<RelativeOrientationSensor>} sensor
  */
 function sensorInit(sensor) {
-    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
-    sensor.onreading = () => {
-        sensorOnReading(sensor, markerRoots[0]);
+    try {
+        sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+        sensor.onreading = () => {
+            sensorOnReading(sensor, markerRoots[0]);
+        }
+        sensor.start();
     }
-    sensor.start();
+    catch (e) {
+        throw new Error(e);
+    }
 }
 /**
  * @param Object<RelativeOrientationSensor> sensor
@@ -426,6 +434,11 @@ const isMobile = {
 };
 
 window.onload = function() {
+    const startButton = document.getElementById("start");
+    const addButton = document.getElementById("add");
+    const backButton = document.getElementById("edit");
+    const fixButton = document.getElementById("fix");
+
     try {
         sensorInit();
     }
@@ -433,11 +446,6 @@ window.onload = function() {
         console.log(e);
         hasSensor = false;
     }
-
-    const startButton = document.getElementById("start");
-    const addButton = document.getElementById("add");
-    const backButton = document.getElementById("edit");
-    const fixButton = document.getElementById("fix");
 
     addButton.onclick = addTip;
     startButton.onclick = start;
