@@ -16,19 +16,14 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
 	const coordsScale = 0.01;
 	const [w, h] = size;
 	const canvasPromise = createTipCanvas(id, title, text, titleStyle, textStyle, color, size);
+
 	return canvasPromise.then((canvas) => {
 		const texture = new THREE.CanvasTexture(canvas);
 		const colorSide = new THREE.MeshBasicMaterial({ color: color });
 		const tipSide = new THREE.MeshBasicMaterial({ map: texture });
 		const geometry = new THREE.CubeGeometry(w / 2, h / 2, 1);
-		const material = [
-			colorSide,
-			colorSide,
-			colorSide,
-			colorSide,
-			tipSide,
-			colorSide
-		];
+		const material = [colorSide, colorSide, colorSide, colorSide, tipSide, colorSide];
+
 		const mesh = new THREE.Mesh(geometry, material);
 		mesh.scale.set(0.01, 0.01, 0.01);
 
@@ -91,11 +86,13 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
  */
 function createHeading(title, titleStyle) {
 	const heading = document.createElement("h1");
+
 	heading.style.font = titleStyle.font;
 	heading.style.fontSize = titleStyle.size.toString() + 'px';
 	heading.style.backgroundColor = titleStyle.backgroundColor;
 	heading.style.color = titleStyle.color;
 	heading.innerHTML = "<center>" + title + "</center>";
+
 	return heading;
 }
 
@@ -106,11 +103,13 @@ function createHeading(title, titleStyle) {
  */
 function createDescription(text, textStyle) {
 	const description = document.createElement("a");
+
 	description.style.font = textStyle.font;
 	description.style.fontSize = textStyle.size.toString() + 'px';
 	description.style.backgroundColor = textStyle.backgroundColor;
 	description.style.color = textStyle.color;
 	description.innerText = text;
+
 	return description;
 }
 
