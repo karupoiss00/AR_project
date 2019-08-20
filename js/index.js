@@ -22,18 +22,24 @@ let totalTime;
 let arToolkitSource;
 /** @type {!THREEx.ArToolkitContext} */
 let arToolkitContext;
-/** @type {!THREE.Group} */
-let markerRoot;
-/** @const {!THREE.Mesh} */
-const tipMeshes = [];
+/** @type {boolean} */
+let isFixed = false;
+/** @type {boolean} */
+let hasSensor = true;
+/** @type {RelativeOrientationSensor} */
+let sensor;
+/** @const {!Array<!THREE.Mesh>} */
+const tipMeshes = [
+
+];
 /** @const {!Array<!Object>} */
 const tipsData = [
 
 ];
-/** @type {boolean} */
-let isFixed = false;
-let sensor;
-let rotation;
+/** @type {!Array<!THREE.Group>} */
+let markerRoots= [
+
+];
 
 /**
  * @param {boolean} hasCamera
@@ -43,10 +49,10 @@ function initialize(hasCamera) {
     initRenderer(hasCamera,1440, 1080);
     initClock();
     initArToolKit(hasCamera, '/AR/data/camera_para.dat');
-    initMarker(hasCamera, "/AR/data/hiro.patt");
+    addMarker(hasCamera, "/AR/data/hiro.patt");
 
-    loadModel(markerRoot, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-    loadTips(markerRoot, 'js/tips/tips.json');
+    loadModel(markerRoots, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
+    loadTips(markerRoots);
 
 }
 
@@ -99,7 +105,7 @@ function initArea(hasCamera) {
         scene.background = new THREE.Color(0x000000);
     }
 
-    scene.add( camera );
+    scene.add(camera);
 }
 
 /**
@@ -135,18 +141,18 @@ function initClock() {
  * @param {boolean} hasCamera
  * @param {string} markerUrl
  */
-function initMarker(hasCamera, markerUrl) {
-    markerRoot = new THREE.Group();
-    scene.add(markerRoot);
+function addMarker(hasCamera, markerUrl) {
+    const group = new THREE.Group();
+    markerRoots.push(group);
+    const currentGroup = markerRoots[markerRoots.length - 1]
     if (hasCamera)
     {
-        new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
+        new THREEx.ArMarkerControls(arToolkitContext, currentGroup, {
             type: 'pattern', patternUrl: markerUrl,
         });
-
     }
+    scene.add(currentGroup);
 }
-
 /**
  * @param {!THREE.Group} marker
  * @param {string} path
@@ -181,9 +187,8 @@ function loadModel(marker, path, mtlName, objName, scale) {
 
 /**
  * @param {!THREE.Group} marker
- * @param {string} url
  */
-function loadTips(marker, url) {
+function loadTips(marker) {
     for (const tip of tipsData)
     {
         console.log(JSON.stringify(tip));
@@ -219,7 +224,6 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-    rotation = markerRoot.getWorldRotation();
     isFixed = !isFixed;
     if (!isFixed)
     {
@@ -228,14 +232,15 @@ function fixGroupPosition() {
 }
 
 /**
+ * @param {THREE.Group} group
  * @param {number} x
  * @param {number} y
  * @param {number} z
  */
-function rotateGroup(x, y, z) {
-    for (var i = 0; i < markerRoot.children.length; i++)
+function rotateGroup(group, x, y, z) {
+    for (var i = 0; i < group.children.length; i++)
     {
-        markerRoot.children[i].rotation.set(x, y, z);
+        group.children[i].rotation.set(x, y, z);
     }
 }
 
@@ -253,7 +258,7 @@ function update(hasCamera) {
     }
     else
     {
-        markerRoot.rotation.y += 0.01;
+        markerRoot[0].rotation.y += 0.01;
     }
 }
 
@@ -262,6 +267,7 @@ function showTips() {
     {
         mesh.visible = false;
     }
+
 	const {tipMesh, distance} = getNearestTip();
 
     if (distance < 25)
@@ -310,21 +316,20 @@ function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
-	console.log(markerRoot.children[0].getWorldRotation());
-	console.log(markerRoot.children[0].rotation);
 	update(hasCamera);
 	render();
 }
 
 function start()
 {
-    hideElement("UI");
     document.body.style.background = "#000000";
-    showElement("edit");
-    if (isMobile.Android())
+    if (hasSensor)
     {
         showElement("fix");
     }
+    showElement("edit");
+    hideElement("UI");
+
     initialize(isMobile.any());
     animate(isMobile.any());
 }
@@ -371,6 +376,31 @@ function back(hasCamera) {
     hideElement("fix");
     showElement("UI");
 }
+/**
+ * @param {Object<RelativeOrientationSensor>} sensor
+ */
+function sensorInit(sensor) {
+    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+    sensor.onreading = () => {
+        sensorOnReading();
+    }
+    sensor.start();
+}
+/**
+ * @param Object<RelativeOrientationSensor> sensor
+ * @param {}
+ */
+function sensorOnReading(sensor, marker) {
+    if (isFixed)
+    {
+        let rotationMatrix = new Float32Array(16);
+        sensor.populateMatrix(rotationMatrix);
+        rotationMatrix[12] = marker.getWorldPosition().x;
+        rotationMatrix[13] = marker.getWorldPosition().y;
+        rotationMatrix[14] = marker.getWorldPosition().z;
+        marker.matrix.fromArray(rotationMatrix);
+    }
+}
 
 const isMobile = {
     Android: () => {
@@ -394,20 +424,13 @@ const isMobile = {
 };
 
 window.onload = function() {
-    sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
-    sensor.onreading = () => {
-        if (isFixed)
-        {
-            let rotationMatrix = new Float32Array(16);
-            sensor.populateMatrix(rotationMatrix);
-            rotationMatrix[12] = markerRoot.getWorldPosition().x;
-            rotationMatrix[13] = markerRoot.getWorldPosition().y;
-            rotationMatrix[14] = markerRoot.getWorldPosition().z;
-            markerRoot.matrix.fromArray(rotationMatrix);
-        }
+    try {
+        sensorInit();
     }
-
-    sensor.start();
+    catch (e) {
+        console.log(e);
+        hasSensor = false;
+    }
 
     const startButton = document.getElementById("start");
     const addButton = document.getElementById("add");
