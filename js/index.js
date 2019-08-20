@@ -37,14 +37,13 @@ const tipsData = [
 
 ];
 /** @type {!Array<!THREE.Group>} */
-let markerRoots= [
-
-];
+let markerRoots;
 
 /**
  * @param {boolean} hasCamera
  */
 function initialize(hasCamera) {
+    markerRoots = [];
     initArea(hasCamera);
     initRenderer(hasCamera,1440, 1080);
     initClock();
