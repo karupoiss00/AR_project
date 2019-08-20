@@ -4,7 +4,8 @@ import {clearFields, randomId,
         getTitle, getDescription,
         getTipColor, getPosition,
         getRotation, getSize,
-        showElement, hideElement, getNumberValue} from '/js/UI.js';
+        showElement, hideElement,
+        getNumberValue, setNumberValue} from '/js/UI.js';
 
 /** @type {!THREE.Scene} */
 let scene;
@@ -265,6 +266,7 @@ function update(hasCamera) {
     {
         showElement('rotator');
         markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
+        setNumberValue('rotator', markerRoots[0].rotation.y);
     }
     else
     {

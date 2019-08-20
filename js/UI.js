@@ -113,6 +113,13 @@ function getStringValue(id) {
 function setStringValue(id, value) {
     document.getElementById(id).value = value;
 }
+/**
+ * @param {string} id
+ * @param {number} value
+ */
+function setNumberValue(id, value) {
+    document.getElementById(id).value = value;
+}
 
 /**
  * @param {string} id
@@ -140,6 +147,7 @@ export {
     getSize,
     showElement,
     hideElement,
-    getNumberValue
+    getNumberValue,
+    setNumberValue
 }
 
