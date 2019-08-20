@@ -261,7 +261,7 @@ function update(hasCamera) {
             showTips();
         }
     }
-    if (isFixed)
+    if (isFixed && !hasCamera)
     {
         showElement('rotator');
         markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
@@ -270,7 +270,7 @@ function update(hasCamera) {
     {
         hideElement('rotator');
         markerRoots[0].rotation.y += 0.01;
-        setNumberValue('rotator', markerRoots[0].rotation.y);
+        setNumberValue('rotator', THREE.Math.radToDeg(markerRoots[0].rotation.y));
     }
 }
 
