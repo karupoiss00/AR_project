@@ -51,8 +51,8 @@ function initialize(hasCamera) {
     initArToolKit(hasCamera, '/AR/data/camera_para.dat');
     addMarker(hasCamera, "/AR/data/hiro.patt");
 
-    loadModel(markerRoots, '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-    loadTips(markerRoots);
+    loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
+    loadTips(markerRoots[0]);
 
 }
 
