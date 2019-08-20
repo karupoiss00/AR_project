@@ -261,8 +261,14 @@ function update(hasCamera) {
             showTips();
         }
     }
-    else if (!isFixed)
+    if (isFixed)
     {
+        showElement('rotator');
+        markerRoots[0].rotation.y += THREE.Math.degToRad(getNumberValue('rotator'));
+    }
+    else
+    {
+        hideElement('rotator');
         markerRoots[0].rotation.y += 0.01;
     }
 }
