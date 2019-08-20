@@ -233,7 +233,6 @@ function fixGroupPosition() {
         for (let group of markerRoots) {
             rotateGroup(group, 0, 0, 0);
         }
-
     }
 }
 
@@ -266,12 +265,12 @@ function update(hasCamera) {
     {
         showElement('rotator');
         markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
-        setNumberValue('rotator', markerRoots[0].rotation.y);
     }
     else
     {
         hideElement('rotator');
         markerRoots[0].rotation.y += 0.01;
+        setNumberValue('rotator', markerRoots[0].rotation.y);
     }
 }
 
