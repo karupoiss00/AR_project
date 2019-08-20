@@ -53,9 +53,12 @@ function initialize(hasCamera) {
     addMarker(hasCamera, "/AR/data/kanji.patt");
 
     loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-    loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
     loadTips(markerRoots[0]);
-    loadTips(markerRoots[1]);
+
+    if (hasCamera) {
+        loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
+        loadTips(markerRoots[1]);
+    }
 }
 
 /**
@@ -258,7 +261,7 @@ function update(hasCamera) {
     }
     else
     {
-        markerRoot[0].rotation.y += 0.01;
+        markerRoots[0].rotation.y += 0.01;
     }
 }
 
@@ -382,7 +385,7 @@ function back(hasCamera) {
 function sensorInit(sensor) {
     sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
     sensor.onreading = () => {
-        sensorOnReading();
+        sensorOnReading(sensor, markerRoots[0]);
     }
     sensor.start();
 }
