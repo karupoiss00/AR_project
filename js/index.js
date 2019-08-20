@@ -50,10 +50,12 @@ function initialize(hasCamera) {
     initClock();
     initArToolKit(hasCamera, '/AR/data/camera_para.dat');
     addMarker(hasCamera, "/AR/data/hiro.patt");
+    addMarker(hasCamera, "/AR/data/kanji.patt");
 
     loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
+    loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.01);
     loadTips(markerRoots[0]);
-
+    loadTips(markerRoots[1]);
 }
 
 /**
@@ -191,8 +193,6 @@ function loadModel(marker, path, mtlName, objName, scale) {
 function loadTips(marker) {
     for (const tip of tipsData)
     {
-        console.log(JSON.stringify(tip));
-        console.log(tip);
         createTipMesh(tip).then((tipMesh) => {
             tipMeshes.push(tipMesh);
             marker.add(tipMesh);
