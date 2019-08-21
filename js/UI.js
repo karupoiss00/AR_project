@@ -23,7 +23,8 @@ function showSuccess() {
     let notification = document.createElement('div');
     notification.width = 200;
     notification.height = 10;
-    notification.innerText = "Success!"
+    notification.style.color = "#006602";
+    notification.innerText = "Success!";
     document.body.appendChild(notification);
     setTimeout(() => notification.remove(), 2000);
 }
