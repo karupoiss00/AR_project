@@ -29,7 +29,7 @@ const tipMeshes = [];
 /** @const {!Array<!Object>} */
 const tipsData = [];
 /** @type {!Array<!THREE.Group>} */
-let markerRoots;
+let markerRoots = [];
 
 /**
  * @param {boolean} hasCamera
@@ -321,6 +321,13 @@ function animate(hasCamera) {
 
 function start()
 {
+    try {
+        sensorInit();
+    }
+    catch (e) {
+        hasSensor = false;
+    }
+
 	document.body.style.background = "#000000";
 	if (hasSensor || !isMobile.any())
 	{
@@ -434,13 +441,6 @@ window.onload = function() {
 	const addButton = document.getElementById("add");
 	const backButton = document.getElementById("edit");
 	const fixButton = document.getElementById("fix");
-
-	try {
-		sensorInit();
-	}
-	catch (e) {
-		hasSensor = false;
-	}
 
 	addButton.onclick = addTip;
 	startButton.onclick = start;
