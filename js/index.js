@@ -40,16 +40,24 @@ function initialize(hasCamera) {
 	initRenderer(hasCamera,1440, 1080);
 	initClock();
 	initArToolKit(hasCamera, '/AR/data/camera_para.dat');
-	addMarker(hasCamera, "/AR/data/hiro.patt");
-	addMarker(hasCamera, "/AR/data/kanji.patt");
+	addMarker(hasCamera, '/AR/data/kanji.patt');
 
-	loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-	loadTips(markerRoots[0]);
-
+	attachModel(hasCamera,
+		'/AR/data/hiro.patt',
+		'/AR/models/',
+		'cat.mtl',
+		'cat.obj',
+		0.06);
 	if (hasCamera) {
 		loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
 		loadTips(markerRoots[1]);
 	}
+}
+
+function attachModel(hasCamera, markerPath, modelPath, mtlName, objName, modelScale) {
+	let marker = addMarker(hasCamera, markerPath);
+	loadModel(marker, modelPath, mtlName, objName, modelScale);
+	loadTips(marker);
 }
 
 /**
@@ -132,6 +140,8 @@ function initClock() {
 /**
  * @param {boolean} hasCamera
  * @param {string} markerUrl
+ *
+ * @return {THREE.Group()}
  */
 function addMarker(hasCamera, markerUrl) {
 	const marker = new THREE.Group();
@@ -143,7 +153,10 @@ function addMarker(hasCamera, markerUrl) {
 			type: 'pattern', patternUrl: markerUrl,
 		});
 	}
+
 	scene.add(marker);
+
+	return marker;
 }
 /**
  * @param {!THREE.Group} marker
