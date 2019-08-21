@@ -40,7 +40,6 @@ function initialize(hasCamera) {
 	initRenderer(hasCamera,1440, 1080);
 	initClock();
 	initArToolKit(hasCamera, '/AR/data/camera_para.dat');
-	addMarker(hasCamera, '/AR/data/kanji.patt');
 
 	attachModel(hasCamera,
 		'/AR/data/hiro.patt',
@@ -48,10 +47,12 @@ function initialize(hasCamera) {
 		'cat.mtl',
 		'cat.obj',
 		0.06);
-	if (hasCamera) {
-		loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
-		loadTips(markerRoots[1]);
-	}
+	attachModel(hasCamera,
+		'/AR/data/kanji.patt',
+		'/AR/models/',
+		'cat.mtl',
+		'cat.obj',
+		0.06);
 }
 
 function attachModel(hasCamera, markerPath, modelPath, mtlName, objName, modelScale) {
