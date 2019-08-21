@@ -1,6 +1,6 @@
 import {createTipMesh} from './tips/tips.js';
 import {clearFields, randomId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize,
-		showElement, hideElement, getNumberValue, setNumberValue} from '/js/UI.js';
+		showElement, hideElement, getNumberValue, setNumberValue, showSuccess} from '/js/UI.js';
 
 /** @type {!THREE.Scene} */
 let scene;
@@ -372,6 +372,7 @@ function addTip() {
 			size: getSize(),
 		});
 	clearFields();
+    showSuccess();
 }
 
 /**

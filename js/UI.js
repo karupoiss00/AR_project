@@ -19,6 +19,15 @@ function clearFields()
     setStringValue("rz", "0");
 }
 
+function showSuccess() {
+    let notification = document.createElement('div');
+    notification.width = 200;
+    notification.height = 10;
+    notification.innerText = "Success!"
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 2000);
+}
+
 /**
  * * @return {string}
  */
@@ -148,6 +157,7 @@ export {
     showElement,
     hideElement,
     getNumberValue,
-    setNumberValue
+    setNumberValue,
+    showSuccess
 }
 
