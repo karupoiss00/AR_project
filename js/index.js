@@ -48,7 +48,6 @@ function initialize(hasCamera) {
 
 	if (hasCamera) {
 		loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
-		loadTips(markerRoots[1]);
 	}
 }
 
