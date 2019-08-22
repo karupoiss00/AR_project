@@ -50,13 +50,13 @@ let arToolkit = {};
 let worldState = {
 	isFixed: false,
 	hasSensor: true,
-}
+};
 /** @type {!Tips}*/
 let tips = {
 	meshes : [],
 	data : [],
 	markerRoots : [],
-}
+};
 
 /**
  * @param {boolean} hasCamera
@@ -245,7 +245,7 @@ function loadTips(marker) {
 
 function loadDefaultTips() {
 	const xhr = new XMLHttpRequest();
-	xhr.open('GET', './tips/tips.json');
+	xhr.open('GET', '/js/tips/tips.json');
 	xhr.onload = () => {
 		const tips = parseTipJson(xhr.responseText);
 		for (const tip of tips)
