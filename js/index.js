@@ -1,3 +1,4 @@
+import {parseTipJson} from './tips/parsetipjson.js';
 import {createTipMesh, TipData} from './tips/tips.js';
 import {isMobile} from './utils.js';
 import {clearFields, randomId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize,
@@ -17,14 +18,6 @@ let World;
 
 /**
  * @typedef {{
- *   isFixed: boolean,
- *   hasSensor: boolean,
- *  }}
- */
-let WorldState;
-
-/**
- * @typedef {{
  *   source: (!THREE.Scene|undefined),
  *   context: (!THREE.Camera|undefined),
  *   sensor: (!THREE.WebGLRenderer|undefined),
@@ -40,6 +33,14 @@ let ArToolKit;
  *  }}
  */
 let Tips;
+
+/**
+ * @typedef {{
+ *   isFixed: boolean,
+ *   hasSensor: boolean,
+ *  }}
+ */
+let WorldState;
 
 /** @type {!World}*/
 let world = {};
@@ -242,6 +243,24 @@ function loadTips(marker) {
 	}
 }
 
+function loadDefaultTips() {
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET', './tips/tips.json');
+	xhr.onload = () => {
+		const tips = parseTipJson(xhr.responseText);
+		for (const tip of tips)
+		{
+			const tipMesh = createTipMesh(tip);
+			tips.meshes.push(tipMesh);
+			tips.markerRoots[0].add(tipMesh);
+		}
+	};
+	xhr.onerror = () => {
+		console.log("Failed to load tips.json");
+	};
+	xhr.send();
+}
+
 /**
  * @param {boolean} hasCamera
  */
@@ -396,6 +415,10 @@ function start() {
     }
 
 	document.body.style.background = "#000000";
+    if (document.getElementById("withDefault").checked)
+	{
+		loadDefaultTips();
+	}
 	if (worldState.hasSensor || !isMobile.any())
 	{
 		showElement("fix");
