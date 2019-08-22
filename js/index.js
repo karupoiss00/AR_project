@@ -1,4 +1,5 @@
 import {createTipMesh, TipData} from './tips/tips.js';
+import {isMobile} from './Utils.js';
 import {clearFields, randomId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize,
 		showElement, hideElement, getNumberValue, setNumberValue, showSuccess} from '/js/UI.js';
 
@@ -14,22 +15,24 @@ let clock;
 let deltaTime;
 /** @type {number} */
 let totalTime;
+
 /** @type {!THREEx.ArToolkitSource|undefined} */
 let arToolkitSource;
-/** @type {!THREEx.ArToolkitContext} */
+/** @type {!THREEx.ArToolkitContext|undefined} */
 let arToolkitContext;
-/** @type {boolean} */
-let isFixed = false;
-/** @type {boolean} */
-let hasSensor = true;
 /** @type {!RelativeOrientationSensor|undefined} */
 let sensor;
+
 /** @const {!Array<!THREE.Mesh>} */
 const tipMeshes = [];
 /** @const {!Array<!TipData>} */
 const tipsData = [];
 /** @type {!Array<!THREE.Group>} */
 let markerRoots = [];
+/** @type {boolean} */
+let isFixed = false;
+/** @type {boolean} */
+let hasSensor = true;
 
 /**
  * @param {boolean} hasCamera
@@ -40,14 +43,35 @@ function initialize(hasCamera) {
 	initRenderer(hasCamera,1440, 1080);
 	initClock();
 	initArToolKit(hasCamera, '/AR/data/camera_para.dat');
-	addMarker(hasCamera, "/AR/data/hiro.patt");
-	addMarker(hasCamera, "/AR/data/kanji.patt");
 
-	loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-	loadTips(markerRoots[0]);
+	attachModel(hasCamera,
+		true,
+		'/AR/data/hiro.patt',
+		'/AR/models/',
+		'cat.mtl',
+		'cat.obj',
+		0.06);
+
 
 	if (hasCamera) {
-		loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
+		attachModel(hasCamera,
+			false,
+			'/AR/data/kanji.patt',
+			'/AR/models/',
+			'cat.mtl',
+			'cat.obj',
+			0.08);
+	}
+}
+
+function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale) {
+	let marker = addMarker(hasCamera, markerPath);
+
+	loadModel(marker, modelPath, mtlName, objName, modelScale);
+
+	if (hasTips)
+	{
+		loadTips(marker);
 	}
 }
 
@@ -131,6 +155,8 @@ function initClock() {
 /**
  * @param {boolean} hasCamera
  * @param {string} markerUrl
+ *
+ * @return {!THREE.Group}
  */
 function addMarker(hasCamera, markerUrl) {
 	const marker = new THREE.Group();
@@ -143,6 +169,8 @@ function addMarker(hasCamera, markerUrl) {
 		});
 	}
 	scene.add(marker);
+
+	return marker;
 }
 /**
  * @param {!THREE.Group} marker
@@ -413,27 +441,6 @@ function sensorOnReading(marker) {
 		marker.matrix.fromArray(rotationMatrix);
 	}
 }
-
-const isMobile = {
-	Android: () => {
-		return navigator.userAgent.match(/Android/i);
-	},
-	BlackBerry: () => {
-		return navigator.userAgent.match(/BlackBerry/i);
-	},
-	iOS: () => {
-		return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-	},
-	Opera: () => {
-		return navigator.userAgent.match(/Opera Mini/i);
-	},
-	Windows: () => {
-		return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
-	},
-	any: () => {
-		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-	}
-};
 
 window.onload = function() {
 	const startButton = document.getElementById("start");
