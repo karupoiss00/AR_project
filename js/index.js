@@ -3,18 +3,19 @@ import {isMobile} from './utils.js';
 import {clearFields, randomId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize,
 		showElement, hideElement, getNumberValue, setNumberValue, showSuccess} from '/js/UI.js';
 
-/** @type {!THREE.Scene} */
-let scene;
-/** @type {!THREE.Camera} */
-let camera;
-/** @type {!THREE.WebGLRenderer} */
-let renderer;
-/** @type {!THREE.Clock} */
-let clock;
-/** @type {number} */
-let deltaTime;
-/** @type {number} */
-let totalTime;
+/**
+ * @typedef {{
+ *   scene: (!THREE.Scene|undefined),
+ *   camera: (!THREE.Camera|undefined),
+ *   renderer: (!THREE.WebGLRenderer|undefined),
+ *   clock: (!THREE.Clock|undefined),
+ *   deltaTime: (number|undefined),
+ *   totalTime: (number|undefined),
+ *  }}
+ */
+let World;
+/** @type {!World}*/
+let world = {};
 
 /** @type {!THREEx.ArToolkitSource|undefined} */
 let arToolkitSource;
@@ -94,7 +95,7 @@ function initArToolKit(hasCamera, url) {
 			detectionMode: 'mono'
 		});
 
-		const onCompleted = () => camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+		const onCompleted = () => world.camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 		arToolkitContext.init(onCompleted);
 	}
 }
@@ -103,13 +104,13 @@ function initArToolKit(hasCamera, url) {
  * @param {boolean} hasCamera
  */
 function initArea(hasCamera) {
-	scene = new THREE.Scene();
-
+	const scene = new THREE.Scene();
+	let camera;
 	const ambientLight = new THREE.AmbientLight(0xcccccc, 1.0);
 	scene.add(ambientLight);
 	if (hasCamera)
 	{
-		camera = new THREE.Camera();
+        camera = new THREE.Camera();
 	}
 	else {
 		camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -119,6 +120,9 @@ function initArea(hasCamera) {
 	}
 
 	scene.add(camera);
+
+    world.scene = scene;
+	world.camera = camera;
 }
 
 /**
@@ -127,7 +131,7 @@ function initArea(hasCamera) {
  * @param {number} screenHeight
  */
 function initRenderer(hasCamera, screenWidth, screenHeight) {
-	renderer = new THREE.WebGLRenderer({
+	const renderer = new THREE.WebGLRenderer({
 		antialias : true,
 		alpha: true
 	});
@@ -144,12 +148,13 @@ function initRenderer(hasCamera, screenWidth, screenHeight) {
 		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 	document.body.appendChild(renderer.domElement);
+	world.renderer = renderer;
 }
 
 function initClock() {
-	clock = new THREE.Clock();
-	deltaTime = 0;
-	totalTime = 0;
+	world.clock = new THREE.Clock();
+	world.deltaTime = 0;
+	world.totalTime = 0;
 }
 
 /**
@@ -168,7 +173,7 @@ function addMarker(hasCamera, markerUrl) {
 			type: 'pattern', patternUrl: markerUrl,
 		});
 	}
-	scene.add(marker);
+	world.scene.add(marker);
 
 	return marker;
 }
@@ -219,7 +224,7 @@ function onResize(hasCamera) {
 	if (hasCamera)
 	{
 		arToolkitSource.onResize();
-		arToolkitSource.copySizeTo(renderer.domElement);
+		arToolkitSource.copySizeTo(world.renderer.domElement);
 
 		if (arToolkitContext.arController !== null)
 		{
@@ -228,9 +233,9 @@ function onResize(hasCamera) {
 	}
 	else
 	{
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-		renderer.setSize(window.innerWidth, window.innerHeight);
+		world.camera.aspect = window.innerWidth / window.innerHeight;
+		world.camera.updateProjectionMatrix();
+		world.renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
 }
@@ -339,7 +344,7 @@ function getNearestTip() {
 }
 
 function render() {
-	renderer.render(scene, camera);
+	world.renderer.render(world.scene, world.camera);
 }
 
 /**
@@ -347,8 +352,8 @@ function render() {
  */
 function animate(hasCamera) {
 	requestAnimationFrame(() => animate(hasCamera));
-	deltaTime = clock.getDelta();
-	totalTime += deltaTime;
+	world.deltaTime = world.clock.getDelta();
+	world.totalTime += world.deltaTime;
 	update(hasCamera);
 	render();
 }
@@ -412,7 +417,7 @@ function back(hasCamera) {
 		arToolkitSource.domElement.style.visibility = "hidden";
 	}
 
-	renderer.domElement.style.visibility = "hidden";
+	world.renderer.domElement.style.visibility = "hidden";
 	document.body.style.background = "#ffffff";
 
 	hideElement("edit");
