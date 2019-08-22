@@ -276,14 +276,14 @@ function update(hasCamera) {
 			showTips();
 		}
 	}
-	else
-	{
-		rotationUpdate();
-	}
+	rotationUpdate(hasCamera);
 }
 
-function rotationUpdate() {
-	if (isFixed)
+/**
+ * @param {boolean} hasCamera
+ */
+function rotationUpdate(hasCamera) {
+	if (isFixed && !hasCamera)
 	{
 		showElement('rotator');
 		markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
