@@ -247,8 +247,8 @@ function loadDefaultTips() {
 	const xhr = new XMLHttpRequest();
 	xhr.open('GET', '/js/tips/tips.json');
 	xhr.onload = () => {
-		const tips = parseTipJson(xhr.responseText);
-		for (const tip of tips)
+		const parsedTips = parseTipJson(xhr.responseText);
+		for (const tip of parsedTips)
 		{
 			const tipMesh = createTipMesh(tip);
 			tips.meshes.push(tipMesh);
