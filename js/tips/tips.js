@@ -1,6 +1,5 @@
 /**
- * @typedef
- * {{
+ * @typedef {{
  *   id: string,
  *   title: string,
  *   text: string,
@@ -12,18 +11,17 @@
  *   size: !Array<number>,
  * }}
  */
-let TipData
+let TipData;
 
 /**
- * @typedef
- * {{
+ * @typedef {{
  *   font: string,
  *   size: number,
  *   color: string,
  *   backgroundColor: string,
  * }}
  */
-let Style
+let Style;
 
 /**
  * @param {!TipData} args
