@@ -14,15 +14,20 @@ import {clearFields, randomId, getTitle, getDescription, getTipColor, getPositio
  *  }}
  */
 let World;
+
+/**
+ * @typedef {{
+ *   source: (!THREE.Scene|undefined),
+ *   context: (!THREE.Camera|undefined),
+ *   sensor: (!THREE.WebGLRenderer|undefined),
+ *  }}
+ */
+let ArToolKit;
+
 /** @type {!World}*/
 let world = {};
-
-/** @type {!THREEx.ArToolkitSource|undefined} */
-let arToolkitSource;
-/** @type {!THREEx.ArToolkitContext|undefined} */
-let arToolkitContext;
-/** @type {!RelativeOrientationSensor|undefined} */
-let sensor;
+/**@type {!ArToolKit}*/
+let arToolkit = {};
 
 /** @const {!Array<!THREE.Mesh>} */
 const tipMeshes = [];
@@ -30,6 +35,7 @@ const tipMeshes = [];
 const tipsData = [];
 /** @type {!Array<!THREE.Group>} */
 let markerRoots = [];
+
 /** @type {boolean} */
 let isFixed = false;
 /** @type {boolean} */
@@ -83,20 +89,23 @@ function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName
 function initArToolKit(hasCamera, url) {
 	if (hasCamera)
 	{
-		arToolkitSource = new THREEx.ArToolkitSource({
+		const arToolkitSource = new THREEx.ArToolkitSource({
 			sourceType : 'webcam',
 		});
 
 		arToolkitSource.init(() => onResize(true));
 		window.addEventListener('resize', () => onResize(true));
 
-		arToolkitContext = new THREEx.ArToolkitContext({
+		const arToolkitContext = new THREEx.ArToolkitContext({
 			cameraParametersUrl: url,
 			detectionMode: 'mono'
 		});
 
 		const onCompleted = () => world.camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 		arToolkitContext.init(onCompleted);
+
+		arToolkit.source = arToolkitSource;
+		arToolkit.context = arToolkitContext;
 	}
 }
 
@@ -169,7 +178,7 @@ function addMarker(hasCamera, markerUrl) {
 
 	if (hasCamera)
 	{
-		new THREEx.ArMarkerControls(arToolkitContext, marker, {
+		new THREEx.ArMarkerControls(arToolkit.context, marker, {
 			type: 'pattern', patternUrl: markerUrl,
 		});
 	}
@@ -223,12 +232,12 @@ function loadTips(marker) {
 function onResize(hasCamera) {
 	if (hasCamera)
 	{
-		arToolkitSource.onResize();
-		arToolkitSource.copySizeTo(world.renderer.domElement);
+		arToolkit.source.onResize();
+		arToolkit.source.copySizeTo(world.renderer.domElement);
 
-		if (arToolkitContext.arController !== null)
+		if (arToolkit.context.arController !== null)
 		{
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+			arToolkit.source.copySizeTo(arToolkit.context.arController.canvas);
 		}
 	}
 	else
@@ -270,9 +279,9 @@ function rotateGroup(group, x, y, z) {
 function update(hasCamera) {
 	if (hasCamera)
 	{
-		if (arToolkitSource.ready !== false && !isFixed)
+		if (arToolkit.source.ready !== false && !isFixed)
 		{
-			arToolkitContext.update(arToolkitSource.domElement);
+			arToolkit.context.update(arToolkit.source.domElement);
 			showTips();
 		}
 	}
@@ -413,8 +422,8 @@ function addTip() {
 function back(hasCamera) {
 	isFixed = false;
 
-	if (arToolkitSource !== undefined) {
-		arToolkitSource.domElement.style.visibility = "hidden";
+	if (arToolkit.source !== undefined) {
+		arToolkit.source.domElement.style.visibility = "hidden";
 	}
 
 	world.renderer.domElement.style.visibility = "hidden";
@@ -429,11 +438,11 @@ function back(hasCamera) {
 
 function sensorInit() {
 	try {
-		sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
-		sensor.onreading = () => {
+		arToolkit.sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
+		arToolkit.sensor.onreading = () => {
 			sensorOnReading(markerRoots[0]);
 		};
-		sensor.start();
+		arToolkit.sensor.start();
 	}
 	catch (e) {
 		throw new Error(e);
@@ -446,7 +455,7 @@ function sensorOnReading(marker) {
 	if (isFixed)
 	{
 		let rotationMatrix = new Float32Array(16);
-		sensor.populateMatrix(rotationMatrix);
+		arToolkit.sensor.populateMatrix(rotationMatrix);
 		rotationMatrix[12] = marker.getWorldPosition().x;
 		rotationMatrix[13] = marker.getWorldPosition().y;
 		rotationMatrix[14] = marker.getWorldPosition().z;
