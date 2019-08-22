@@ -17,6 +17,14 @@ let World;
 
 /**
  * @typedef {{
+ *   isFixed: boolean,
+ *   hasSensor: boolean,
+ *  }}
+ */
+let WorldState;
+
+/**
+ * @typedef {{
  *   source: (!THREE.Scene|undefined),
  *   context: (!THREE.Camera|undefined),
  *   sensor: (!THREE.WebGLRenderer|undefined),
@@ -29,17 +37,20 @@ let world = {};
 /**@type {!ArToolKit}*/
 let arToolkit = {};
 
+/** @type {!WorldState}*/
+let worldState = {
+	isFixed: false,
+	hasSensor: true,
+}
+
+
+
 /** @const {!Array<!THREE.Mesh>} */
 const tipMeshes = [];
 /** @const {!Array<!TipData>} */
 const tipsData = [];
 /** @type {!Array<!THREE.Group>} */
 let markerRoots = [];
-
-/** @type {boolean} */
-let isFixed = false;
-/** @type {boolean} */
-let hasSensor = true;
 
 /**
  * @param {boolean} hasCamera
@@ -250,8 +261,8 @@ function onResize(hasCamera) {
 }
 
 function fixGroupPosition() {
-	isFixed = !isFixed;
-	if (!isFixed)
+	worldState.isFixed = !worldState.isFixed;
+	if (!worldState.isFixed)
 	{
 		for (const group of markerRoots)
 		{
@@ -279,7 +290,7 @@ function rotateGroup(group, x, y, z) {
 function update(hasCamera) {
 	if (hasCamera)
 	{
-		if (arToolkit.source.ready !== false && !isFixed)
+		if (arToolkit.source.ready !== false && !worldState.isFixed)
 		{
 			arToolkit.context.update(arToolkit.source.domElement);
 			showTips();
@@ -292,7 +303,7 @@ function update(hasCamera) {
  * @param {boolean} hasCamera
  */
 function rotationUpdate(hasCamera) {
-	if (isFixed && !hasCamera)
+	if (worldState.isFixed && !hasCamera)
 	{
 		showElement('rotator');
 		markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
@@ -372,11 +383,11 @@ function start() {
         sensorInit();
     }
     catch (e) {
-        hasSensor = false;
+        worldState.hasSensor = false;
     }
 
 	document.body.style.background = "#000000";
-	if (hasSensor || !isMobile.any())
+	if (worldState.hasSensor || !isMobile.any())
 	{
 		showElement("fix");
 		showElement("rotator");
@@ -420,7 +431,7 @@ function addTip() {
  * @param {string} hasCamera
  */
 function back(hasCamera) {
-	isFixed = false;
+	worldState.isFixed = false;
 
 	if (arToolkit.source !== undefined) {
 		arToolkit.source.domElement.style.visibility = "hidden";
@@ -452,7 +463,7 @@ function sensorInit() {
  * @param {!THREE.Group} marker
  */
 function sensorOnReading(marker) {
-	if (isFixed)
+	if (worldState.isFixed)
 	{
 		let rotationMatrix = new Float32Array(16);
 		arToolkit.sensor.populateMatrix(rotationMatrix);
