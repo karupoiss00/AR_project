@@ -32,31 +32,36 @@ let WorldState;
  */
 let ArToolKit;
 
+/**
+ * @typedef {{
+ *   meshes: !Array<!THREE.Mesh>,
+ *   data: !Array<!TipData>,
+ *   markerRoots: !Array<!THREE.Group>,
+ *  }}
+ */
+let Tips;
+
 /** @type {!World}*/
 let world = {};
 /**@type {!ArToolKit}*/
 let arToolkit = {};
-
 /** @type {!WorldState}*/
 let worldState = {
 	isFixed: false,
 	hasSensor: true,
 }
-
-
-
-/** @const {!Array<!THREE.Mesh>} */
-const tipMeshes = [];
-/** @const {!Array<!TipData>} */
-const tipsData = [];
-/** @type {!Array<!THREE.Group>} */
-let markerRoots = [];
+/** @type {!Tips}*/
+let tips = {
+	meshes : [],
+	data : [],
+	markerRoots : [],
+}
 
 /**
  * @param {boolean} hasCamera
  */
 function initialize(hasCamera) {
-	markerRoots = [];
+	tips.markerRoots = [];
 	initArea(hasCamera);
 	initRenderer(hasCamera,1440, 1080);
 	initClock();
@@ -185,7 +190,7 @@ function initClock() {
  */
 function addMarker(hasCamera, markerUrl) {
 	const marker = new THREE.Group();
-	markerRoots.push(marker);
+	tips.markerRoots.push(marker);
 
 	if (hasCamera)
 	{
@@ -228,10 +233,10 @@ function loadModel(marker, path, mtlName, objName, scale) {
  * @param {!THREE.Group} marker
  */
 function loadTips(marker) {
-	for (const tip of tipsData)
+	for (const tip of tips.data)
 	{
 		createTipMesh(tip).then((tipMesh) => {
-			tipMeshes.push(tipMesh);
+			tips.meshes.push(tipMesh);
 			marker.add(tipMesh);
 		});
 	}
@@ -264,7 +269,7 @@ function fixGroupPosition() {
 	worldState.isFixed = !worldState.isFixed;
 	if (!worldState.isFixed)
 	{
-		for (const group of markerRoots)
+		for (const group of tips.markerRoots)
 		{
 			rotateGroup(group, 0, 0, 0);
 		}
@@ -306,22 +311,22 @@ function rotationUpdate(hasCamera) {
 	if (worldState.isFixed && !hasCamera)
 	{
 		showElement('rotator');
-		markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
+		tips.markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
 	}
 	else
 	{
 		hideElement('rotator');
-		markerRoots[0].rotation.y += 0.01;
-		if (markerRoots[0].rotation.y > 2 * Math.PI)
+		tips.markerRoots[0].rotation.y += 0.01;
+		if (tips.markerRoots[0].rotation.y > 2 * Math.PI)
 		{
-			markerRoots[0].rotation.y = 0;
+			tips.markerRoots[0].rotation.y = 0;
 		}
-		setNumberValue('rotator', THREE.Math.radToDeg(markerRoots[0].rotation.y));
+		setNumberValue('rotator', THREE.Math.radToDeg(tips.markerRoots[0].rotation.y));
 	}
 }
 
 function showTips() {
-	for (const mesh of tipMeshes)
+	for (const mesh of tips.meshes)
 	{
 		mesh.visible = false;
 	}
@@ -345,10 +350,14 @@ function getNearestTip() {
 	let distance = 0;
 	let minDistance = 1000;
 
-	for (let i = 0; i < tipMeshes.length; i++)
+	for (let i = 0; i < tips.meshes.length; i++)
 	{
-		const tipPosition = new THREE.Vector3(tipMeshes[i].position.x, tipMeshes[i].position.y, Math.abs(tipMeshes[i].position.z));
-		distance = tipMeshes[i].getWorldPosition().distanceToSquared(tipPosition);
+		const tipPosition = new THREE.Vector3(
+			tips.meshes[i].position.x,
+			tips.meshes[i].position.y,
+			Math.abs(tips.meshes[i].position.z)
+		);
+		distance = tips.meshes[i].getWorldPosition().distanceToSquared(tipPosition);
 
 		if (distance < minDistance)
 		{
@@ -358,7 +367,7 @@ function getNearestTip() {
 	}
 
 	return {
-		tipMesh: tipMeshes[nearestTipId],
+		tipMesh: tips.meshes[nearestTipId],
 		distance: minDistance
 	};
 }
@@ -399,7 +408,7 @@ function start() {
 }
 
 function addTip() {
-	tipsData.push(
+	tips.data.push(
 		{
 			id: randomId(),
 			title: getTitle().text,
@@ -451,7 +460,7 @@ function sensorInit() {
 	try {
 		arToolkit.sensor = new RelativeOrientationSensor({frequency: 60, referenceFrame: "screen"});
 		arToolkit.sensor.onreading = () => {
-			sensorOnReading(markerRoots[0]);
+			sensorOnReading(tips.markerRoots[0]);
 		};
 		arToolkit.sensor.start();
 	}
