@@ -1,5 +1,5 @@
 import {createTipMesh, TipData} from './tips/tips.js';
-import {isMobile} from './Utils.js';
+import {isMobile} from './utils.js';
 import {clearFields, randomId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize,
 		showElement, hideElement, getNumberValue, setNumberValue, showSuccess} from '/js/UI.js';
 
@@ -271,7 +271,14 @@ function update(hasCamera) {
 			showTips();
 		}
 	}
-	if (isFixed && !hasCamera)
+	else
+	{
+		rotationUpdate();
+	}
+}
+
+function rotationUpdate() {
+	if (isFixed)
 	{
 		showElement('rotator');
 		markerRoots[0].rotation.y = THREE.Math.degToRad(getNumberValue('rotator'));
