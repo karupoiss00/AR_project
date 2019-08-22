@@ -1,4 +1,4 @@
-import {createTipMesh} from './tips/tips.js';
+import {createTipMesh, TipData} from './tips/tips.js';
 import {clearFields, randomId, getTitle, getDescription, getTipColor, getPosition, getRotation, getSize,
 		showElement, hideElement, getNumberValue, setNumberValue, showSuccess} from '/js/UI.js';
 
@@ -26,7 +26,7 @@ let hasSensor = true;
 let sensor;
 /** @const {!Array<!THREE.Mesh>} */
 const tipMeshes = [];
-/** @const {!Array<!Object>} */
+/** @const {!Array<!TipData>} */
 const tipsData = [];
 /** @type {!Array<!THREE.Group>} */
 let markerRoots = [];
@@ -49,13 +49,6 @@ function initialize(hasCamera) {
 	if (hasCamera) {
 		loadModel(markerRoots[1], '/AR/models/', 'cat.mtl', 'cat.obj', 0.08);
 	}
-}
-
-function attachModel(hasCamera, markerPath, modelPath, mtlName, objName, modelScale) {
-	let marker = addMarker(hasCamera, markerPath);
-
-	loadModel(markerRoots[0], '/AR/models/', 'cat.mtl', 'cat.obj', 0.06);
-	loadTips(markerRoots[0]);
 }
 
 /**
@@ -325,8 +318,7 @@ function animate(hasCamera) {
 	render();
 }
 
-function start()
-{
+function start() {
     try {
         sensorInit();
     }

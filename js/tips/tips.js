@@ -1,5 +1,6 @@
 /**
- * @param {!{
+ * @typedef
+ * {{
  *   id: string,
  *   title: string,
  *   text: string,
@@ -9,7 +10,23 @@
  *   coord: !Array<number>,
  *   rotation: !Array<number>,
  *   size: !Array<number>,
- * }} args
+ * }}
+ */
+let TipData
+
+/**
+ * @typedef
+ * {{
+ *   font: string,
+ *   size: number,
+ *   color: string,
+ *   backgroundColor: string,
+ * }}
+ */
+let Style
+
+/**
+ * @param {!TipData} args
  * @return {!Promise<!THREE.Mesh>}
  */
 function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, rotation, size}) {
@@ -41,8 +58,8 @@ function createTipMesh({id, title, text, titleStyle, textStyle, color, coord, ro
  * @param {string} id,
  * @param {string} title,
  * @param {string} text,
- * @param {!Object} titleStyle,
- * @param {!Object} textStyle,
+ * @param {!Style} titleStyle,
+ * @param {!Style} textStyle,
  * @param {string} color,
  * @param {!Array<number>} size
  * @return {!Promise<!Element>}
@@ -81,7 +98,7 @@ function createTipCanvas(id, title, text, titleStyle, textStyle, color, size) {
 
 /**
  *  @param {string} title
- *  @param {!Object} titleStyle
+ *  @param {!Style} titleStyle
  * @return {!Element}
  */
 function createHeading(title, titleStyle) {
@@ -98,7 +115,7 @@ function createHeading(title, titleStyle) {
 
 /**
  *  @param {string} text
- *  @param {!Object} textStyle
+ *  @param {!Style} textStyle
  * @return {!Element}
  */
 function createDescription(text, textStyle) {
@@ -115,4 +132,5 @@ function createDescription(text, textStyle) {
 
 export {
 	createTipMesh,
+	TipData
 };
