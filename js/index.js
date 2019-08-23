@@ -94,15 +94,8 @@ function initialize(hasCamera) {
 
 function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale, rotation) {
 	let marker = addMarker(hasCamera, markerPath);
-	const [rx, ry, rz] = rotation;
 
-	loadModel(marker, modelPath, mtlName, objName, modelScale);
-
-	marker.children[0].rotation.set(
-		rx,
-		ry,
-		rz
-	);
+	loadModel(marker, modelPath, mtlName, objName, modelScale, rotation);
 
 	if (hasTips)
 	{
@@ -220,8 +213,10 @@ function addMarker(hasCamera, markerUrl) {
  * @param {string} mtlName
  * @param {string} objName
  * @param {number} scale
+ * @param {!Array<number>} scale
  */
-function loadModel(marker, path, mtlName, objName, scale) {
+function loadModel(marker, path, mtlName, objName, scale, rotation) {
+    const [rx, ry, rz] = rotation;
 	new THREE.MTLLoader()
 		.setPath(path)
 		.load(mtlName, function (materials) {
@@ -233,6 +228,7 @@ function loadModel(marker, path, mtlName, objName, scale) {
 					const model = group.children[0];
 					model.position.set(0, 0, 0);
 					model.scale.set(scale, scale, scale);
+                    model.rotation.set(rx, ry, rz);
 					marker.add(model);
 				}, onProgress, onError);
 		});
