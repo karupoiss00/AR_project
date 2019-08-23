@@ -53,18 +53,18 @@
 			"titleStyle":
 				{
 					"font": "",
-					"size": 16,
+					"size": 12,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
 			"textStyle":
 				{
 					"font": "",
-					"size": 12,
+					"size": 11,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [0, 180, -50],
+			"coord": [0, 170, -50],
 			"rotation": [0, 0, 0],
 			"size": [180, 110]
 		},
