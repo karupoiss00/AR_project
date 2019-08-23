@@ -428,6 +428,7 @@ function initPreloader() {
 	preloader.height = window.innerHeight;
 	preloader.style.color = "#000000";
 	preloader.style.background = "#ffffff";
+	preloader.style.zIndex = 1;
 	preloader.innerText = "Loading, please wait..."
 	document.body.appendChild(preloader);
 }
