@@ -48,8 +48,8 @@
 
 		{
 			"id": "tip2",
-			"title": "",
-			"text": "This is any tip and you can read it.",
+			"title": "Универсальная стенка",
+			"text": "На неё можно повесить всё, главное - иметь в наличии необходимый крепеж. Пожалу, лучше любого ящика.",
 			"titleStyle":
 				{
 					"font": "",
@@ -64,9 +64,9 @@
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [-40, 100, -180],
-			"rotation": [0, 210, 0],
-			"size": [100, 80]
+			"coord": [0, 120, 0],
+			"rotation": [0, 0, 0],
+			"size": [200, 140]
 		},
 
 		{
