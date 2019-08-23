@@ -74,7 +74,9 @@ function initialize(hasCamera) {
 		'/AR/models/',
 		'10260_Workbench_max8_v1_iterations-2.mtl',
 		'10260_Workbench_max8_v1_iterations-2.obj',
-		0.01);
+		0.03,
+		[0, -90, 0]
+	);
 
 
 	if (hasCamera) {
@@ -84,14 +86,23 @@ function initialize(hasCamera) {
 			'/AR/models/',
 			'cat.mtl',
 			'cat.obj',
-			0.08);
+			0.08,
+			[0, 0, 0]
+		);
 	}
 }
 
-function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale) {
+function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale, rotation) {
 	let marker = addMarker(hasCamera, markerPath);
+	const [rx, ry, rz] = rotation;
 
 	loadModel(marker, modelPath, mtlName, objName, modelScale);
+
+	marker.children[0].rotation.set(
+		rx,
+		ry,
+		rz
+	);
 
 	if (hasTips)
 	{
@@ -219,10 +230,10 @@ function loadModel(marker, path, mtlName, objName, scale) {
 				.setMaterials(materials)
 				.setPath(path)
 				.load(objName, function (group) {
-					const cat = group.children[0];
-					cat.position.set(0, 0, 0);
-					cat.scale.set(scale, scale, scale);
-					marker.add(cat);
+					const model = group.children[0];
+					model.position.set(0, 0, 0);
+					model.scale.set(scale, scale, scale);
+					marker.add(model);
 				}, onProgress, onError);
 		});
 
