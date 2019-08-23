@@ -216,6 +216,7 @@ function addMarker(hasCamera, markerUrl) {
  * @param {!Array<number>} scale
  */
 function loadModel(marker, path, mtlName, objName, scale, rotation) {
+    initPreloader();
     const [rx, ry, rz] = rotation;
 	new THREE.MTLLoader()
 		.setPath(path)
@@ -239,7 +240,10 @@ function loadModel(marker, path, mtlName, objName, scale, rotation) {
 		});
 
 	const onProgress = (request) => console.log((request.loaded / request.total * 100) + '% loaded');
-	const onError = (request) => alert('An error happened');
+	const onError = (request) => {
+        removePreloader();
+	    alert('An error happened');
+	};
 }
 
 /**
@@ -423,15 +427,15 @@ function initPreloader() {
 	preloader.id = "preloader";
 	preloader.width = window.innerWidth;
 	preloader.height = window.innerHeight;
-	preloader.color = "#ffffff";
-	preloader.background = "#000000";
 	preloader.innerText = "Loading, please wait..."
 	document.body.appendChild(preloader);
 }
 
 function removePreloader() {
 	document.getElementById("preloader").remove();
+}
 
+function showInterface() {
 	document.body.style.background = "#000000";
 	if (document.getElementById("withDefault").checked)
 	{
@@ -445,7 +449,6 @@ function removePreloader() {
 	showElement("edit");
 }
 
-
 function start() {
 	initPreloader();
     try {
@@ -457,6 +460,7 @@ function start() {
 
 	hideElement("UI");
 	initialize(isMobile.any());
+	showInterface();
 	animate(isMobile.any());
 }
 
