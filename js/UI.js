@@ -26,7 +26,7 @@ function showSuccess() {
     notification.style.color = "#006602";
     notification.innerText = "Success!";
     document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 2000);
+    setTimeout(() => notification.remove(), 1000);
 }
 
 /**
