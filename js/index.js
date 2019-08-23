@@ -75,7 +75,7 @@ function initialize(hasCamera) {
 		'10260_Workbench_max8_v1_iterations-2.mtl',
 		'10260_Workbench_max8_v1_iterations-2.obj',
 		0.015,
-		[-75, 0, 0]
+		[-90, 0, 0]
 	);
 
 
@@ -228,7 +228,11 @@ function loadModel(marker, path, mtlName, objName, scale, rotation) {
 					const model = group.children[0];
 					model.position.set(0, 0, 0);
 					model.scale.set(scale, scale, scale);
-                    model.rotation.set(rx, ry, rz);
+                    model.rotation.set(
+                    	THREE.Math.degToRad(rx),
+						THREE.Math.degToRad(ry),
+						THREE.Math.degToRad(rz)
+					);
 					marker.add(model);
 				}, onProgress, onError);
 		});
