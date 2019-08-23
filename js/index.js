@@ -72,9 +72,9 @@ function initialize(hasCamera) {
 		true,
 		'/AR/data/hiro.patt',
 		'/AR/models/',
-		'cat.mtl',
-		'cat.obj',
-		0.06);
+		'3d-model.mtl',
+		'3d-model.obj',
+		0.1);
 
 
 	if (hasCamera) {
@@ -425,6 +425,7 @@ function start() {
 		showElement("rotator");
 	}
 	showElement("edit");
+
 	hideElement("UI");
 	initialize(isMobile.any());
 	animate(isMobile.any());
