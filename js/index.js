@@ -420,7 +420,7 @@ function initPreloader() {
 	preloader.style.background = "#ffffff";
 	preloader.style.zIndex = 1;
 	preloader.innerText = "Loading, please wait...";
-	preloader.innerHTML += "<br>";
+	preloader.innerHTML += "<br><br>";
 	preloader.appendChild(gif);
 	document.body.appendChild(preloader);
 }
