@@ -30,20 +30,20 @@
 			"titleStyle":
 				{
 					"font": "",
-					"size": 18,
+					"size": 15,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
 			"textStyle":
 				{
 					"font": "",
-					"size": 14,
+					"size": 12,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [0, 120, 0],
+			"coord": [-5, 120, -5],
 			"rotation": [-90, 0, 0],
-			"size": [220, 160]
+			"size": [200, 140]
 		},
 
 		{
