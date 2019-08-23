@@ -265,6 +265,7 @@ function loadDefaultTips() {
 			tips.meshes.push(tipMesh);
 			tips.markerRoots[0].add(tipMesh);
 		}
+		document.getElementById("preloader").remove();
 	};
 	xhr.onerror = () => {
 		console.log("Failed to load tips.json");
@@ -417,7 +418,19 @@ function animate(hasCamera) {
 	render();
 }
 
+function initPreloader() {
+	const preloader = document.createElement("div");
+	preloader.id = "preloader";
+	preloader.width = window.innerWidth;
+	preloader.height = window.innerHeight;
+	preloader.color = "#ffffff";
+	preloader.background = "#000000";
+	preloader.innerText = "Loading, please wait..."
+	document.appendChild(preloader);
+}
+
 function start() {
+	initPreloader();
     try {
         sensorInit();
     }
