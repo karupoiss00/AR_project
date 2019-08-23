@@ -426,7 +426,7 @@ function initPreloader() {
 	preloader.color = "#ffffff";
 	preloader.background = "#000000";
 	preloader.innerText = "Loading, please wait..."
-	document.appendChild(preloader);
+	document.body.appendChild(preloader);
 }
 
 function start() {
