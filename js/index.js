@@ -123,6 +123,7 @@ function initArToolKit(hasCamera, url) {
 
 		const onCompleted = () => world.camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 		arToolkitContext.init(onCompleted);
+		arToolkitSource.domElement.style.visibility = 'hidden';
 
 		arToolkit.source = arToolkitSource;
 		arToolkit.context = arToolkitContext;
@@ -167,9 +168,9 @@ function initRenderer(hasCamera, screenWidth, screenHeight) {
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0);
 	renderer.setSize(screenWidth, screenHeight);
 	renderer.domElement.style.position = 'absolute';
-	renderer.domElement.style.top = '60px';
+	renderer.domElement.style.top = '70px';
 	renderer.domElement.style.left = '0px';
-
+	renderer.domElement.style.visibility = 'hidden';
 	window.addEventListener('resize', () => onResize(hasCamera), false);
 
 	if (!hasCamera)
@@ -422,14 +423,15 @@ function animate(hasCamera) {
 }
 
 function initPreloader() {
+
+	document.body.style.background = "#000000";
 	const preloader = document.createElement("div");
 	preloader.id = "preloader";
-	preloader.width = "100%";
-	preloader.height = "100%";
 	preloader.style.color = "#000000";
 	preloader.style.background = "#ffffff";
 	preloader.style.zIndex = 1;
-	preloader.innerText = "Loading, please wait..."
+	preloader.innerText = "Loading, please wait...";
+
 	document.body.appendChild(preloader);
 }
 
@@ -440,7 +442,11 @@ function removePreloader() {
 }
 
 function showInterface() {
-	document.body.style.background = "#000000";
+	if (arToolkit.source !== undefined) {
+		arToolkit.source.domElement.style.visibility = "visible";
+	}
+	world.renderer.domElement.style.visibility = "visible";
+
 	if (document.getElementById("withDefault").checked)
 	{
 		loadDefaultTips();
