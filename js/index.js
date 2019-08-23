@@ -75,7 +75,7 @@ function initialize(hasCamera) {
 		'10260_Workbench_max8_v1_iterations-2.mtl',
 		'10260_Workbench_max8_v1_iterations-2.obj',
 		0.015,
-		[-80, 0, 0]
+		[0, 0, 0]
 	);
 
 
