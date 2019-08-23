@@ -2,24 +2,24 @@
 	"tips": [
 		{
 			"id": "tip0",
-			"title": "Cat",
-			"text": "This is cat. Cat can run at night, eat and scratch you.",
+			"title": "Верстак",
+			"text": "Рабочее место мастера. Именно здесь произодится много работы связанной с проектированием. Для более подробного описания каждого компонента приблизьте к нему камеру.",
 			"titleStyle":
 				{
 					"font": "",
 					"size": 16,
 					"color": "#ffffff",
-					"backgroundColor": "#00a33f"
+					"backgroundColor": "#ffd79c"
 				},
 			"textStyle":
 				{
 					"font": "",
 					"size": 12,
-					"color": "#000000",
-					"backgroundColor": "#91ffbb"
+					"color": "#ffffff",
+					"backgroundColor": "#ffd79c"
 				},
-			"color": "#91ffbb",
-			"coord": [30, 50, 20],
+			"color": "#ffd79c",
+			"coord": [40, 120, 50],
 			"rotation": [-30, 0, 0],
 			"size": [140, 120]
 		},
