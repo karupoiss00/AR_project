@@ -8,18 +8,18 @@
 				{
 					"font": "",
 					"size": 16,
-					"color": "#ffffff",
+					"color": "#000000",
 					"backgroundColor": "#ffd79c"
 				},
 			"textStyle":
 				{
 					"font": "",
 					"size": 12,
-					"color": "#ffffff",
+					"color": "#000000",
 					"backgroundColor": "#ffd79c"
 				},
 			"color": "#ffd79c",
-			"coord": [40, 120, 50],
+			"coord": [40, 120, 90],
 			"rotation": [-30, 0, 0],
 			"size": [140, 120]
 		},
