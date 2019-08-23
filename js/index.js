@@ -74,7 +74,7 @@ function initialize(hasCamera) {
 		'/AR/models/',
 		'3d-model.mtl',
 		'3d-model.obj',
-		0.1);
+		1);
 
 
 	if (hasCamera) {
