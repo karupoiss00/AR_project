@@ -72,8 +72,8 @@ function initialize(hasCamera) {
 		true,
 		'/AR/data/hiro.patt',
 		'/AR/models/',
-		'3d-model.mtl',
-		'3d-model.obj',
+		'10260_Workbench_max8_v1_iterations-2.mtl',
+		'10260_Workbench_max8_v1_iterations-2.obj',
 		1);
 
 
