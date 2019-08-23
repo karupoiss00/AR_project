@@ -424,8 +424,8 @@ function animate(hasCamera) {
 function initPreloader() {
 	const preloader = document.createElement("div");
 	preloader.id = "preloader";
-	preloader.width = window.innerWidth;
-	preloader.height = window.innerHeight;
+	preloader.width = "100%";
+	preloader.height = "100%";
 	preloader.style.color = "#000000";
 	preloader.style.background = "#ffffff";
 	preloader.style.zIndex = 1;
