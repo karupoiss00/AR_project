@@ -25,25 +25,25 @@
 		},
 		{
 			"id": "tip1",
-			"title": "",
-			"text": "And this is next tip and you can read it.",
+			"title": "Столешница",
+			"text": "Выполняет функцию стола. Как правило, на ней находится чертежный коврик. Очень многофункциональный компонент :D",
 			"titleStyle":
 				{
 					"font": "",
-					"size": 16,
+					"size": 18,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
 			"textStyle":
 				{
 					"font": "",
-					"size": 12,
+					"size": 14,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [-50, 50, 20],
-			"rotation": [-30, 0, 0],
-			"size": [120, 80]
+			"coord": [0, 120, 0],
+			"rotation": [-90, 0, 0],
+			"size": [220, 160]
 		},
 
 		{
