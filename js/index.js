@@ -433,7 +433,7 @@ function initPreloader() {
 	document.body.appendChild(preloader);
 }
 
-function S() {
+function removePreloader() {
 	const preloader = document.getElementById("preloader").remove();
 	preloader && preloader.remove();
 }
