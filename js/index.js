@@ -234,6 +234,7 @@ function loadModel(marker, path, mtlName, objName, scale, rotation) {
 						THREE.Math.degToRad(rz)
 					);
 					marker.add(model);
+					removePreloader();
 				}, onProgress, onError);
 		});
 
@@ -265,7 +266,6 @@ function loadDefaultTips() {
 			tips.meshes.push(tipMesh);
 			tips.markerRoots[0].add(tipMesh);
 		}
-		document.getElementById("preloader").remove();
 	};
 	xhr.onerror = () => {
 		console.log("Failed to load tips.json");
@@ -429,6 +429,23 @@ function initPreloader() {
 	document.body.appendChild(preloader);
 }
 
+function removePreloader() {
+	document.getElementById("preloader").remove();
+
+	document.body.style.background = "#000000";
+	if (document.getElementById("withDefault").checked)
+	{
+		loadDefaultTips();
+	}
+	if (worldState.hasSensor || !isMobile.any())
+	{
+		showElement("fix");
+		showElement("rotator");
+	}
+	showElement("edit");
+}
+
+
 function start() {
 	initPreloader();
     try {
@@ -437,18 +454,6 @@ function start() {
     catch (e) {
         worldState.hasSensor = false;
     }
-
-	document.body.style.background = "#000000";
-    if (document.getElementById("withDefault").checked)
-    {
-        loadDefaultTips();
-    }
-	if (worldState.hasSensor || !isMobile.any())
-	{
-		showElement("fix");
-		showElement("rotator");
-	}
-	showElement("edit");
 
 	hideElement("UI");
 	initialize(isMobile.any());
