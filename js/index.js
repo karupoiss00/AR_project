@@ -68,6 +68,8 @@ function initialize(hasCamera) {
 	initClock();
 	initArToolKit(hasCamera, '/AR/data/camera_para.dat');
 
+	initPreloader();
+
 	attachModel(hasCamera,
 		true,
 		'/AR/data/hiro.patt',
@@ -94,7 +96,6 @@ function initialize(hasCamera) {
 
 function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale, rotation) {
 	let marker = addMarker(hasCamera, markerPath);
-
 	loadModel(marker, modelPath, mtlName, objName, modelScale, rotation);
 
 	if (hasTips)
@@ -216,7 +217,6 @@ function addMarker(hasCamera, markerUrl) {
  * @param {!Array<number>} scale
  */
 function loadModel(marker, path, mtlName, objName, scale, rotation) {
-    initPreloader();
     const [rx, ry, rz] = rotation;
 	new THREE.MTLLoader()
 		.setPath(path)
@@ -427,12 +427,15 @@ function initPreloader() {
 	preloader.id = "preloader";
 	preloader.width = window.innerWidth;
 	preloader.height = window.innerHeight;
+	preloader.color = "#000000";
+	preloader.background = "#ffffff";
 	preloader.innerText = "Loading, please wait..."
 	document.body.appendChild(preloader);
 }
 
-function removePreloader() {
-	document.getElementById("preloader").remove();
+function S() {
+	const preloader = document.getElementById("preloader").remove();
+	preloader && preloader.remove();
 }
 
 function showInterface() {
