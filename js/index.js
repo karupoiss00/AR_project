@@ -242,7 +242,7 @@ function loadTips(marker) {
 		});
 	}
 }
-
+/*
 function loadDefaultTips() {
 	const xhr = new XMLHttpRequest();
 	xhr.open('GET', '/js/tips/tips.json');
@@ -259,7 +259,7 @@ function loadDefaultTips() {
 		console.log("Failed to load tips.json");
 	};
 	xhr.send();
-}
+}*/
 
 /**
  * @param {boolean} hasCamera
@@ -415,10 +415,10 @@ function start() {
     }
 
 	document.body.style.background = "#000000";
-    if (document.getElementById("withDefault").checked)
-	{
-		loadDefaultTips();
-	}
+    /*if (document.getElementById("withDefault").checked)
+    {
+        loadDefaultTips();
+    }*/
 	if (worldState.hasSensor || !isMobile.any())
 	{
 		showElement("fix");
