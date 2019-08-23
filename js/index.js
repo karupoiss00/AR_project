@@ -78,7 +78,7 @@ function initialize(hasCamera) {
 		[-90, 0, 0]
 	);
 
-
+	/*
 	if (hasCamera) {
 		attachModel(hasCamera,
 			false,
@@ -89,7 +89,7 @@ function initialize(hasCamera) {
 			0.08,
 			[0, 0, 0]
 		);
-	}
+	}*/
 }
 
 function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale, rotation) {
