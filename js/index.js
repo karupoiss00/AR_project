@@ -412,12 +412,15 @@ function animate(hasCamera) {
 
 function initPreloader() {
 	const preloader = document.createElement("div");
+	const gif = document.createElement("img");
+	gif.src = "/AR/images/preloader.gif";
+
 	preloader.id = "preloader";
 	preloader.style.color = "#000000";
 	preloader.style.background = "#ffffff";
 	preloader.style.zIndex = 1;
 	preloader.innerText = "Loading, please wait...";
-
+	preloader.appendChild(gif);
 	document.body.appendChild(preloader);
 }
 
