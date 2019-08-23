@@ -77,19 +77,6 @@ function initialize(hasCamera) {
 		0.015,
 		[-90, 0, 0]
 	);
-
-	/*
-	if (hasCamera) {
-		attachModel(hasCamera,
-			false,
-			'/AR/data/kanji.patt',
-			'/AR/models/',
-			'cat.mtl',
-			'cat.obj',
-			0.08,
-			[0, 0, 0]
-		);
-	}*/
 }
 
 function attachModel(hasCamera, hasTips, markerPath, modelPath, mtlName, objName, modelScale, rotation) {
@@ -306,7 +293,7 @@ function fixGroupPosition() {
 	{
 		for (const group of tips.markerRoots)
 		{
-			rotateGroup(group, 0, 0, 0);
+			rotateGroup(group, -90, 0, 0);
 		}
 	}
 }
