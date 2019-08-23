@@ -423,8 +423,6 @@ function animate(hasCamera) {
 }
 
 function initPreloader() {
-
-	document.body.style.background = "#000000";
 	const preloader = document.createElement("div");
 	preloader.id = "preloader";
 	preloader.style.color = "#000000";
@@ -457,6 +455,7 @@ function showInterface() {
 		showElement("rotator");
 	}
 	showElement("edit");
+	document.body.style.background = "#000000";
 }
 
 function start() {
