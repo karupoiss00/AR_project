@@ -19,8 +19,8 @@
 					"backgroundColor": "#fff2d9"
 				},
 			"color": "#fff2d9",
-			"coord": [60, 120, 90],
-			"rotation": [-30, 60, 0],
+			"coord": [0, 120, 90],
+			"rotation": [0, 0, 0],
 			"size": [220, 160]
 		},
 		{
@@ -64,7 +64,7 @@
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [0, 180, -70],
+			"coord": [0, 175, -70],
 			"rotation": [0, 180, 0],
 			"size": [180, 120]
 		},
