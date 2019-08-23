@@ -68,8 +68,6 @@ function initialize(hasCamera) {
 	initClock();
 	initArToolKit(hasCamera, '/AR/data/camera_para.dat');
 
-	initPreloader();
-
 	attachModel(hasCamera,
 		true,
 		'/AR/data/hiro.patt',
@@ -266,9 +264,10 @@ function loadDefaultTips() {
 		const parsedTips = parseTipJson(xhr.responseText);
 		for (const tip of parsedTips)
 		{
-			const tipMesh = createTipMesh(tip);
-			tips.meshes.push(tipMesh);
-			tips.markerRoots[0].add(tipMesh);
+			createTipMesh(tip).then((tipMesh) => {
+				tips.meshes.push(tipMesh);
+				tips.markerRoots[0].add(tipMesh);
+			});
 		}
 	};
 	xhr.onerror = () => {
@@ -427,8 +426,8 @@ function initPreloader() {
 	preloader.id = "preloader";
 	preloader.width = window.innerWidth;
 	preloader.height = window.innerHeight;
-	preloader.color = "#000000";
-	preloader.background = "#ffffff";
+	preloader.style.color = "#000000";
+	preloader.style.background = "#ffffff";
 	preloader.innerText = "Loading, please wait..."
 	document.body.appendChild(preloader);
 }
@@ -436,6 +435,7 @@ function initPreloader() {
 function removePreloader() {
 	const preloader = document.getElementById("preloader").remove();
 	preloader && preloader.remove();
+	showInterface();
 }
 
 function showInterface() {
@@ -463,7 +463,6 @@ function start() {
 
 	hideElement("UI");
 	initialize(isMobile.any());
-	showInterface();
 	animate(isMobile.any());
 }
 
