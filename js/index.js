@@ -201,6 +201,7 @@ function addMarker(hasCamera, markerUrl) {
  * @param {string} objName
  * @param {number} scale
  * @param {!Array<number>} scale
+ * @param {!Array<number>} rotation
  */
 function loadModel(marker, path, mtlName, objName, scale, rotation) {
     const [rx, ry, rz] = rotation;
@@ -355,7 +356,7 @@ function showTips() {
 
 	const {tipMesh, distance} = getNearestTip();
 
-	if (distance < 25)
+	if (distance < 40)
 	{
 		tipMesh.visible = true;
 	}
