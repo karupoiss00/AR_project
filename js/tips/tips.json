@@ -87,9 +87,9 @@
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [-110, 100, -30],
+			"coord": [-80, 100, -20],
 			"rotation": [0, -90, 0],
-			"size": [180, 80]
+			"size": [180, 110]
 		}
 
 	]
