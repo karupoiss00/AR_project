@@ -19,7 +19,7 @@
 					"backgroundColor": "#fff2d9"
 				},
 			"color": "#fff2d9",
-			"coord": [0, 120, 90],
+			"coord": [-30, 120, 90],
 			"rotation": [0, 0, 0],
 			"size": [220, 160]
 		},
@@ -71,25 +71,25 @@
 
 		{
 			"id": "tip4",
-			"title": "",
-			"text": "This is next tip and you can read it.",
+			"title": "Борты",
+			"text": "На первый взгляд незначительная деталь, которая на практике помогает избежать падения любого инструмента со стола.",
 			"titleStyle":
 				{
 					"font": "",
-					"size": 16,
+					"size": 14,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
 			"textStyle":
 				{
 					"font": "",
-					"size": 12,
+					"size": 10,
 					"color": "#000000",
 					"backgroundColor": "#ffffff"
 				},
-			"coord": [80, 90, -200],
-			"rotation": [0, -210, 0],
-			"size": [100, 80]
+			"coord": [-110, 100, -30],
+			"rotation": [0, -90, 0],
+			"size": [180, 80]
 		}
 
 	]
