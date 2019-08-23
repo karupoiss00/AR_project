@@ -74,8 +74,8 @@ function initialize(hasCamera) {
 		'/AR/models/',
 		'10260_Workbench_max8_v1_iterations-2.mtl',
 		'10260_Workbench_max8_v1_iterations-2.obj',
-		0.03,
-		[0, -90, 0]
+		0.01,
+		[-90, 0, 0]
 	);
 
 
