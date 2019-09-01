@@ -71,9 +71,9 @@ function initialize(hasCamera) {
 	attachModel(hasCamera,
 		true,
 		'/AR/data/hiro.patt',
-		'/AR/models/stomTable/1/',
-		'servTires.mtl',
-		'servTires.obj',
+		'/AR/models/stomTable/',
+		'table.mtl',
+		'table.obj',
 		0.015,
 		[-90, 0, 0]
 	);
