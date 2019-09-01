@@ -221,7 +221,7 @@ function loadModel(marker, path, mtlName, objName, scale, rotation) {
 						THREE.Math.degToRad(ry),
 						THREE.Math.degToRad(rz)
 					);
-					var texture = new THREE.TextureLoader().load(path + 'dental_skin_ref.jpg);
+					var texture = new THREE.TextureLoader().load(path + 'dental_skin_ref.jpg');
 					model.material.map  = texture;
 					marker.add(model);
 					removePreloader();
