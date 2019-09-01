@@ -10,7 +10,7 @@ newmtl wire_145028177
 	Ka 0.5686 0.1098 0.6941
 	Kd 0.5686 0.1098 0.6941
 	Ks 0.3500 0.3500 0.3500
-	map_Ka Logo.jpg
+	map_Ka 00071.jpg
 	map_Kd 00071.jpg
-	map_Ks logo_transparent.jpg
+	map_Ks 00071.jpg
 
