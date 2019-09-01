@@ -75,7 +75,7 @@ function initialize(hasCamera) {
 		'table.mtl',
 		'table.obj',
 		0.015,
-		[-90, 0, 0]
+		[0, 0, 0]
 	);
 }
 

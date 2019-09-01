@@ -10,4 +10,6 @@ newmtl wire_027177027
 	Ka 0.1059 0.6941 0.1059
 	Kd 0.1059 0.6941 0.1059
 	Ks 0.3500 0.3500 0.3500
+	map_Ka dental_skin_ref.jpg
 	map_Kd dental_skin_ref.jpg
+	map_Ks dental_skin_ref.jpg
